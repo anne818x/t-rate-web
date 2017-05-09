@@ -1,0 +1,32 @@
+body 
+{
+    padding-top: 50px; 
+}
+
+.secondheader 
+{
+    height: 100px;
+    background: center center no-repeat scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+	background-color: #cccccc;
+}
+
+.tagline 
+{
+    text-shadow: 0 0 10px #000;
+    color: #fff;
+}
+
+footer 
+{
+    margin: 50px 0;
+}
+
+.emptyborder
+{
+	border: 1px solid #ddd;
+	background-color: white;
+}

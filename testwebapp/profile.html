@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>T-rate</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/home.css" rel="stylesheet">
+   </head>
+   <body>
+      <!-- Navigation -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+         <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="#">T-rate</a>
+            </div>
+            <!-- Navigation bar content-->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+                  <li>
+                     <a href="index.html">Home</a>
+                  </li>
+                  <li>
+                     <a href="explore.html">Explore</a>
+                  </li>
+                  <li>
+                     <a href="profile.html">Profile</a>
+                  </li>
+                  <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings
+                     <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                        <!--- these dont exist yet -->
+                        <li><a href="accountsettings.html">Account settings</a></li>
+                        <li><a href="reportbugs.html">Report bugs</a></li>
+                        <li><a href="profilesettings.html">Profile settings</a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="faq.html">FAQ</a>
+                  </li>
+                  <li>
+                     <a href="contact.html">Contact</a>
+                  </li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                  <li>
+                     <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
+                  </li>
+                  <li>
+                     <!--- no sign up modal yet-->
+                     <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
+                  </li>
+               </ul>
+               <!-- search bar -->
+               <form class="navbar-form navbar-right">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search">
+                     <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </nav>
+      <!-- Page Content -->
+      <div class="container">
+         <!-- row -->
+         <div class="row">
+            </br>
+            <div class="col-sm-6">
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h3 class="panel-title">Your most recent reviews</h3>
+                  </div>
+                  <div class="panel-body">
+                     <div class="col-sm-12 well">
+                        <div class="well emptyborder" style="width: 100%; height: 100px;">
+                           <p><i>"This is review. I love teacher. Wow! So good at teaching!"</i></p>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div style="margin:0">
+                              </br>
+                              <span class="glyphicon glyphicon-question-sign"></span>
+                              <i><small>Is this review fair? Rate this review</small></i>
+                              </br>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-plus" type="submit"> 11</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-minus" type="submit"> 5</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-danger glyphicon glyphicon-flag" type="submit"></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+				  
+				  
+				  
+				  
+                  <div class="panel-body">
+                     <div class="col-sm-12 well">
+                        <div class="well emptyborder" style="width: 100%; height: 100px;">
+                           <p><i>"This is review. I love teacher. Wow! So good at teaching!"</i></p>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div style="margin:0">
+                              </br>
+                              <span class="glyphicon glyphicon-question-sign"></span>
+                              <i><small>Is this review fair? Rate this review</small></i>
+                              </br>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-plus" type="submit"> 11</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-minus" type="submit"> 5</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-danger glyphicon glyphicon-flag" type="submit"></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+			
+			
+			
+			
+            <div class="col-sm-6">
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h3 class="panel-title">Your top rated reviews</h3>
+                  </div>
+				  
+				  
+				  
+                  <div class="panel-body">
+                     <div class="col-sm-12 well">
+                        <div class="well emptyborder" style="width: 100%; height: 100px;">
+                           <p><i>"This is review. I love teacher. Wow! So good at teaching!"</i></p>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div style="margin:0">
+                              </br>
+                              <span class="glyphicon glyphicon-question-sign"></span>
+                              <i><small>Is this review fair? Rate this review</small></i>
+                              </br>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-plus" type="submit"> 11</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-minus" type="submit"> 5</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-danger glyphicon glyphicon-flag" type="submit"></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+				  
+				  
+				  
+                  <div class="panel-body">
+                     <div class="col-sm-12 well">
+                        <div class="well emptyborder" style="width: 100%; height: 100px;">
+                           <p><i>"This is review. I love teacher. Wow! So good at teaching!"</i></p>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Professionalism</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div class="well well-sm" style="margin:0">
+                              <h6>Helpfulness</h6>
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                              <img src="images/star.png" height="15" width="15">
+                           </div>
+                           <div style="margin:0">
+                              </br>
+                              <span class="glyphicon glyphicon-question-sign"></span>
+                              <i><small>Is this review fair? Rate this review</small></i>
+                              </br>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-plus" type="submit"> 11</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-default glyphicon glyphicon-minus" type="submit"> 5</button>
+                              </div>
+                              <div class="col-sm-4">
+                                 <button class="btn btn-danger glyphicon glyphicon-flag" type="submit"></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <hr>
+      <!-- Footer -->
+      <footer>
+         <div class="row">
+            <div class="col-lg-12">
+               <p>Copyright &copy; T-rate 2017</p>
+            </div>
+         </div>
+      </footer>
+      </div>
+      <!-- Modal -->
+      <div id="loginModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Log in</h4>
+               </div>
+               <div class="modal-body">
+                  <div class="panel-body">
+                     <form id="signin" class="navbar-form navbar-left" role="form">
+                        <div class="input-group">
+                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                           <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">                                        
+                        </div>
+                        <div class="input-group">
+                           <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                           <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">                                        
+                        </div>
+                        </br>
+                        </br>
+                        <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+                     </form>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- scripts -->
+      <script src="js/jquery.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+   </body>
+</html>
