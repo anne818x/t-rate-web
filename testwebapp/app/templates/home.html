@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>T-rate</title>
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/home.css" rel="stylesheet">
-   </head>
-   <body>
       <!-- Navigation -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
          <div class="container">
@@ -26,16 +15,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">
                   <li>
-                     <a href="index.html">Home</a>
+                     <a href="#home">Home</a>
                   </li>
                   <li>
-                     <a href="explore.html">Explore</a>
+                     <a href="#explore">Explore</a>
                   </li>
                   <li>
-                     <a href="profile.html">Profile</a>
+                     <a href="#profile">Profile</a>
                   </li>
                   <li class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings
+                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
                      <span class="caret"></span></a>
                      <ul class="dropdown-menu">
                         <!--- these dont exist yet -->
@@ -45,10 +34,10 @@
                      </ul>
                   </li>
                   <li>
-                     <a href="faq.html">FAQ</a>
+                     <a href="#faq">FAQ</a>
                   </li>
                   <li>
-                     <a href="contact.html">Contact</a>
+                     <a href="#contact">Contact</a>
                   </li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
@@ -236,7 +225,7 @@
          </div>
       </div>
       <!-- Modal -->
-      <div id="loginModal" class="modal fade" role="dialog">
+      <div id="loginModal" ng-controller="LoginController" class="modal fade" role="dialog">
       <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
@@ -249,15 +238,15 @@
                <form id="signin" class="navbar-form navbar-left" role="form">
                   <div class="input-group">
                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                     <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">                                        
+                     <input id="email" type="email" name="email" ng-model="user.email" class="form-control" placeholder="Email Adress" required="">                                        
                   </div>
                   <div class="input-group">
                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                     <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">                                        
+                     <input id="password" type="password" name="password" ng-model="user.password" class="form-control" placeholder="Password" required="">                                        
                   </div>
                   </br>
                   </br>
-                  <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+                  <button type="submit" class="btn btn-primary" style="width:100%" ng-click="signIn()">Login</button>
                </form>
             </div>
          </div>
@@ -267,8 +256,3 @@
       </div>
 	  </div>
 	  </div>
-      <!-- scripts -->
-      <script src="js/jquery.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-   </body>
-</html>

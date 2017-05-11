@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>T-rate</title>
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href="css/home.css" rel="stylesheet">
-   </head>
-   <body>
       <!-- Navigation -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
          <div class="container">
@@ -26,16 +15,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">
                   <li>
-                     <a href="index.html">Home</a>
+                     <a href="#home">Home</a>
                   </li>
                   <li>
-                     <a href="explore.html">Explore</a>
+                     <a href="#explore">Explore</a>
                   </li>
                   <li>
-                     <a href="profile.html">Profile</a>
+                     <a href="#profile">Profile</a>
                   </li>
                   <li class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings
+                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
                      <span class="caret"></span></a>
                      <ul class="dropdown-menu">
                         <!--- these dont exist yet -->
@@ -45,19 +34,19 @@
                      </ul>
                   </li>
                   <li>
-                     <a href="faq.html">FAQ</a>
+                     <a href="#faq">FAQ</a>
                   </li>
                   <li>
-                     <a href="contact.html">Contact</a>
+                     <a href="#contact">Contact</a>
                   </li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
                   <li>
-                     <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
+                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
                   </li>
                   <li>
                      <!--- no sign up modal yet-->
-                     <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
+                     <a href="#" data-toggle="" data-target="#signUpModal">Sign up</a>
                   </li>
                </ul>
                <!-- search bar -->
@@ -74,6 +63,15 @@
             </div>
          </div>
       </nav>
+      <header class="secondheader">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <h1 class="tagline">Some fancy tagline here</h1>
+               </div>
+            </div>
+         </div>
+      </header>
       <!-- Page Content -->
       <div class="container">
          <!-- row -->
@@ -384,7 +382,7 @@
       </footer>
       </div>
       <!-- Modal -->
-      <div id="loginModal" class="modal fade" role="dialog">
+      <div id="loginModal" ng-controller="LoginController" class="modal fade" role="dialog">
          <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -415,8 +413,3 @@
             </div>
          </div>
       </div>
-      <!-- scripts -->
-      <script src="js/jquery.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-   </body>
-</html>
