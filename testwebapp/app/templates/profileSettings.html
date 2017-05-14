@@ -1,0 +1,127 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">T-rate</a>
+        </div>
+        <!-- Navigation bar content-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+                <li>
+                    <a href="#explore">Explore</a>
+                </li>
+                <li>
+                    <a href="#profile">Profile</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Settings
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <!--- these dont exist yet -->
+                        <li><a href="accountsettings.html">Account settings</a></li>
+                        <li><a href="reportbugs.html">Report bugs</a></li>
+                        <li><a href="#profileSettings">Profile settings</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#faq">FAQ</a>
+                </li>
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
+                </li>
+                <li>
+                    <!--- no sign up modal yet-->
+                    <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
+                </li>
+            </ul>
+            <!-- search bar -->
+            <form class="navbar-form navbar-right">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<header class="secondheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="tagline">Some fancy tagline here</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--Page Content-->
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2 class="panel-title">User Profile Settings</h2>
+            </div>
+            <div class="panel-body">
+                In this section you can change your profile settings. Here you could add at which Stenden location you
+                are taking your studies and which course you are following.
+                It is also possible to change your account password and email.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <form>
+                <div class="form-group">
+                    <label>Select Location</label><br>
+                    <div ng-controller="profileSettingsController">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Select Location <span class="caret"></span></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
+                                <li ng-repeat="a in locations" ng-click="dropboxitemselected(a)"><a>{{a}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Course</label><br>
+                        <div ng-controller="profileSettingsController">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Select Location <span class="caret"></span></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
+                                    <li ng-repeat="a in courses" ng-click="dropboxitemselected(a)"><a>{{a}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input class="btn btn-primary" type="submit" ng-click="update(user)" value="Update User Information"/>
+            </form>
+        </div>
+    </div>
+</div>

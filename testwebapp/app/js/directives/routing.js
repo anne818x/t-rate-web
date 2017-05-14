@@ -40,6 +40,19 @@ app.config(function ($routeProvider,$locationProvider) {
             }]
         }
         })
+        .when('/profileSettings', {
+            templateUrl : 'templates/profileSettings.html',
+            controller: 'profileSettingsController',
+            resolve: {
+
+                "currentAuth": ["AuthFactory", function(AuthFactory) {
+
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
+        })
         .when('/faq', {
             templateUrl : 'templates/faq.html',
             controller: '',
