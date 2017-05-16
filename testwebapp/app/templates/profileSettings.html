@@ -13,7 +13,7 @@
             <a class="navbar-brand" href="#">T-rate</a>
         </div>
         <!-- Navigation bar content-->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" ng-controller="profileSettingsController" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
                     <a href="#home">Home</a>
@@ -43,11 +43,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
+                    <a href="#profile" data-toggle="" >Hello, {{name}}</a>
                 </li>
                 <li>
-                    <!--- no sign up modal yet-->
-                    <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
+                    <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
                 </li>
             </ul>
             <!-- search bar -->
@@ -75,8 +74,8 @@
 </header>
 
 <!--Page Content-->
-<hr>
 <div class="container">
+    <hr>
     <div class="row">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -93,6 +92,15 @@
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <form>
+                <!--Display Name-->
+                <div class="form-group">
+                    <label>Display Name</label><br>
+                    <div ng-controller="profileSettingsController">
+                        <label for="displayName"></label>
+                        <input id="displayName" class="form-control" style="width: 50%" ng-model="name" ng-value="">
+                    </div>
+                </div>
+                <!--User Location-->
                 <div class="form-group">
                     <label>Select Location</label><br>
                     <div ng-controller="profileSettingsController">
@@ -105,7 +113,7 @@
                             </ul>
                         </div>
                     </div>
-
+                    <!--User Course-->
                     <div class="form-group">
                         <label>Select Course</label><br>
                         <div ng-controller="profileSettingsController">
@@ -120,7 +128,7 @@
                         </div>
                     </div>
 
-                    <input class="btn btn-primary" type="submit" ng-click="update(user)" value="Update User Information"/>
+                    <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information"/>
             </form>
         </div>
     </div>
