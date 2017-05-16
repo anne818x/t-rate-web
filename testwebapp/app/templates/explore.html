@@ -1,5 +1,5 @@
       <!-- Navigation -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <nav ng-controller="MainController" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
          <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -41,13 +41,16 @@
                   </li>
                </ul>
                <ul class="nav navbar-nav navbar-right">
-                  <li>
+                 <li ng-hide="IsSignedIn">
+                    <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
+                </li>
+                <li ng-hide="!IsSignedIn">
                      <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
-                  </li>
-                  <li>
-                     <!--- no sign up modal yet-->
-                     <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
-                  </li>
+                </li>
+                <li ng-hide="IsSignedIn">
+                    <!--- no sign up modal yet-->
+                    <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
+                </li>
                </ul>
                <!-- search bar -->
                <form class="navbar-form navbar-right">

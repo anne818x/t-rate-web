@@ -3,7 +3,7 @@ app.config(function ($routeProvider,$locationProvider) {
     $routeProvider
         .when('/home', {
             templateUrl : 'templates/home.html',
-            controller: ''
+            controller: 'MainController'
         })
         .when('/logout', {
         templateUrl:'templates/home.html',
@@ -16,16 +16,7 @@ app.config(function ($routeProvider,$locationProvider) {
        })
         .when('/explore', {
             templateUrl : 'templates/explore.html',
-            controller: '',
-            resolve: {
-
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
-
-                var auth = AuthFactory.auth();
-                console.log(auth);
-                return AuthFactory.requireAuth();
-            }]
-        }
+            controller: ''
         })
         .when('/profile', {
             templateUrl : 'templates/profile.html',
