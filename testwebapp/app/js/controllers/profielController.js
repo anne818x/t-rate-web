@@ -1,5 +1,5 @@
-angular.module('myApp').controller('ProfileController', ['$scope', '$location', 'SharingService', function($scope, $location, SharingService){
+angular.module('myApp').controller('ProfileController', ['$scope', '$location', 'SharingFactory', function($scope, $location, SharingFactory){
 
-	$scope.username = SharingService.getUser();
+	$scope.username = SharingFactory.getUser();
 
 }]);

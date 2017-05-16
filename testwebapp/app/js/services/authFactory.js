@@ -2,7 +2,7 @@ angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', function($fireb
     var authFactory = {};
     // Initialize FirebaseAuth
     var auth = $firebaseAuth();
-    console.log(auth);
+    //console.log(auth);
      // Authentication 
      authFactory.authUser = function(email, password) {
         return auth.$signInWithEmailAndPassword(email, password);
