@@ -43,9 +43,6 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#profile" data-toggle="" >Hello, {{name}}</a>
-                </li>
-                <li>
                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
                 </li>
             </ul>
@@ -91,38 +88,38 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <form>
+            <form ng-controller="profileSettingsController">
                 <!--Display Name-->
                 <div class="form-group">
                     <label>Display Name</label><br>
-                    <div ng-controller="profileSettingsController">
+                    <div>
                         <label for="displayName"></label>
-                        <input id="displayName" class="form-control" style="width: 50%" ng-model="name" ng-value="">
+                        <input id="displayName" class="form-control" style="width: 50%" ng-model="name" ng-change="changeDisplayName(name)" ng-value="">
                     </div>
                 </div>
                 <!--User Location-->
                 <div class="form-group">
                     <label>Select Location</label><br>
-                    <div ng-controller="profileSettingsController">
+                    <div>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Select Location <span class="caret"></span></button>
+                                {{currentLocation}}<span class="caret"></span></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
-                                <li ng-repeat="a in locations" ng-click="dropboxitemselected(a)"><a>{{a}}</a></li>
+                                <li ng-repeat="a in locations" ng-click="selectedLocation(a)"><a>{{a}}</a></li>
                             </ul>
                         </div>
                     </div>
                     <!--User Course-->
                     <div class="form-group">
                         <label>Select Course</label><br>
-                        <div ng-controller="profileSettingsController">
+                        <div>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Select Location <span class="caret"></span></button>
+                                    {{currentCourse}}<span class="caret"></span></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
-                                    <li ng-repeat="a in courses" ng-click="dropboxitemselected(a)"><a>{{a}}</a></li>
+                                    <li ng-repeat="a in courses" ng-click="selectedCourse(a)"><a>{{a}}</a></li>
                                 </ul>
                             </div>
                         </div>
