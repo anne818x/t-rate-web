@@ -67,6 +67,9 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
         return courses;
     };
 
-    return sharingFactory;
+    sharingFactory.pushToDb = function(data, ref){
+        ref.push(data);
+    }
 
+    return sharingFactory;
 }]);
