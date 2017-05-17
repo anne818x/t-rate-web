@@ -3,7 +3,6 @@ angular.module('myApp').controller('signUpController', ['$scope', '$location', '
     $scope.pw1 = 'password';
 
     $scope.signUp = function () {
-        $('#signUpModal').modal('hide');
         var username = $scope.user.email;
         var password = $scope.user.password;
 

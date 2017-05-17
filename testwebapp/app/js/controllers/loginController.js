@@ -2,7 +2,6 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 
 	$scope.signIn = function(){
 		
-		$('#loginModal').modal('hide');
 		var username = $scope.user.email;
 		var password = $scope.user.password;
 		var result = AuthFactory.authUser(username, password);

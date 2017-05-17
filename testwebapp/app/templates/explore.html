@@ -76,7 +76,7 @@
          </div>
       </header>
       <!-- Page Content -->
-      <div class="container">
+      <div class="container" ng-controller="MainController">
          <!-- row -->
          <div class="row">
             <div class="col-sm-4 col-md-4">
@@ -159,36 +159,16 @@
             <div class="col-sm-8 col-md-8">
                <div class="panel panel-default">
                   <div class="panel-body">
-                     <h4>Teacher</h4>
+                    <div class="teacherCard" ng-repeat="teacher in teachers">
+                     <h4>{{teacher.TeachName}}</h4>
                      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                     <a class="btn btn-default btn-sm" href="#review">
+                     <a class="btn btn-default btn-sm" ng-click="setTeacherPage(teacher)" href="#review">
                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;
                      </a>
-                     </br>
-                     </br>
                      <table class="table table-condensed">
                         <th></th>
                      </table>
-                     <h4>Teacher</h4>
-                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                     <a class="btn btn-default btn-sm" href="#review">
-                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;
-                     </a>
-                     </br>
-                     </br>
-                     <table class="table table-condensed">
-                        <th></th>
-                     </table>
-                     <h4>Teacher</h4>
-                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                     <a class="btn btn-default btn-sm" href="#review">
-                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;
-                     </a>
-                     </br>
-                     </br>
-                     <table class="table table-condensed">
-                        <th></th>
-                     </table>
+                    </div>
                   </div>
                </div>
             </div>

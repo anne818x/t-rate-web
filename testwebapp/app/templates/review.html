@@ -60,17 +60,18 @@
          </div>
       </nav>
       <!-- Page Content -->
-      <div class="container">
+      <div class="container" ng-controller="MainController">
       <!-- row -->
       <div class="row">
       <div class="panel panel-default">
          <div class="panel-heading">
-            <h3 class="panel-title">Teacher name</h3>
+            <h3 class="panel-title" ng-model="teacherName">{{selectedTeacher.name}}</h3>
          </div>
          <div class="panel-body">
             <div class="col-sm-6">
-               <p>teacher info here Praesent scelerisque tincidunt lacus, sed tempor ligula vulputate eu. Sed tempor tincidunt turpis. </p>
+               <p>Course taught by this lecturer: {{selectedTeacher.course}} </p>
                <div class="form-group">
+               <br></br>
                   <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">Rate this teacher &raquo;</button>
                </div>
             </div>
@@ -550,7 +551,7 @@
                <div class="modal-body">
                   <div class="panel panel-default">
                      <div class="panel-heading">
-                        <h3 class="panel-title">Write your own review on *teacher name*</h3>
+                        <h3 class="panel-title">Write your own review on {{selectedTeacher.name}}</h3>
                      </div>
                      <div class="panel-body">
                         <!-- Text area -->
@@ -615,14 +616,17 @@
                         </div>
                         <div class="col-sm-12">
                            </br>
+                           <form id="signin" role="form" name="reviewForm"
+                          ng-submit="submitForm(reviewForm.$valid)" novalidate>
                            <div class="form-group">
                               <div class="input-group">
                                  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                 <textarea class="form-control" name="comment" placeholder="Review"></textarea>
+                                 <textarea class="form-control" name="comment" ng-model="reviewComment" placeholder="Review" required=""></textarea>
                               </div>
                            </div>
+                           </form>
                            <div class="form-group">
-                              <button type="submit" class="btn btn-success" >Send </button>
+                              <button type="submit" class="btn btn-success" ng-click="addReview()" data-dismiss="modal" ng-disabled="reviewForm.$invalid">Send </button>
                            </div>
                         </div>
                      </div>
