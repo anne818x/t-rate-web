@@ -260,26 +260,26 @@
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="signin" class="navbar-form navbar-left" role="form">
-                        <div class="input-group">
+                    <form id="signin" role="form" name="loginForm"
+                          ng-submit="submitForm(loginForm.$valid)" novalidate>
+                        <div class="input-group" style="padding: 1%" ng-class="{'has-error' : loginForm.email.$invalid && loginForm.email.$touched, 'has-success' : loginForm.email.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="email" type="email" name="email" ng-model="user.email" class="form-control"
                                    placeholder="Email Address" required="">
                         </div>
-                        <div class="input-group">
+                        <div class="input-group" style="padding: 1%"
+                             ng-class="{'has-error' : loginForm.password.$invalid && loginForm.password.$touched, 'has-success' : loginForm.password.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input id="password" type="password" name="password" ng-model="user.password"
                                    class="form-control" placeholder="Password" required="">
                         </div>
-                        </br>
-                        </br>
-                        <button type="submit" class="btn btn-primary" style="width:100%" ng-click="signIn()">Login
+                        <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" style="width:100%" ng-click="signIn()">Login
                         </button>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:100%">Close</button>
             </div>
         </div>
     </div>
@@ -335,7 +335,7 @@
                         </div>
 
                         <button id="submitUser" type="submit" class="btn btn-primary"
-                                ng-disabled="registrationForm.$invalid" ng-click="signUp()" style="width:100%">Sign Up
+                                ng-disabled="registrationForm.$invalid" data-dismiss="modal" ng-click="signUp()" style="width:100%">Sign Up
                         </button>
                     </form>
                 </div>
