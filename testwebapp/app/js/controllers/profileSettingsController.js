@@ -1,7 +1,7 @@
 app.controller('profileSettingsController', ['$scope','$location', '$window', 'SharingFactory', function ($scope, $location, $window, SharingFactory) {
 
-    /*$scope.locations = SharingFactory.setLocations();
-    SharingFactory.getLocations();*/
+    $scope.locations = SharingFactory.setLocations();
+    SharingFactory.getLocations();
 
     $scope.locations = ['Leeuwarden (NL)', 'Emmen(NL)', 'Meppel(NL)', 'Assen (NL)', 'Groningen (NL)', 'Bali (ID)', 'South Africa (SA)', 'Qatar (QA)', 'Thailand (TH)'];
     $scope.courses = ['Information Technology', 'Pabo', 'Informatica', 'International Business & Languages', 'Logistiek en Economie', 'Marketing', 'Polymer Engineering', 'International Hospitality Management'];
@@ -12,7 +12,7 @@ app.controller('profileSettingsController', ['$scope','$location', '$window', 'S
 
     console.log($scope.locations);
 
-    //retrieve user data
+    //retrieve user data from Firebase auth
     if ($scope.currentUser != null) {
         $scope.name = $scope.currentUser.displayName,
             $scope.email = $scope.currentUser.email,
@@ -20,6 +20,20 @@ app.controller('profileSettingsController', ['$scope','$location', '$window', 'S
             $scope.emailVerified = $scope.currentUser.emailVerified,
             $scope.uid = $scope.currentUser.uid
     }
+
+    //retrive location and course ID from UserProfile table
+    var firebaseRef = firebase.database().ref('UserProfile/' + $scope.uid);
+    firebaseRef.on('value', getData, errorData);
+
+    function getData(data) {
+        var databaseRecord = data.val();
+        var locationId = databaseRecord.LocationID;
+        var courseId = databaseRecord.CourseID;
+    }
+
+    function errorData(data) {
+        console.log(data.val())
+    };
 
     $scope.changeDisplayName = function(name) {
         $scope.name = name;
