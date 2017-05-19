@@ -1,17 +1,21 @@
-app.controller('ProfileSettingsController', ['$scope','$location', '$window', 'SharingFactory', function ($scope, $location, $window, SharingFactory) {
-
-    $scope.locations = SharingFactory.getLocations();
-    SharingFactory.setLocations();
-
-    $scope.courses = SharingFactory.getCourses();
-    SharingFactory.setCourses();
+app.controller('ProfileSettingsController', ['$scope', '$location', '$window', 'SharingFactory', function ($scope, $location, $window, SharingFactory) {
 
     $scope.currentLocation = "Select Location";
+    $scope.currentLocationID = "";
     $scope.currentCourse = "Select Course";
-
+    $scope.currentCourseID = "";
     $scope.currentUser = firebase.auth().currentUser;
 
-    console.log($scope.locations[1]);
+
+    $scope.loadResources = function () {
+        $scope.locations = SharingFactory.getLocations();
+        SharingFactory.setLocations();
+
+        $scope.courses = SharingFactory.getCourses();
+        SharingFactory.setCourses();
+
+        console.log($scope.locations[1]);
+    };
 
     //retrieve user data from Firebase auth
     if ($scope.currentUser != null) {
@@ -26,49 +30,53 @@ app.controller('ProfileSettingsController', ['$scope','$location', '$window', 'S
     var firebaseRef = firebase.database().ref('UserProfile/' + $scope.uid);
     firebaseRef.on('value', getData, errorData);
 
+    /*TODO Add function to show the current location and course of student based on IDs from its profile*/
     function getData(data) {
         var databaseRecord = data.val();
-        var locationId = databaseRecord.LocationID;
+        var locationId = databaseRecord.Place_ID;
         var courseId = databaseRecord.CourseID;
     }
 
     function errorData(data) {
-        console.log(data.val())
+        alert(data.val())
     };
 
-    $scope.changeDisplayName = function(name) {
+    $scope.changeDisplayName = function (name) {
         $scope.name = name;
     };
 
-    $scope.selectedLocation = function (item) {
-        $scope.currentLocation = item;
+    $scope.selectedLocation = function (id, name) {
+        $scope.currentLocationID = id;
+        $scope.currentLocation = name;
     };
 
-    $scope.selectedCourse = function (item) {
-        $scope.currentCourse = item;
+    $scope.selectedCourse = function (id, name) {
+        $scope.currentCourseID = id;
+        $scope.currentCourse = name;
     };
 
-    var user = firebase.auth().currentUser;
-
-    console.log($scope.courses);
+    /*Update user information in UserProfile table*/
     $scope.update = function () {
-        console.log("Course: " + $scope.currentCourse + " Location: " + $scope.currentLocation)
-        var data = {
-            CourseID: $scope.currentCourse,
-            Place_ID: $scope.currentLocation,
-            Name: $scope.name
-        };
-        var ref = firebase.database().ref('UserProfile/' + $scope.uid); //scores is the name of the table u are updating in firebase
-        SharingFactory.pushToDb(data, ref);
+        if ($scope.currentCourse == "Select Course" || $scope.currentLocation == "Select Location") {
+            alert("Please select course and location");
+        }
+        else {
+            firebase.database().ref('UserProfile/' + $scope.uid).set({
+                CourseID: $scope.currentCourseID,
+                Place_ID: $scope.currentLocationID,
+                Name: $scope.name
+            });
 
-        user.updateProfile({
-            displayName: $scope.name
-        }).then(function () {
-            alert("Successfully changed your profile");
-            $window.location.reload();
-        }, function (error) {
-            alert("An error occurred " + error);
-        });
+            console.log("Course: " + $scope.currentCourseID + " Location: " + $scope.currentLocationID);
+            $scope.currentUser.updateProfile({
+                displayName: $scope.name
+            }).then(function () {
+                alert("Successfully changed your profile");
+                $window.location.reload();
+            }, function (error) {
+                alert("An error occurred " + error);
+            });
+        }
     }
 }]);
 

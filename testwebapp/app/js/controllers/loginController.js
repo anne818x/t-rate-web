@@ -11,6 +11,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
       	 if(firebase.auth().currentUser.emailVerified){
       	 	alert("You are verified");
       	 	$location.path('/profile');
+      	 	$('.modal-backdrop').remove();
       	 }
          else{
          	alert("Please verify your email");

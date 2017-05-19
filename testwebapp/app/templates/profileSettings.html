@@ -43,7 +43,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#profile" data-toggle="" >Hello, {{name}}</a>
+                    <a href="#profile" data-toggle="">Hello, {{name}}</a>
                 </li>
                 <li>
                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
@@ -84,7 +84,7 @@
             <div class="panel-body">
                 In this section you can change your profile settings. Here you could add at which Stenden location you
                 are taking your studies and which course you are following.
-                It is also possible to change your account password and email.
+                It is also possible to change your account password from here.
             </div>
         </div>
     </div>
@@ -93,11 +93,12 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <form>
                 <!--Display Name-->
-                <div class="form-group">
+                <div class="form-group" ng-init="loadResources()">
                     <label>Display Name</label><br>
                     <div>
                         <label for="displayName"></label>
-                        <input id="displayName" class="form-control" style="width: 50%" ng-model="name" ng-change="changeDisplayName(name)" ng-value="">
+                        <input id="displayName" class="form-control" style="width: 50%" ng-model="name"
+                               ng-submit="changeDisplayName(name)" ng-value="">
                     </div>
                 </div>
                 <!--User Location-->
@@ -106,10 +107,12 @@
                     <div>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                    ng-click="loadResources()">
                                 {{currentLocation}}<span class="caret"></span></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
-                                <li ng-repeat="location in locations" data-id="{{location.ID}}" ng-click="selectedLocation(a)"><a>{{location.Course}}</a></li>
+                                <li ng-repeat="item in locations" data-id="{{item.ID}}"
+                                    ng-click="selectedLocation(item.ID,item.Place)"><a>{{item.Place}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -119,16 +122,18 @@
                         <div>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                        ng-click="loadResources()">
                                     {{currentCourse}}<span class="caret"></span></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
-                                    <li ng-repeat="a in courses" ng-click="selectedCourse(a)"><a>{{a}}</a></li>
+                                    <li ng-repeat="item in courses" data-id="{{item.ID}}"
+                                        ng-click="selectedCourse(item.ID, item.Course)"><a>{{item.Course}}</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-
-                    <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information"/>
+                </div>
+                <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information"/>
             </form>
         </div>
     </div>
