@@ -46,7 +46,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     <!--Retrieve Stenden Locations from cloud-->
     sharingFactory.setLocations = function () {
         $http.get(locationsUrl).then(function (data) {
-            locations = data;
+            locations = data.data;
             console.log(locations);
         });
     }
@@ -58,7 +58,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     <!--Retrieve Stenden Courses from cloud-->
     sharingFactory.setCourses = function () {
         $http.get(coursesUrl).then(function (data) {
-            courses = data;
+            courses = data.data;
             console.log(courses);
         });
     }

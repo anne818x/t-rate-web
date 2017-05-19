@@ -1,16 +1,17 @@
-app.controller('profileSettingsController', ['$scope','$location', '$window', 'SharingFactory', function ($scope, $location, $window, SharingFactory) {
+app.controller('ProfileSettingsController', ['$scope','$location', '$window', 'SharingFactory', function ($scope, $location, $window, SharingFactory) {
 
-    $scope.locations = SharingFactory.setLocations();
-    SharingFactory.getLocations();
+    $scope.locations = SharingFactory.getLocations();
+    SharingFactory.setLocations();
 
-    $scope.locations = ['Leeuwarden (NL)', 'Emmen(NL)', 'Meppel(NL)', 'Assen (NL)', 'Groningen (NL)', 'Bali (ID)', 'South Africa (SA)', 'Qatar (QA)', 'Thailand (TH)'];
-    $scope.courses = ['Information Technology', 'Pabo', 'Informatica', 'International Business & Languages', 'Logistiek en Economie', 'Marketing', 'Polymer Engineering', 'International Hospitality Management'];
+    $scope.courses = SharingFactory.getCourses();
+    SharingFactory.setCourses();
+
     $scope.currentLocation = "Select Location";
     $scope.currentCourse = "Select Course";
 
     $scope.currentUser = firebase.auth().currentUser;
 
-    console.log($scope.locations);
+    console.log($scope.locations[1]);
 
     //retrieve user data from Firebase auth
     if ($scope.currentUser != null) {
@@ -21,7 +22,7 @@ app.controller('profileSettingsController', ['$scope','$location', '$window', 'S
             $scope.uid = $scope.currentUser.uid
     }
 
-    //retrive location and course ID from UserProfile table
+    //retrieve location and course ID from UserProfile table
     var firebaseRef = firebase.database().ref('UserProfile/' + $scope.uid);
     firebaseRef.on('value', getData, errorData);
 
@@ -49,7 +50,17 @@ app.controller('profileSettingsController', ['$scope','$location', '$window', 'S
 
     var user = firebase.auth().currentUser;
 
+    console.log($scope.courses);
     $scope.update = function () {
+        console.log("Course: " + $scope.currentCourse + " Location: " + $scope.currentLocation)
+        var data = {
+            CourseID: $scope.currentCourse,
+            Place_ID: $scope.currentLocation,
+            Name: $scope.name
+        };
+        var ref = firebase.database().ref('UserProfile/' + $scope.uid); //scores is the name of the table u are updating in firebase
+        SharingFactory.pushToDb(data, ref);
+
         user.updateProfile({
             displayName: $scope.name
         }).then(function () {

@@ -13,7 +13,7 @@
             <a class="navbar-brand" href="#">T-rate</a>
         </div>
         <!-- Navigation bar content-->
-        <div class="collapse navbar-collapse" ng-controller="profileSettingsController" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
                     <a href="#home">Home</a>
@@ -91,7 +91,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <form ng-controller="profileSettingsController">
+            <form>
                 <!--Display Name-->
                 <div class="form-group">
                     <label>Display Name</label><br>
@@ -109,7 +109,7 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 {{currentLocation}}<span class="caret"></span></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
-                                <li ng-repeat="a in locations" ng-click="selectedLocation(a)"><a>{{a}}</a></li>
+                                <li ng-repeat="location in locations" data-id="{{location.ID}}" ng-click="selectedLocation(a)"><a>{{location.Course}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
 
-                    <input class="btn btn-primary" type="submit" ng-click="updateLocation()" value="Update User Information"/>
+                    <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information"/>
             </form>
         </div>
     </div>
