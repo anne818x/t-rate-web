@@ -260,15 +260,13 @@
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="signin" role="form" name="loginForm"
-                          ng-submit="submitForm(loginForm.$valid)" novalidate>
-                        <div class="input-group" style="padding: 1%" ng-class="{'has-error' : loginForm.email.$invalid && loginForm.email.$touched, 'has-success' : loginForm.email.$valid}">
+                    <form id="signin" role="form">
+                        <div class="input-group" style="padding:1%">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="email" type="email" name="email" ng-model="user.email" class="form-control"
                                    placeholder="Email Address" required="">
                         </div>
-                        <div class="input-group" style="padding: 1%"
-                             ng-class="{'has-error' : loginForm.password.$invalid && loginForm.password.$touched, 'has-success' : loginForm.password.$valid}">
+                        <div class="input-group" style="padding:1%">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input id="password" type="password" name="password" ng-model="user.password"
                                    class="form-control" placeholder="Password" required="">

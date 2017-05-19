@@ -2,15 +2,66 @@ angular.module('myApp').controller('MainController', ['$scope', 'SharingFactory'
 
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.teachers = SharingFactory.getTeachers();
+	$scope.reviews = SharingFactory.getTeachers();
 	
 	console.log($scope.IsSignedIn);
 
-	//SharingFactory.setTeachers();
+	SharingFactory.setTeachers();
 	SharingFactory.setSignedIn();
 
-	console.log($scope.teachers);
+	$scope.selectedTeacher = {name:SharingFactory.getSelectedTeacher(), course: 'Information Technology'};
+	$scope.atmos = 0;
+	$scope.help = 0;
+	$scope.prof = 0;
+	$scope.lec = 0;
+	$scope.prep = 0;
+	$scope.total = 0;
 
-	$scope.reviewComment = "You absolute vanker";//misspelling of 'wanker' which would be allowed by most filters... 
+	$scope.setTeacherPage = function(teacher){
+		SharingFactory.setSelectedTeacher(teacher.TeachName);
+		$scope.atmos = teacher.Avg_Atmosphere;
+		$scope.help = teacher.Avg_Helpfulness;
+		$scope.prof = teacher.Avg_Professionalism;
+		$scope.lec = teacher.Avg_Lectures;
+		$scope.prep = teacher.Avg_Preparation;
+		$scope.total = teacher.Total;
+		//console.log("1: " + $scope.selectedTeacher.name);
+
+		var id = teacher.TeacherID;
+
+		/*for (var i = 0; i < $scope.reviews.length; i++) {
+			
+			if ($scope.reviews[i].TeacherID == id)
+			{
+
+				$scope.teacherReviews.push({
+    				revId: $scope.reviews[i].Review_ID,
+			    	teachId: $scope.reviews[i].TeacherID,
+			    	comment: $scope.reviews[i].comment,
+			    	date: $scope.reviews[i].Date,
+			    	userId: $scope.reviews[i].userID,
+			    	atmos: $scope.reviews[i].Atmosphere,
+			    	help: $scope.reviews[i].Helpfulness,
+			    	lec: $scope.reviews[i].Lectures,
+			    	prep: $scope.reviews[i].Preparation,
+			    	prof: $scope.reviews[i].Professionalism
+				});
+				
+				console.log("2:" + $scope.teacherReviews);
+			}
+		}*/
+
+
+	}
+
+	$scope.addReview = function(){
+
+		alert("Thank you for the review, it has been sent");
+		console.log("2: " + $scope.reviewComment);
+	}
+
+	//***********************************************************************
+	//$scope.reviewComment = "You absolute vanker";//misspelling of 'wanker' which would be allowed by most filters... 
 	
 	/**var isprofanity = require('js/isProfanity');
 
@@ -33,7 +84,7 @@ angular.module('myApp').controller('MainController', ['$scope', 'SharingFactory'
 		});
 	});*/
 
-	define(function (require) {
+	/*define(function (require) {
 	    var isprofanity = require('js/isProfanity');
 	    isprofanity($scope.reviewComment ,function(t){
 		console.log(t);
@@ -43,7 +94,7 @@ angular.module('myApp').controller('MainController', ['$scope', 'SharingFactory'
 		});
 	});
 
-
+*/
 	//Example for sending to database by calling sharingFactory
 	/**  
 	var data = {

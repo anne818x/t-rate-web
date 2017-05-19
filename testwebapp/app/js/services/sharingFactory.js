@@ -3,11 +3,14 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var teachers = {};
     var locations = {};
     var courses = {};
+    var reviews = {};
     var user = "";
     var signedIn = false;
+    var selectedTeacher = "";
     var teacherUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveTeachers";
     var locationsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveLocation";
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
+    var reviewsUrl = "";
 
     sharingFactory.getUser = function () {
         return user;
@@ -38,8 +41,17 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
 
     sharingFactory.setTeachers = function () {
         $http.get(teacherUrl).then(function (data) {
-            teachers = data;
-            console.log(teachers);
+            teachers = data.data;
+        });
+    };
+
+    sharingFactory.getReviews = function () {
+        return reviews;
+    };
+
+    sharingFactory.setReviews = function () {
+        $http.get(teacherUrl).then(function (data) {
+            reviews = data.data;
         });
     };
 
@@ -69,6 +81,14 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
 
     sharingFactory.pushToDb = function(data, ref){
         ref.push(data);
+    }
+
+    sharingFactory.setSelectedTeacher = function(data){
+        selectedTeacher = data;
+    }
+
+    sharingFactory.getSelectedTeacher = function(){
+        return selectedTeacher;
     }
 
     return sharingFactory;

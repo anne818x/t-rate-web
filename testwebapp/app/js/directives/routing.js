@@ -72,7 +72,7 @@ app.config(function ($routeProvider,$locationProvider) {
         })
         .when('/review', {
             templateUrl : 'templates/review.html',
-            controller: '',
+            controller: 'starCtrl',
             resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
