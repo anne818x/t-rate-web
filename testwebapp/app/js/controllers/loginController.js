@@ -9,6 +9,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
       	result.then(function(authData){
       	 console.log("User Successfully logged in with uid: ", authData.uid);
       	 if(firebase.auth().currentUser.emailVerified){
+            SharingFactory.setUser(authData.uid);
       	 	alert("You are verified");
       	 	$location.path('/profile');
       	 }

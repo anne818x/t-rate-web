@@ -623,15 +623,12 @@
                   <div class="form-group">
                      <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        <textarea class="form-control" name="comment" ng-model="reviewComment" placeholder="Review" required="" maxlength="200" rows="8"></textarea>
+                        <textarea id="textArea" class="form-control" name="comment" ng-model="reviewComment" placeholder="Review" required="" maxlength="200" rows="8"></textarea>
                      </div>
                   </div>
                   </form>
                   <div class="form-group">
-                     <button type="submit" class="btn btn-success" ng-click="addReview()" data-dismiss="modal" ng-disabled="reviewForm.$invalid">Send </button>
-                  </div>
-                  <div class="alert alert-success" hidden="true">
-                     <p>Success! Review posted.</p>
+                     <button type="submit" class="btn btn-success" ng-click="addReview()"  ng-disabled="reviewForm.$invalid">Send </button>
                   </div>
                </div>
             </div>

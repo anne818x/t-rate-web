@@ -12,16 +12,17 @@
       <link href="css/home.css" rel="stylesheet">
       <link href="css/ratings.css" rel="stylesheet">
 
+      <script src="js/require1k.min.js" data-main="./js/main"></script>
       <!-- jQuery -->
       <script type="text/javascript" src="js/jquery.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
-      <!--<script type="text/javascript" src="js/bundle.js"></script>-->
-      <!--<script type="text/javascript" src="js/isProfanity.js"></script>-->
+      
 
       <!-- Bootstrap JavaScript -->
       <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
+      
+      <!-- Firebase JavaScript -->
       <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>
       
       <script>
         // Initialize Firebase
@@ -36,43 +37,39 @@
         firebase.initializeApp(config);
       </script>
 
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+      <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+      <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
 
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-
+      <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
    </head>
    <body>
 
-     <div ng-view></div>
+      <div ng-view></div>
 
-     <script src="bower_components/angular/angular.js"></script>
-     <script src="bower_components/angular-route/angular-route.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-route/angular-route.js"></script>
+      <script type="text/javascript" src="bower_components/angularfire/dist/angularfire.js"></script>
+      <script type="text/javascript" src="bower_components/angular-momentjs/angular-momentjs.min.js"></script>     
 
-     <script type="text/javascript" src="bower_components/angularfire/dist/angularfire.js"></script>
+      <!--Modules -->
+      <script type="text/javascript" src="js/app.js"></script>
+      <script type="text/javascript" src="js/run.js"></script>
 
-     <!--Modules -->
-     <script type="text/javascript" src="js/app.js"></script>
-     <script type="text/javascript" src="js/run.js"></script>
-
-     <!-- Controllers -->
-     <script type="text/javascript" src="js/controllers/signUpController.js"></script>
-     <script type="text/javascript" src="js/controllers/loginController.js"></script>
-     <script type="text/javascript" src="js/controllers/profileSettingsController.js"></script>
-     <script type="text/javascript" src="js/controllers/profielController.js"></script>
-     <script type="text/javascript" src="js/controllers/mainController.js"></script>
+      <!-- Controllers -->
+      <script type="text/javascript" src="js/controllers/signUpController.js"></script>
+      <script type="text/javascript" src="js/controllers/loginController.js"></script>
+      <script type="text/javascript" src="js/controllers/profileSettingsController.js"></script>
+      <script type="text/javascript" src="js/controllers/profielController.js"></script>
+      <script type="text/javascript" src="js/controllers/mainController.js"></script>
 
 
-     <!-- Directives -->
-     <script type="text/javascript" src="js/directives/routing.js"></script>
-     <script type="text/javascript" src="js/directives/formValidation.js"></script>
+      <!-- Directives -->
+      <script type="text/javascript" src="js/directives/routing.js"></script>
+      <script type="text/javascript" src="js/directives/formValidation.js"></script>
 
-     <!-- Services -->
-     <script type="text/javascript" src="js/services/sharingFactory.js"></script>
-     <script type="text/javascript" src="js/services/authFactory.js"></script>
-     <script type="text/javascript" src="js/services/signUpFactory.js"></script>
-	 
-	 <!-- rating -->
-	 <script type="text/javascript" src="js/rate.js"></script>
-   </body>
+      <!-- Services -->
+      <script type="text/javascript" src="js/services/sharingFactory.js"></script>
+      <script type="text/javascript" src="js/services/authFactory.js"></script>
+      <script type="text/javascript" src="js/services/signUpFactory.js"></script>
+    </body>
 </html>

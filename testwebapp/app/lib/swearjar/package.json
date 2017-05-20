@@ -1,0 +1,106 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "swearjar",
+        "scope": null,
+        "escapedName": "swearjar",
+        "name": "swearjar",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\zulheika\\Documents\\GitHub\\t-rate-web\\testwebapp\\app"
+    ]
+  ],
+  "_from": "swearjar@latest",
+  "_id": "swearjar@0.2.0",
+  "_inCache": true,
+  "_location": "/swearjar",
+  "_nodeVersion": "5.10.1",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/swearjar-0.2.0.tgz_1493151861641_0.10748329572379589"
+  },
+  "_npmUser": {
+    "name": "ramontorres",
+    "email": "raymondjavaxx@gmail.com"
+  },
+  "_npmVersion": "3.8.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "swearjar",
+    "scope": null,
+    "escapedName": "swearjar",
+    "name": "swearjar",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/swearjar/-/swearjar-0.2.0.tgz",
+  "_shasum": "c3f1a37bfcd7c9efb3d6663c98d4c102a9e3ca3d",
+  "_shrinkwrap": null,
+  "_spec": "swearjar",
+  "_where": "C:\\Users\\zulheika\\Documents\\GitHub\\t-rate-web\\testwebapp\\app",
+  "author": {
+    "name": "Ramon Torres",
+    "email": "raymondjavaxx@gmail.com",
+    "url": "https://github.com/raymondjavaxx"
+  },
+  "bugs": {
+    "url": "https://github.com/raymondjavaxx/swearjar-node/issues"
+  },
+  "dependencies": {},
+  "description": "Profanity detection and filtering library.",
+  "devDependencies": {
+    "mocha": "~1.18.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "c3f1a37bfcd7c9efb3d6663c98d4c102a9e3ca3d",
+    "tarball": "https://registry.npmjs.org/swearjar/-/swearjar-0.2.0.tgz"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "gitHead": "61d0b3e6c721ee36011db6527c5a3e3b4d702797",
+  "homepage": "https://github.com/raymondjavaxx/swearjar-node",
+  "keywords": [
+    "swear",
+    "curse",
+    "unallowed",
+    "profanity",
+    "clean",
+    "filter",
+    "badwords"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/raymondjavaxx/swearjar-node/LICENSE"
+    }
+  ],
+  "main": "lib/swearjar",
+  "maintainers": [
+    {
+      "name": "ramontorres",
+      "email": "raymondjavaxx@gmail.com"
+    }
+  ],
+  "name": "swearjar",
+  "optionalDependencies": {},
+  "readme": "# swearjar-node\n\nProfanity detection and filtering library.\n\n[![Build Status](https://travis-ci.org/raymondjavaxx/swearjar-node.svg?branch=master)](https://travis-ci.org/raymondjavaxx/swearjar-node)\n\n## Installation\n\n    npm install --save swearjar\n\n## Usage\n\n### swearjar.profane(text)\n\nReturns true if the given string contains profanity.\n\n    var swearjar = require('swearjar');\n    swearjar.profane(\"hello there\"); // false\n    swearjar.profane(\"hello mother f-bomb\"); // true\n\n### swearjar.censor(text)\n\nReplaces profanity with asterisks.\n\n    var clean = swearjar.censor(\"f-bomb you\"); // **** you\n\n### swearjar.scorecard(text)\n\nGenerates a report from the given text.\n\n    swearjar.scorecard(\"f-bomb you\"); // {sexual: 1, inappropriate: 1}\n\n### swearjar.loadBadWords(path)\n\nLoads a dictionary of words to be used as filter.\n\nNOTE: A US English default list located in the config directory is included and loaded by default.\n\n    swearjar.loadBadWords('./config/profanity.json');\n\nA dictionary is just a plain JSON file containing an object where its keys are the words to check for and the values are arrays of categories where the words fall in.\n\n\t{\n\t\t\"word1\": [\"category1\", \"category2\"],\n\t\t\"word2\": [\"category1\"],\n\t\t\"word3\": [\"category2\"]\n\t}\n\n## Acknowledgements\n\n`swearjar-node` is based on [Swearjar](https://github.com/joshbuddy/swearjar) (Ruby) and [Swearjar PHP](https://github.com/raymondjavaxx/swearjar-php).\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/raymondjavaxx/swearjar-node.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "0.2.0"
+}
