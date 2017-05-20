@@ -13,6 +13,7 @@ angular.module('myApp').controller('signUpController', ['$scope', '$location', '
             console.log("User Successfully registered with uid: ", authData.uid);
             alert("Your account was successfully created. Please confirm your email!");
             $location.path('/profile');
+            $('.modal-backdrop').remove();
         }, function (error) {
             console.log("Authentication Failed: ", error);
             alert("There was a problem with signing up because of: " + error);

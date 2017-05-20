@@ -12,6 +12,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
             SharingFactory.setUser(authData.uid);
       	 	alert("You are verified");
       	 	$location.path('/profile');
+      	 	$('.modal-backdrop').remove();
       	 }
          else{
          	alert("Please verify your email");

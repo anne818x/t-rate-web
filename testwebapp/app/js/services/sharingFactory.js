@@ -59,7 +59,6 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.setLocations = function () {
         $http.get(locationsUrl).then(function (data) {
             locations = data.data;
-            console.log(locations);
         });
     }
 
@@ -71,7 +70,6 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.setCourses = function () {
         $http.get(coursesUrl).then(function (data) {
             courses = data.data;
-            console.log(courses);
         });
     }
 

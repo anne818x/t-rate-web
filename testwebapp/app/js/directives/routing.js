@@ -33,7 +33,7 @@ app.config(function ($routeProvider,$locationProvider) {
         })
         .when('/profileSettings', {
             templateUrl : 'templates/profileSettings.html',
-            controller: 'profileSettingsController',
+            controller: 'ProfileSettingsController',
             resolve: {
 
                 "currentAuth": ["AuthFactory", function(AuthFactory) {
