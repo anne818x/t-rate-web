@@ -73,7 +73,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
         $scope.addReview = function(){
 
-        		console.log(scanner.isNotgentle);
+        		
 			    at_rating = $('input[name="Atmosphere"]:checked').val();
 	            he_rating = $('input[name="Helpfulness"]:checked').val();
 	            le_rating = $('input[name="Lectures"]:checked').val();
@@ -83,7 +83,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	            if (at_rating == undefined || he_rating == undefined || le_rating == undefined || pre_rating == undefined || pro_rating == undefined) {
 	                // error message not all ratings
 	                alert("this is where an error message would be if they didnt fill in all ratings");
-	            } else if ($scope.reviewComment.length < 50) {
+	            } else if ($scope.txt.length < 50) {
 	                // error message text field empty or not enough characters
 	                alert("this is where an error message would be if the text field is empty or there were not enough characters");
 				} else {
@@ -97,7 +97,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	    			Professionalism: pro_rating,
 	    			Review_ID: $scope.reviews.length + 1,
 	    			TeacherID: $scope.selectedTeacher.id,
-	    			comment: $scope.reviewComment,
+	    			comment: $scope.txt,
 	    			userID: SharingFactory.getUser()
 	  				}
 	  				console.log(data);
