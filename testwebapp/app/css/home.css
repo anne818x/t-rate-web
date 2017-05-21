@@ -30,3 +30,7 @@ footer
 	border: 1px solid #ddd;
 	background-color: white;
 }
+
+.noDisplay{
+    display: none;
+}
