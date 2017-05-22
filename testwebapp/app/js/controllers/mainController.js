@@ -56,11 +56,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 //*********************************Adding Review Area****************************************
 
  	var arr = ['.labelat', '.labelhe', '.labelle', '.labelpre', '.labelpro'];
-    var at_rating = "";
-    var he_rating = "";
-    var le_rating = "";
-    var pre_rating = "";
-    var pro_rating = "";
+    var at_rating = null;
+    var he_rating = null;
+    var le_rating = null;
+    var pre_rating = null;
+    var pro_rating = null;
 
 	// set stars as active when they are clicked
     $.each(arr, function(index, value) {
@@ -107,6 +107,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	                SharingFactory.pushToDb(data, ref);
 	                alert("this is where we will insert all the info to the db");
 	                $("#reviewModal .close").click();
+	                
+		            $scope.txt = null;
+		            $.each(arr, function(index, value) {
+		            	$(value).removeClass('active');
+    				});
 
 	            }
         	
