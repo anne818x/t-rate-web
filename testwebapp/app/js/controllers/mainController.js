@@ -9,6 +9,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	SharingFactory.setTeachers();
 	SharingFactory.setReviews();
 	SharingFactory.setSignedIn();
+    SharingFactory.setUserData();
 
 	$scope.selectedTeacher = {name:SharingFactory.getSelectedTeacher().name, course: SharingFactory.getSelectedTeacher().course, id: SharingFactory.getSelectedTeacher().id};
 	$scope.setTeacherPage = function(teacher){
@@ -98,11 +99,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	    			Review_ID: $scope.reviews.length + 1,
 	    			TeacherID: $scope.selectedTeacher.id,
 	    			comment: $scope.txt,
-	    			userID: SharingFactory.getUser()
-	  				}
-	  				console.log(data);
-	  				console.log($scope.date);
-	  				console.log(SharingFactory.getUser());
+	    			userID: SharingFactory.getUserData().UserID
+	  				};
+
 	  				var ref = firebase.database().ref('Reviews');
 	                SharingFactory.pushToDb(data, ref);
 	                alert("this is where we will insert all the info to the db");

@@ -4,30 +4,23 @@ app.controller('ProfileSettingsController', ['$scope', '$location', '$window', '
     $scope.currentLocationID = "";
     $scope.currentCourse = "Select Course";
     $scope.currentCourseID = "";
-    $scope.currentUser = firebase.auth().currentUser;
 
+    var fbUser = firebase.auth().currentUser;
 
     $scope.loadResources = function () {
-        $scope.locations = SharingFactory.getLocations();
         SharingFactory.setLocations();
+        $scope.locations = SharingFactory.getLocations();
 
-        $scope.courses = SharingFactory.getCourses();
         SharingFactory.setCourses();
-
-        console.log($scope.locations[1]);
+        $scope.courses = SharingFactory.getCourses();
     };
 
     //retrieve user data from Firebase auth
-    if ($scope.currentUser != null) {
-        $scope.name = $scope.currentUser.displayName,
-            $scope.email = $scope.currentUser.email,
-            $scope.photoUrl = $scope.currentUser.photoURL,
-            $scope.emailVerified = $scope.currentUser.emailVerified,
-            $scope.uid = $scope.currentUser.uid
-    }
+    SharingFactory.setUserData();
+    $scope.userData = SharingFactory.getUserData();
 
     //retrieve location and course ID from UserProfile table
-    var firebaseRef = firebase.database().ref('UserProfile/' + $scope.uid);
+    var firebaseRef = firebase.database().ref('UserProfile/' + $scope.userData.UserID);
     firebaseRef.on('value', getData, errorData);
 
     /*TODO Add function to show the current location and course of student based on IDs from its profile*/
@@ -42,7 +35,7 @@ app.controller('ProfileSettingsController', ['$scope', '$location', '$window', '
     };
 
     $scope.changeDisplayName = function (name) {
-        $scope.name = name;
+        $scope.userData.Name = name;
     };
 
     $scope.selectedLocation = function (id, name) {
@@ -61,15 +54,15 @@ app.controller('ProfileSettingsController', ['$scope', '$location', '$window', '
             alert("Please select course and location");
         }
         else {
-            firebase.database().ref('UserProfile/' + $scope.uid).set({
+            firebase.database().ref('UserProfile/' + $scope.userData.UserID).set({
                 CourseID: $scope.currentCourseID,
                 Place_ID: $scope.currentLocationID,
-                Name: $scope.name
+                Name: $scope.userData.Name
             });
 
             console.log("Course: " + $scope.currentCourseID + " Location: " + $scope.currentLocationID);
-            $scope.currentUser.updateProfile({
-                displayName: $scope.name
+            fbUser.updateProfile({
+                displayName: $scope.userData.Name
             }).then(function () {
                 alert("Successfully changed your profile");
                 $window.location.reload();

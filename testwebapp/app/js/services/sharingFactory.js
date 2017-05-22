@@ -7,10 +7,21 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var user = "";
     var signedIn = false;
     var selectedTeacher = {};
+    var currentUser = {};
     var teacherUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveTeachers";
     var locationsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveLocation";
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
+
+    sharingFactory.setUserData = function () {
+        var fbUser = firebase.auth().currentUser;
+        currentUser = {Name: fbUser.displayName, Email: fbUser.email, PhotoUrl: fbUser.photoURL,
+        EmailVerified: fbUser.emailVerified, UserID: fbUser.uid};
+    };
+
+    sharingFactory.getUserData = function () {
+        return currentUser;
+    };
 
     sharingFactory.getUser = function () {
         return user;
@@ -77,15 +88,15 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
         return courses;
     };
 
-    sharingFactory.pushToDb = function(data, ref){
+    sharingFactory.pushToDb = function (data, ref) {
         ref.push(data);
     }
 
-    sharingFactory.setSelectedTeacher = function(name, id, course){
-        selectedTeacher = {name:name, id: id, course: course};
+    sharingFactory.setSelectedTeacher = function (name, id, course) {
+        selectedTeacher = {name: name, id: id, course: course};
     }
 
-    sharingFactory.getSelectedTeacher = function(){
+    sharingFactory.getSelectedTeacher = function () {
         return selectedTeacher;
     }
 
