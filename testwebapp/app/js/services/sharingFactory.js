@@ -15,8 +15,12 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
 
     sharingFactory.setUserData = function () {
         var fbUser = firebase.auth().currentUser;
-        currentUser = {Name: fbUser.displayName, Email: fbUser.email, PhotoUrl: fbUser.photoURL,
-        EmailVerified: fbUser.emailVerified, UserID: fbUser.uid};
+        if (fbUser) {
+            currentUser = {
+                Name: fbUser.displayName, Email: fbUser.email, PhotoUrl: fbUser.photoURL,
+                EmailVerified: fbUser.emailVerified, UserID: fbUser.uid
+            };
+        }
     };
 
     sharingFactory.getUserData = function () {
