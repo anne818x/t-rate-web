@@ -21,38 +21,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$scope.prep = teacher.Avg_Preparation;
 		$scope.total = teacher.Total;
 
-		/*for (var i = 0; i < $scope.reviews.length; i++) {
-			console.log("for started");
-			if ($scope.reviews[i].TeacherID == $scope.selectedTeacher.id)
-			{
-				console.log("if started");
-				console.log($scope.reviews[i].TeacherID);
-				console.log($scope.selectedTeacher.id);
-				$scope.teacherReviews.push($scope.reviews[i]);
-
-				$scope.teacherReviews.push({
-    				revId: $scope.reviews[i].Review_ID,
-			    	teachId: $scope.reviews[i].TeacherID,
-			    	comment: $scope.reviews[i].comment,
-			    	date: $scope.reviews[i].Date,
-			    	userId: $scope.reviews[i].userID,
-			    	atmos: $scope.reviews[i].Atmosphere,
-			    	help: $scope.reviews[i].Helpfulness,
-			    	lec: $scope.reviews[i].Lectures,
-			    	prep: $scope.reviews[i].Preparation,
-			    	prof: $scope.reviews[i].Professionalism
-				});
-				
-				console.log("2:" + $scope.teacherReviews);
-			}
-			else{
-				console.log("else");
-			}
-		}*/
-
 
 	}
-
 
 //*********************************Adding Review Area****************************************
 
@@ -62,7 +32,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
     var le_rating = null;
     var pre_rating = null;
     var pro_rating = null;
-
+	
+	var staratmos = 0;
+	
 	// set stars as active when they are clicked
     $.each(arr, function(index, value) {
         $(value).click(function() {
@@ -115,11 +87,56 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	            }
         	
         };
+		
+		
+		
+		for (var i = 0; i < $scope.reviews.length; i++) {
+			
+			//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
+			
+			console.log("for started");
+			if ($scope.reviews[i].TeacherID == $scope.selectedTeacher.id)
+			{
+				console.log("if started");
+				var theid = $scope.reviews[i].TeacherID;
+				console.log($scope.reviews[i].TeacherID);
+				console.log($scope.selectedTeacher.id);
+				
+
+				$scope.teacherReviews.push({
+    				//revId: $scope.reviews[i].Review_ID,
+			    	//teachId: $scope.reviews[i].TeacherID,
+			    	com: $scope.reviews[i].Comment,
+			    	//date: $scope.reviews[i].Date,
+			    	//userId: $scope.reviews[i].userID,
+			    	atmos: $scope.reviews[i].Atmos,
+			    	help: $scope.reviews[i].Help,
+			    	lec: $scope.reviews[i].Lec,
+			    	prep: $scope.reviews[i].Prep,
+			    	prof: $scope.reviews[i].Prof,
+					
+
+				});
+				
+				
+				
+			}
+			else{
+				console.log("else");
+			}
+		
+		}
 
     /*$('#reviewModal').on('hidden.bs.modal', function() {
 		// refresh to see new review on review page
         location.reload();
     })*/
+	
+	
+	
 
 
+	
+	
+	
 }]);
