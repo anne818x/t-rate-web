@@ -21,10 +21,10 @@
                 <li>
                     <a href="#explore">Explore</a>
                 </li>
-                <li>
+                <li ng-hide="!IsSignedIn">
                     <a href="#profile">Profile</a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown" ng-hide="!IsSignedIn">
                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -37,7 +37,7 @@
                 <li>
                     <a href="#faq">FAQ</a>
                 </li>
-                <li>
+                <li ng-hide="!IsSignedIn">
                     <a href="#contact">Contact</a>
                 </li>
             </ul>
@@ -249,7 +249,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!--Login Modal-->
 <div id="loginModal" ng-controller="LoginController" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -260,17 +260,25 @@
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="signin" role="form">
-                        <div class="input-group" style="padding:1%">
+                    <form id="signin" role="form" name="loginForm">
+                        <div class="input-group" style="padding:1%"  ng-class="{'has-error' : loginForm.email.$invalid && loginForm.email.$touched, 'has-success' : loginForm.email.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input id="email" type="email" name="email" ng-model="user.email" class="form-control"
                                    placeholder="Email Address" required="">
                         </div>
-                        <div class="input-group" style="padding:1%">
+                        <p class="help-block"
+                           ng-show="loginForm.email.$invalid && loginForm.email.$touched">Please enter an
+                            email with @student.stenden.com</p>
+
+                        <div class="input-group" style="padding:1%"  ng-class="{'has-error' : loginForm.password.$invalid && loginForm.password.$touched, 'has-success' : loginForm.password.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <input id="password" type="password" name="password" ng-model="user.password"
-                                   class="form-control" placeholder="Password" required="">
+                                   class="form-control" placeholder="Password" required="" minlength="8" maxlength="20">
                         </div>
+                        <p class="help-block"
+                           ng-show="loginForm.password.$invalid && loginForm.password.$touched">Please
+                            enter a password between 8 and 20 characters</p>
+
                         <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" style="width:100%" ng-click="signIn()" data-dismiss="modal">Login
                         </button>
                     </form>

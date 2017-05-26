@@ -20,7 +20,7 @@ app.config(function ($routeProvider,$locationProvider) {
         })
         .when('/profile', {
             templateUrl : 'templates/profile.html',
-            controller: 'LoginController',
+            controller: 'ProfileController',
             resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -46,8 +46,8 @@ app.config(function ($routeProvider,$locationProvider) {
         })
         .when('/faq', {
             templateUrl : 'templates/faq.html',
-            controller: '',
-            resolve: {
+            controller: 'FaqController',
+            /*resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
 
@@ -55,7 +55,7 @@ app.config(function ($routeProvider,$locationProvider) {
                 console.log(auth);
                 return AuthFactory.requireAuth();
             }]
-        }
+        }*/
         })
         .when('/contact', {
             templateUrl : 'templates/contact.html',

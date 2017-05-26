@@ -91,11 +91,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		for (var i = 0; i < $scope.reviews.length; i++) {
 			
 			//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
-			
-			console.log("for started");
 			if ($scope.reviews[i].TeacherID == $scope.selectedTeacher.id)
 			{
-				console.log("if started");
 				var theid = $scope.reviews[i].TeacherID;
 				console.log($scope.reviews[i].TeacherID);
 				console.log($scope.selectedTeacher.id);
@@ -115,7 +112,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				});
 			}
 			else{
-				console.log("else");
 			}
 		
 		}

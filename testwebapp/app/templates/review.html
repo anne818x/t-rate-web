@@ -60,281 +60,298 @@
         </div>
     </div>
 </nav>
-      </nav>
-      <!-- Page Content -->
-      <div class="container" ng-controller="MainController">
-      <!-- row -->
-      <div class="row">
-      <div class="panel panel-default">
-         <div class="panel-heading">
-            <h3 class="panel-title" ng-model="teacherName">{{selectedTeacher.name}}</h3>
-         </div>
-         <div class="panel-body">
-            <div class="col-sm-6">
-               <p>Course taught by this lecturer: {{selectedTeacher.course}} </p>
-               <div class="form-group">
-               <br></br>
-                  <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">Rate this teacher &raquo;</button>
-               </div>
-      </div>
-      <div class="col-sm-6">
-         <div class="col-sm-6">
-            <h6 class="text-right"><b>Total</b></h6>
-            <h6 class="text-right">Helpfulness</h6>
-            <h6 class="text-right">Professionalism</h6>
-            <h6 class="text-right">Helpfulness</h6>
-            <h6 class="text-right">Professionalism</h6>
-            <h6 class="text-right">Helpfulness</h6>
-         </div>
-         <div class="col-sm-6">
-            <fieldset class="stars">
-               <label class="star"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label></br>
-               <label class="star"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label></br>
-               <label class="star"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label></br>
-               <label class="star"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label></br>
-               <label class="star"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label></br>
-               <label class="star"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label><label class="rating"></label></br>
-            </fieldset>
-         </div>
-      </div>
-   </div>
-</div>
-<div class="panel panel-default">
-<div class="panel-heading">
-   <h3 class="panel-title">What do other students think of this teacher?</h3>
-</div>
-<div class="panel-body" ng-controller="MainController">
-   <!-- review -->
-   <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="teacherReview in teacherReviews" >
-      <div class="well emptyborder" style="width: 100%; height: 8em; line-height: 1em; word-wrap: break-word;">
-         <p><i>{{teacherReview.com}}</i></p>
-      </div>
-      <div class="col-sm-12">
-         <div class="well well-sm" style="margin:0">
-            <h6>Atmosphere </h6>
-            <img class="atimg" src="images/4star.png" height="15">
-			{{teacherReview.atmos}}
-         </div>
-         <div class="well well-sm" style="margin:0">
-            <h6>Helpfulness</h6>
-            <img class="atimg" src="images/4star.png" height="15">
-			{{teacherReview.help}}
-         </div>
-         <div class="well well-sm" style="margin:0">
-            <h6>Lectures</h6>
-            <img class="atimg" src="images/4star.png" height="15">
-			{{teacherReview.lec}}
-         </div>
-         <div class="well well-sm" style="margin:0">
-            <h6>Preparation</h6>
-            <img class="atimg" src="images/4star.png" height="15">
-			{{teacherReview.prep}}
-         </div>
-         <div class="well well-sm" style="margin:0">
-            <h6>Professionalism</h6>
-            <img class="atimg" src="images/4star.png" height="15">
-			{{teacherReview.prof}}
-         </div>
-
-            </br>
-            <span class="glyphicon glyphicon-question-sign"></span>
-            <i><small>Is this review fair? Rate this review</small></i>
-            </br>
-
-			<div class="btn-group" style="width:100%">
-			<a href="#" class="btn btn-default glyphicon glyphicon-plus" type="submit"></a>
-			<a href="#" class="btn btn-default glyphicon glyphicon-minus" type="submit"></a>
-			<a href="#" class="btn btn-danger glyphicon glyphicon-flag pull-right" type="submit"></a>
-			</div>
-      </div>
-   </div>
-   </div>
-   </div>
-   <hr>
-   <!-- Footer -->
-   <footer>
-      <div class="row">
-         <div class="col-lg-12">
-            <p>Copyright &copy; T-rate 2017</p>
-         </div>
-      </div>
-   </footer>
 </nav>
-
-<!-- Modal -->
-<div id="reviewModal" class="modal fade" role="dialog" ng-controller="MainController">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Review</h4>
+<!-- Page Content -->
+<div class="container" ng-controller="MainController">
+    <!-- row -->
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" ng-model="teacherName">{{selectedTeacher.name}}</h3>
             </div>
-                        <div class="modal-body">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Write your own review on {{selectedTeacher.name}}</h3>
+            <div class="panel-body">
+                <div class="col-sm-6">
+                    <p>Course taught by this lecturer: {{selectedTeacher.course}} </p>
+                    <div class="form-group">
+                        <br></br>
+                        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">
+                            Rate this teacher &raquo;
+                        </button>
                     </div>
-                    <div class="panel-body">
-                        <!-- Text area -->
-                        <div class="col-sm-6">
-                            </br>
-                            <h4 class="align-right">Atmosphere</h4>
-                            <div class="ratingstar">
-                                <label class="labelat">☆
-                                    <input type="radio" name="Atmosphere" value="5"/>
-                                </label>
-                                <label class="labelat">☆
-                                    <input type="radio" name="Atmosphere" value="4"/>
-                                </label>
-                                <label class="labelat">☆
-                                    <input type="radio" name="Atmosphere" value="3"/>
-                                </label>
-                                <label class="labelat">☆
-                                    <input type="radio" name="Atmosphere" value="2"/>
-                                </label>
-                                <label class="labelat">☆
-                                    <input type="radio" name="Atmosphere" value="1"/>
-                                </label>
-                            </div>
-                            </br>
-                            <h4 class="align-right">Helpfulness</h4>
-                            <div class="ratingstar">
-                                <label class="labelhe">☆
-                                    <input type="radio" name="Helpfulness" value="5"/>
-                                </label>
-                                <label class="labelhe">☆
-                                    <input type="radio" name="Helpfulness" value="4"/>
-                                </label>
-                                <label class="labelhe">☆
-                                    <input type="radio" name="Helpfulness" value="3"/>
-                                </label>
-                                <label class="labelhe">☆
-                                    <input type="radio" name="Helpfulness" value="2"/>
-                                </label>
-                                <label class="labelhe">☆
-                                    <input type="radio" name="Helpfulness" value="1"/>
-                                </label>
-                            </div>
-                            </br>
-                            <h4 class="align-right">Lectures</h4>
-                            <div class="ratingstar">
-                                <label class="labelle">☆
-                                    <input type="radio" name="Lectures" value="5"/>
-                                </label>
-                                <label class="labelle">☆
-                                    <input type="radio" name="Lectures" value="4"/>
-                                </label>
-                                <label class="labelle">☆
-                                    <input type="radio" name="Lectures" value="3"/>
-                                </label>
-                                <label class="labelle">☆
-                                    <input type="radio" name="Lectures" value="2"/>
-                                </label>
-                                <label class="labelle">☆
-                                    <input type="radio" name="Lectures" value="1"/>
-                                </label>
-                            </div>
-                            </br>
-                            <h4 class="align-right">Preparation</h4>
-                            <div class="ratingstar">
-                                <label class="labelpre">☆
-                                    <input type="radio" name="Preparation" value="5"/>
-                                </label>
-                                <label class="labelpre">☆
-                                    <input type="radio" name="Preparation" value="4"/>
-                                </label>
-                                <label class="labelpre">☆
-                                    <input type="radio" name="Preparation" value="3"/>
-                                </label>
-                                <label class="labelpre">☆
-                                    <input type="radio" name="Preparation" value="2"/>
-                                </label>
-                                <label class="labelpre">☆
-                                    <input type="radio" name="Preparation" value="1"/>
-                                </label>
-                            </div>
-                            </br>
-                            <h4 class="align-right">Professionalism</h4>
-                            <div class="ratingstar">
-                                <label class="labelpro">☆
-                                    <input type="radio" name="Professionalism" value="5"/>
-                                </label>
-                                <label class="labelpro">☆
-                                    <input type="radio" name="Professionalism" value="4"/>
-                                </label>
-                                <label class="labelpro">☆
-                                    <input type="radio" name="Professionalism" value="3"/>
-                                </label>
-                                <label class="labelpro">☆
-                                    <input type="radio" name="Professionalism" value="2"/>
-                                </label>
-                                <label class="labelpro">☆
-                                    <input type="radio" name="Professionalism" value="1"/>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                  </br>
-                  <form id="signin" role="form" name="reviewForm"
-                          ng-submit="submitForm(reviewForm.$valid)" novalidate>
-                  <div class="form-group">
-                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        <textarea id="textArea" class="form-control" name="comment" ng-model="txt" placeholder="Review" required="" maxlength="200" rows="8"></textarea>
-                        <Gentle class="noDisplay" ng-model="txt"></Gentle>
-                     </div>
-                  </div>
-                  </form>
-                  <p ng-if="isNotgentle" style="color:red;">Please abstain from using profanity!</p>
-                  <div class="form-group">
-                     <button type="submit" class="btn btn-success" ng-click="addReview()"  ng-disabled="((reviewForm.$invalid) || (isNotgentle))">Send </button>
-                  </div>
-               </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-sm-6">
+                        <h6 class="text-right"><b>Total</b></h6>
+                        <h6 class="text-right">Helpfulness</h6>
+                        <h6 class="text-right">Professionalism</h6>
+                        <h6 class="text-right">Helpfulness</h6>
+                        <h6 class="text-right">Professionalism</h6>
+                        <h6 class="text-right">Helpfulness</h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <fieldset class="stars">
+                            <label class="star"></label><label class="rating"></label><label
+                                class="rating"></label><label class="rating"></label><label class="rating"></label></br>
+                            <label class="star"></label><label class="rating"></label><label
+                                class="rating"></label><label class="rating"></label><label class="rating"></label></br>
+                            <label class="star"></label><label class="rating"></label><label
+                                class="rating"></label><label class="rating"></label><label class="rating"></label></br>
+                            <label class="star"></label><label class="rating"></label><label
+                                class="rating"></label><label class="rating"></label><label class="rating"></label></br>
+                            <label class="star"></label><label class="rating"></label><label
+                                class="rating"></label><label class="rating"></label><label class="rating"></label></br>
+                            <label class="star"></label><label class="rating"></label><label
+                                class="rating"></label><label class="rating"></label><label class="rating"></label></br>
+                        </fieldset>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">What do other students think of this teacher?</h3>
+            </div>
+            <div class="panel-body" ng-controller="MainController">
+                <!-- review -->
+                <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="teacherReview in teacherReviews">
+                    <div class="well emptyborder"
+                         style="width: 100%; height: 8em; line-height: 1em; word-wrap: break-word;">
+                        <p><i>{{teacherReview.com}}</i></p>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Atmosphere </h6>
+                            <img class="atimg" src="images/4star.png" height="15">
+                            {{teacherReview.atmos}}
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Helpfulness</h6>
+                            <img class="atimg" src="images/4star.png" height="15">
+                            {{teacherReview.help}}
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Lectures</h6>
+                            <img class="atimg" src="images/4star.png" height="15">
+                            {{teacherReview.lec}}
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Preparation</h6>
+                            <img class="atimg" src="images/4star.png" height="15">
+                            {{teacherReview.prep}}
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Professionalism</h6>
+                            <img class="atimg" src="images/4star.png" height="15">
+                            {{teacherReview.prof}}
+                        </div>
+
+                        </br>
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <i>
+                            <small>Is this review fair? Rate this review</small>
+                        </i>
+                        </br>
+
+                        <div class="btn-group" style="width:100%">
+                            <a href="#" class="btn btn-default glyphicon glyphicon-plus" type="submit"></a>
+                            <a href="#" class="btn btn-default glyphicon glyphicon-minus" type="submit"></a>
+                            <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal"
+                                    data-target="#reportModal"></button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Report Modal -->
-<div id="reportModal" ng-controller="ReportController" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Report review</h4>
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; T-rate 2017</p>
+                </div>
             </div>
-            <div class="modal-body">
-                <div class="panel-body">
-                    <form id="report" name="reportForm" role="form">
-                        <div class="input-group"
-                             ng-class="{'has-error' : reportForm.reportReason.$invalid && reportForm.reportReason.$touched, 'has-success' : reportForm.reportReason.$valid}">
+        </footer>
+        </nav>
+
+        <!-- Modal -->
+        <div id="reviewModal" class="modal fade" role="dialog" ng-controller="MainController">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Review</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Write your own review on {{selectedTeacher.name}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <!-- Text area -->
+                                <div class="col-sm-6">
+                                    </br>
+                                    <h4 class="align-right">Atmosphere</h4>
+                                    <div class="ratingstar">
+                                        <label class="labelat">☆
+                                            <input type="radio" name="Atmosphere" value="5"/>
+                                        </label>
+                                        <label class="labelat">☆
+                                            <input type="radio" name="Atmosphere" value="4"/>
+                                        </label>
+                                        <label class="labelat">☆
+                                            <input type="radio" name="Atmosphere" value="3"/>
+                                        </label>
+                                        <label class="labelat">☆
+                                            <input type="radio" name="Atmosphere" value="2"/>
+                                        </label>
+                                        <label class="labelat">☆
+                                            <input type="radio" name="Atmosphere" value="1"/>
+                                        </label>
+                                    </div>
+                                    </br>
+                                    <h4 class="align-right">Helpfulness</h4>
+                                    <div class="ratingstar">
+                                        <label class="labelhe">☆
+                                            <input type="radio" name="Helpfulness" value="5"/>
+                                        </label>
+                                        <label class="labelhe">☆
+                                            <input type="radio" name="Helpfulness" value="4"/>
+                                        </label>
+                                        <label class="labelhe">☆
+                                            <input type="radio" name="Helpfulness" value="3"/>
+                                        </label>
+                                        <label class="labelhe">☆
+                                            <input type="radio" name="Helpfulness" value="2"/>
+                                        </label>
+                                        <label class="labelhe">☆
+                                            <input type="radio" name="Helpfulness" value="1"/>
+                                        </label>
+                                    </div>
+                                    </br>
+                                    <h4 class="align-right">Lectures</h4>
+                                    <div class="ratingstar">
+                                        <label class="labelle">☆
+                                            <input type="radio" name="Lectures" value="5"/>
+                                        </label>
+                                        <label class="labelle">☆
+                                            <input type="radio" name="Lectures" value="4"/>
+                                        </label>
+                                        <label class="labelle">☆
+                                            <input type="radio" name="Lectures" value="3"/>
+                                        </label>
+                                        <label class="labelle">☆
+                                            <input type="radio" name="Lectures" value="2"/>
+                                        </label>
+                                        <label class="labelle">☆
+                                            <input type="radio" name="Lectures" value="1"/>
+                                        </label>
+                                    </div>
+                                    </br>
+                                    <h4 class="align-right">Preparation</h4>
+                                    <div class="ratingstar">
+                                        <label class="labelpre">☆
+                                            <input type="radio" name="Preparation" value="5"/>
+                                        </label>
+                                        <label class="labelpre">☆
+                                            <input type="radio" name="Preparation" value="4"/>
+                                        </label>
+                                        <label class="labelpre">☆
+                                            <input type="radio" name="Preparation" value="3"/>
+                                        </label>
+                                        <label class="labelpre">☆
+                                            <input type="radio" name="Preparation" value="2"/>
+                                        </label>
+                                        <label class="labelpre">☆
+                                            <input type="radio" name="Preparation" value="1"/>
+                                        </label>
+                                    </div>
+                                    </br>
+                                    <h4 class="align-right">Professionalism</h4>
+                                    <div class="ratingstar">
+                                        <label class="labelpro">☆
+                                            <input type="radio" name="Professionalism" value="5"/>
+                                        </label>
+                                        <label class="labelpro">☆
+                                            <input type="radio" name="Professionalism" value="4"/>
+                                        </label>
+                                        <label class="labelpro">☆
+                                            <input type="radio" name="Professionalism" value="3"/>
+                                        </label>
+                                        <label class="labelpro">☆
+                                            <input type="radio" name="Professionalism" value="2"/>
+                                        </label>
+                                        <label class="labelpro">☆
+                                            <input type="radio" name="Professionalism" value="1"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    </br>
+                                    <form id="signin" role="form" name="reviewForm"
+                                          ng-submit="submitForm(reviewForm.$valid)" novalidate>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i
+                                                        class="glyphicon glyphicon-pencil"></i></span>
+                                                <textarea id="textArea" class="form-control" name="comment"
+                                                          ng-model="txt" placeholder="Review" required=""
+                                                          maxlength="200" rows="8"></textarea>
+                                                <Gentle class="noDisplay" ng-model="txt"></Gentle>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p ng-if="isNotgentle" style="color:red;">Please abstain from using profanity!</p>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" ng-click="addReview()"
+                                                ng-disabled="((reviewForm.$invalid) || (isNotgentle))">Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Modal -->
+        <div id="reportModal" ng-controller="ReportController" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Report review</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body">
+                            <form id="report" name="reportForm" role="form">
+                                <div class="input-group"
+                                     ng-class="{'has-error' : reportForm.reportReason.$invalid && reportForm.reportReason.$touched, 'has-success' : reportForm.reportReason.$valid}">
                                                     <span class="input-group-addon"><i
                                                             class="glyphicon glyphicon-pencil"></i></span>
-                            <textarea id="reportReason" class="form-control" name="reportReason"
-                                      ng-model="reportReason"
-                                      placeholder="Write the reason for this report(min. 50 chars)"
-                                      required=""
-                                      minlength="50" maxlength="250" rows="5" style="resize: none"></textarea>
+                                    <textarea id="reportReason" class="form-control" name="reportReason"
+                                              ng-model="reportReason"
+                                              placeholder="Write the reason for this report(min. 50 chars)"
+                                              required=""
+                                              minlength="50" maxlength="250" rows="5" style="resize: none"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" ng-disabled="reportForm.$invalid"
+                                        style="width:100%; margin-top: 1%" ng-click="sendReport()"
+                                        data-dismiss="modal">Send Report
+                                </button>
+                            </form>
                         </div>
-                        <button type="submit" class="btn btn-primary" ng-disabled="reportForm.$invalid"
-                                style="width:100%; margin-top: 1%" ng-click="sendReport()"
-                                data-dismiss="modal">Send Report
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:100%">
+                            Close
                         </button>
-                    </form>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:100%">
-                    Close
-                </button>
-            </div>
         </div>
-    </div>
-</div>

@@ -1,165 +1,173 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">T-rate</a>
+        </div>
 
-      <!-- Navigation -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               </button>
-               <a class="navbar-brand" href="#">T-rate</a>
-            </div>
-			
-            <!-- Navigation bar content-->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-               <ul class="nav navbar-nav">
-                  <li>
-                     <a href="#home">Home</a>
-                  </li>
-                  <li>
-                     <a href="#explore">Explore</a>
-                  </li>
-                  <li>
-                     <a href="#profile">Profile</a>
-                  </li>
-                  <li class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
-                     <span class="caret"></span></a>
-                     <ul class="dropdown-menu">
+        <!-- Navigation bar content-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+                <li>
+                    <a href="#explore">Explore</a>
+                </li>
+                <li>
+                    <a href="#profile">Profile</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Settings
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
                         <!--- these dont exist yet -->
                         <li><a href="accountsettings.html">Account settings</a></li>
                         <li><a href="reportbugs.html">Report bugs</a></li>
                         <li><a href="#profileSettings">Profile settings</a></li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="#faq">FAQ</a>
-                  </li>
-                  <li>
-                     <a href="#contact">Contact</a>
-                  </li>
-               </ul>
-               <ul class="nav navbar-nav navbar-right">
-                  <li>
-                     <a href="#profile" data-toggle="" >Hello, {{name}}</a>
-                  </li>
-                  <li>
-                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
-                  </li>
-               </ul>
-               <!-- search bar -->
-               <form class="navbar-form navbar-right">
-                  <div class="input-group">
-                     <input type="text" class="form-control" placeholder="Search">
-                     <div class="input-group-btn">
+                    </ul>
+                </li>
+                <li>
+                    <a href="#faq">FAQ</a>
+                </li>
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#profile" data-toggle="">Hello, {{userData.name}}</a>
+                </li>
+                <li>
+                    <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
+                </li>
+            </ul>
+            <!-- search bar -->
+            <form class="navbar-form navbar-right">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
                         <button class="btn btn-default" type="submit">
-                        <i class="glyphicon glyphicon-search"></i>
+                            <i class="glyphicon glyphicon-search"></i>
                         </button>
-                     </div>
-                  </div>
-               </form>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+<header class="secondheader">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="tagline">Some fancy tagline here</h1>
             </div>
-         </div>
-      </nav>
-	  <header class="secondheader">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-12">
-                  <h1 class="tagline">Some fancy tagline here</h1>
-               </div>
+        </div>
+    </div>
+</header>
+<!-- Page Content -->
+<div class="container">
+    <!-- row -->
+    <div class="row">
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Contact Form</h3>
             </div>
-         </div>
-      </header>
-      <!-- Page Content -->
-      <div class="container">
-         <!-- row -->
-         <div class="row">
-            <br>
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h3 class="panel-title">Contact Form</h3>
-               </div>
-               <div class="panel-body">
-                  <p>Duis fermentum ornare viverra. Pellentesque mattis, nibh ac blandit bibendum, libero magna gravida lacus, eget luctus nulla justo et lacus. Duis luctus volutpat laoreet. Ut posuere suscipit nisl. Cras tincidunt elit a lacus posuere consectetur. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                  <br>
-                  <form class=" form-horizontal" action=" " method="post"  id="contact_form">
-                     <fieldset>
+            <div class="panel-body">
+                <p>Duis fermentum ornare viverra. Pellentesque mattis, nibh ac blandit bibendum, libero magna gravida
+                    lacus, eget luctus nulla justo et lacus. Duis luctus volutpat laoreet. Ut posuere suscipit nisl.
+                    Cras tincidunt elit a lacus posuere consectetur. Orci varius natoque penatibus et magnis dis
+                    parturient montes, nascetur ridiculus mus.</p>
+                <br>
+                <form class=" form-horizontal" action=" " method="post" id="contact_form">
+                    <fieldset>
                         <!-- google map-->
                         <div class=" col-md-4">
-                           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.4485892568914!2d6.909939415463356!3d52.77821867986387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b7e61f3ec72443%3A0xbe9d297b3e4fbcc7!2sStenden+hogeschool+Emmen!5e0!3m2!1sen!2snl!4v1494173278983" width="300" height="225" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.4485892568914!2d6.909939415463356!3d52.77821867986387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b7e61f3ec72443%3A0xbe9d297b3e4fbcc7!2sStenden+hogeschool+Emmen!5e0!3m2!1sen!2snl!4v1494173278983"
+                                    width="300" height="225" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                         <div class="col-md-8">
-						<!-- Name-->
-                           <div class="form-group">
-                              <label class="col-md-4 control-label">Name</label>  
-                              <div class="col-md-6 inputGroupContainer">
-                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input  name="first_name" placeholder="First Name" class="form-control"  type="text">
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Mail-->
-                           <div class="form-group">
-                              <label class="col-md-4 control-label">E-Mail</label>  
-                              <div class="col-md-6 inputGroupContainer">
-                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                    <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Select location -->
-                           <div class="form-group">
-                              <label class="col-md-4 control-label">Stenden location</label>
-                              <div class="col-md-6 selectContainer">
-                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                    <select name="state" class="form-control selectpicker" >
-                                       <option value=" " >Please select your location</option>
-                                       <option>Emmen</option>
-                                       <option>Leeuwarden</option>
-                                       <option >the</option>
-                                       <option >other</option>
-                                       <option >ones</option>
-                                       <option >prefer not to say</option>
-                                    </select>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Message -->
-                           <div class="form-group">
-                              <label class="col-md-4 control-label">Message</label>
-                              <div class="col-md-6 inputGroupContainer">
-                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <textarea class="form-control" name="comment" placeholder="Message"></textarea>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- Button -->
-                           <div class="form-group">
-                              <label class="col-md-4 control-label"></label>
-                              <div class="col-md-6">
-                                 <button type="submit" class="btn btn-success" >Send </button>
-                              </div>
-                           </div>
+                            <!-- Name-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Name</label>
+                                <div class="col-md-6 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input name="first_name" placeholder="First Name" class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mail-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">E-Mail</label>
+                                <div class="col-md-6 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-envelope"></i></span>
+                                        <input name="email" placeholder="E-Mail Address" class="form-control"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Select location -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Stenden location</label>
+                                <div class="col-md-6 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                        <select name="state" class="form-control selectpicker">
+                                            <option value=" ">Please select your location</option>
+                                            <option>Emmen</option>
+                                            <option>Leeuwarden</option>
+                                            <option>the</option>
+                                            <option>other</option>
+                                            <option>ones</option>
+                                            <option>prefer not to say</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Message -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Message</label>
+                                <div class="col-md-6 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-pencil"></i></span>
+                                        <textarea class="form-control" name="comment" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-success">Send</button>
+                                </div>
+                            </div>
                         </div>
-                     </fieldset>
-                  </form>
-               </div>
+                    </fieldset>
+                </form>
             </div>
-         </div>
-         <hr>
-         <!-- Footer -->
-         <footer>
-            <div class="row">
-               <div class="col-lg-12">
-                  <p>Copyright &copy; T-rate 2017</p>
-               </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; T-rate 2017</p>
             </div>
-         </footer>
-      </div>
+        </div>
+    </footer>
+</div>

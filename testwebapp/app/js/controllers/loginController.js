@@ -19,7 +19,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
          	AuthFactory.logout();
          }
       	}, function(error) {
-      	console.log("Authentication Failed: ", error)
+      		alert("Authentication Failed: " + error);
       	})
 	}
 
