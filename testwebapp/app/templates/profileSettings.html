@@ -43,7 +43,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#profile" data-toggle="">Hello, {{name}}</a>
+                    <a href="#profile" data-toggle="">Hello, {{userData.Name}}</a>
                 </li>
                 <li>
                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
@@ -97,7 +97,7 @@
                     <label>Display Name</label><br>
                     <div>
                         <label for="displayName"></label>
-                        <input id="displayName" class="form-control" style="width: 50%" ng-model="name"
+                        <input id="displayName" class="form-control" style="width: 50%" ng-model="userData.Name"
                                ng-submit="changeDisplayName(name)" ng-value="">
                     </div>
                 </div>

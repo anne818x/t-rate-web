@@ -83,9 +83,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		            $.each(arr, function(index, value) {
 		            	$(value).removeClass('active');
     				});
-
 	            }
-        	
         };
 		
 		
@@ -114,12 +112,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			    	lec: $scope.reviews[i].Lec,
 			    	prep: $scope.reviews[i].Prep,
 			    	prof: $scope.reviews[i].Prof,
-					
-
 				});
-				
-				
-				
 			}
 			else{
 				console.log("else");
