@@ -1,5 +1,8 @@
 angular.module('myApp').controller('LoginController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', function($scope, $location, $window, SharingFactory, AuthFactory){
 
+    $scope.IsSignedIn = SharingFactory.getSignedIn();
+    SharingFactory.setSignedIn();
+
 	$scope.signIn = function(){
 		
 		var username = $scope.user.email;
