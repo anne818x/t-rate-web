@@ -46,6 +46,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
         $scope.addReview = function(){
 
+        		var upvotes = false;
+        		var verified = false;
+        		var weight = calculateWeight($scope.txt, verified, upvotes);
         		
 			    at_rating = $('input[name="Atmosphere"]:checked').val();
 	            he_rating = $('input[name="Helpfulness"]:checked').val();
@@ -70,6 +73,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	    			Professionalism: pro_rating,
 	    			Review_ID: $scope.reviews.length + 1,
 	    			TeacherID: $scope.selectedTeacher.id,
+	    			Weight: weight,
 	    			comment: $scope.txt,
 	    			userID: SharingFactory.getUserData().UserID
 	  				};
