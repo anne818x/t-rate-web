@@ -97,8 +97,8 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
         ref.push(data);
     }
 
-    sharingFactory.setSelectedTeacher = function (name, id, course) {
-        selectedTeacher = {name: name, id: id, course: course};
+    sharingFactory.setSelectedTeacher = function (name, id, course, atmos, help, prof, lec, prep, total) {
+        selectedTeacher = {name: name, id: id, course: course, atmos: atmos, help: help, prof: prof, lec: lec, prep: prep, total: total};
     }
 
     sharingFactory.getSelectedTeacher = function () {
