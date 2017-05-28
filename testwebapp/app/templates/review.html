@@ -66,7 +66,7 @@
 </nav>
 </nav>
 <!-- Page Content -->
-<div class="container" ng-controller="MainController">
+<div class="container">
     <!-- row -->
     <div class="row">
         <div class="panel panel-default">
@@ -115,7 +115,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">What do other students think of this teacher?</h3>
             </div>
-            <div class="panel-body" ng-controller="MainController">
+            <div class="panel-body">
                 <!-- review -->
                 <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="teacherReview in teacherReviews">
                     <div class="well emptyborder"
@@ -152,10 +152,10 @@
                         </br>
 
                         <div class="btn-group" style="width:100%">
-                            <a href="#" class="btn btn-default glyphicon glyphicon-plus" type="submit"></a>
-                            <a href="#" class="btn btn-default glyphicon glyphicon-minus" type="submit"></a>
+                            <button class="btn btn-default glyphicon glyphicon-plus" ng-click="upvote(teacherReview.reviewID);"></button>
+                            <button class="btn btn-default glyphicon glyphicon-minus" ng-click="downvote(teacherReview.reviewID)"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal"
-                                    data-target="#reportModal"></button>
+                                    data-target="#reportModal" ng-controller="ReportController" ng-click="selectedReview(teacherReview.reviewID)"></button>
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
         </nav>
 
         <!-- Modal -->
-        <div id="reviewModal" class="modal fade" role="dialog" ng-controller="MainController">
+        <div id="reviewModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -354,3 +354,5 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
