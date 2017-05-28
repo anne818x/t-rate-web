@@ -26,6 +26,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
         $scope.prep = teacher.Avg_Preparation;
         $scope.total = teacher.Total;
     };
+	
+	$scope.limit = 2;
 
 
     //var ref = firebase.database().ref("UpVotes");
@@ -144,6 +146,10 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
             UserID: userID,
             Vote: 'False'
         });
+    };
+	
+	$scope.more = function () {
+			$scope.limit = $scope.reviews.length;
     };
 
     /*$('#reviewModal').on('hidden.bs.modal', function() {

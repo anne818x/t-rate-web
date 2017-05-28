@@ -117,7 +117,7 @@
             </div>
             <div class="panel-body">
                 <!-- review -->
-                <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="teacherReview in teacherReviews">
+                <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="teacherReview in teacherReviews |limitTo: limit">
                     <div class="well emptyborder"
                          style="width: 100%; height: 8em; line-height: 1em; word-wrap: break-word;">
                         <p><i>{{teacherReview.com}}</i></p>
@@ -155,6 +155,9 @@
                         </div>
                     </div>
                 </div>
+				<div class="col-md-12">
+					<button class="btn btn-default" style="width:100%;" ng-click="more()">See more</button>
+				</div>
             </div>
         </div>
         <hr>
