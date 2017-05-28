@@ -24,25 +24,29 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID, teacher.Avg_Atmosphere, teacher.Avg_Helpfulness, teacher.Avg_Professionalism, teacher.Avg_Lectures, teacher, teacher.Avg_Preparation, teacher.Total);
 	}
 
+    //var ref = firebase.database().ref("UpVotes");
+    //console.log(ref);
+    //var votes = ref.orderByChild('UserID').equalTo(SharingFactory.getUserData().UserID);
+    //console.log(votes.toJSON());
+
 //*********************************Adding Review Area****************************************
 
- 	var arr = ['.labelat', '.labelhe', '.labelle', '.labelpre', '.labelpro'];
+    var arr = ['.labelat', '.labelhe', '.labelle', '.labelpre', '.labelpro'];
     var at_rating = null;
     var he_rating = null;
     var le_rating = null;
     var pre_rating = null;
     var pro_rating = null;
-	
-	var staratmos = 0;
-	
-	// set stars as active when they are clicked
-    $.each(arr, function(index, value) {
-        $(value).click(function() {
+
+    var staratmos = 0;
+
+    // set stars as active when they are clicked
+    $.each(arr, function (index, value) {
+        $(value).click(function () {
             $(value).removeClass('active');
             $(this).addClass('active');
         });
     });
-
 
         $scope.addReview = function(){
 
@@ -179,5 +183,26 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
     /*$('#reviewModal').on('hidden.bs.modal', function() {
 		// refresh to see new review on review page
         location.reload();
-    })*/	
+    })*/
+
+    $scope.upvote = function(reviewID) {
+        var userID = SharingFactory.getUserData().UserID;
+
+        firebase.database().ref('UpVotes/').push({
+            Review_ID: reviewID,
+            UserID: userID,
+            Vote: 'True'
+        });
+    };
+
+    $scope.downvote = function (reviewID) {
+        var userID = SharingFactory.getUserData().UserID;
+
+        firebase.database().ref('UpVotes/').push({
+            Review_ID: reviewID,
+            UserID: userID,
+            Vote: 'False'
+        });
+    };
+
 }]);

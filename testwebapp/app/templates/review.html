@@ -10,11 +10,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">T-rate</a>
+			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+			</a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+				<li>
+                    <a href="#"><h4>T-rate</h4></a>
+                </li>
                 <li>
                     <a href="#home">Home</a>
                 </li>
@@ -62,7 +66,7 @@
 </nav>
 </nav>
 <!-- Page Content -->
-<div class="container" ng-controller="MainController">
+<div class="container">
     <!-- row -->
     <div class="row">
         <div class="panel panel-default">
@@ -111,7 +115,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">What do other students think of this teacher?</h3>
             </div>
-            <div class="panel-body" ng-controller="MainController">
+            <div class="panel-body">
                 <!-- review -->
                 <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="teacherReview in teacherReviews">
                     <div class="well emptyborder"
@@ -121,28 +125,23 @@
                     <div class="col-sm-12">
                         <div class="well well-sm" style="margin:0">
                             <h6>Atmosphere </h6>
-                            <img class="atimg" src="images/4star.png" height="15">
-                            {{teacherReview.atmos}}
+							<img ng-src="images/{{teacherReview.atmos}}star.png" height="15">
                         </div>
                         <div class="well well-sm" style="margin:0">
                             <h6>Helpfulness</h6>
-                            <img class="atimg" src="images/4star.png" height="15">
-                            {{teacherReview.help}}
+                            <img ng-src="images/{{teacherReview.help}}star.png" height="15">
                         </div>
                         <div class="well well-sm" style="margin:0">
                             <h6>Lectures</h6>
-                            <img class="atimg" src="images/4star.png" height="15">
-                            {{teacherReview.lec}}
+                            <img ng-src="images/{{teacherReview.lec}}star.png" height="15">
                         </div>
                         <div class="well well-sm" style="margin:0">
                             <h6>Preparation</h6>
-                            <img class="atimg" src="images/4star.png" height="15">
-                            {{teacherReview.prep}}
+                            <img ng-src="images/{{teacherReview.prep}}star.png" height="15">
                         </div>
                         <div class="well well-sm" style="margin:0">
                             <h6>Professionalism</h6>
-                            <img class="atimg" src="images/4star.png" height="15">
-                            {{teacherReview.prof}}
+                            <img ng-src="images/{{teacherReview.prof}}star.png" height="15">
                         </div>
 
                         </br>
@@ -153,10 +152,10 @@
                         </br>
 
                         <div class="btn-group" style="width:100%">
-                            <a href="#" class="btn btn-default glyphicon glyphicon-plus" type="submit"></a>
-                            <a href="#" class="btn btn-default glyphicon glyphicon-minus" type="submit"></a>
+                            <button class="btn btn-default glyphicon glyphicon-plus" ng-click="upvote(teacherReview.reviewID);"></button>
+                            <button class="btn btn-default glyphicon glyphicon-minus" ng-click="downvote(teacherReview.reviewID)"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal"
-                                    data-target="#reportModal"></button>
+                                    data-target="#reportModal" ng-controller="ReportController" ng-click="selectedReview(teacherReview.reviewID)"></button>
                         </div>
                     </div>
                 </div>
@@ -174,7 +173,7 @@
         </nav>
 
         <!-- Modal -->
-        <div id="reviewModal" class="modal fade" role="dialog" ng-controller="MainController">
+        <div id="reviewModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -355,3 +354,5 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
