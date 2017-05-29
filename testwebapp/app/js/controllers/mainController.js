@@ -19,6 +19,23 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
     $scope.prepArray = [];
     $scope.profArray = [];
 
+    $scope.selectedTeacher = {
+        name: SharingFactory.getSelectedTeacher().name,
+        course: SharingFactory.getSelectedTeacher().course,
+        id: SharingFactory.getSelectedTeacher().id
+    };
+    $scope.setTeacherPage = function (teacher) {
+        SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID);
+        $scope.atmos = teacher.Avg_Atmosphere;
+        $scope.help = teacher.Avg_Helpfulness;
+        $scope.prof = teacher.Avg_Professionalism;
+        $scope.lec = teacher.Avg_Lectures;
+        $scope.prep = teacher.Avg_Preparation;
+        $scope.total = teacher.Total;
+    };
+	
+	$scope.limit = 2;
+
 	$scope.selectedTeacher = {name:SharingFactory.getSelectedTeacher().name, course: SharingFactory.getSelectedTeacher().course, id: SharingFactory.getSelectedTeacher().id, atmos: SharingFactory.getSelectedTeacher().atmos, help: SharingFactory.getSelectedTeacher().help, prof: SharingFactory.getSelectedTeacher().prof, lec: SharingFactory.getSelectedTeacher().lec, prep: SharingFactory.getSelectedTeacher().prep, total: SharingFactory.getSelectedTeacher().total};
 	$scope.setTeacherPage = function(teacher){
 		SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID, teacher.Avg_Atmosphere, teacher.Avg_Helpfulness, teacher.Avg_Professionalism, teacher.Avg_Lectures, teacher, teacher.Avg_Preparation, teacher.Total);
@@ -203,6 +220,10 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
             UserID: userID,
             Vote: 'False'
         });
+    };
+	
+	$scope.more = function () {
+			$scope.limit = $scope.reviews.length;
     };
 
 }]);
