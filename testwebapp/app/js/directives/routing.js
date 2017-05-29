@@ -16,11 +16,12 @@ app.config(function ($routeProvider,$locationProvider) {
        })
         .when('/explore', {
             templateUrl : 'templates/explore.html',
-            controller: ''
+            controller: 'MainController',
         })
         .when('/profile', {
             templateUrl : 'templates/profile.html',
             controller: 'ProfileController',
+			controller: 'MainController',
             resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -34,6 +35,7 @@ app.config(function ($routeProvider,$locationProvider) {
         .when('/profileSettings', {
             templateUrl : 'templates/profileSettings.html',
             controller: 'ProfileSettingsController',
+			controller: 'MainController',
             resolve: {
 
                 "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -47,6 +49,7 @@ app.config(function ($routeProvider,$locationProvider) {
         .when('/faq', {
             templateUrl : 'templates/faq.html',
             controller: 'FaqController',
+			controller: 'MainController',
             /*resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -59,7 +62,7 @@ app.config(function ($routeProvider,$locationProvider) {
         })
         .when('/contact', {
             templateUrl : 'templates/contact.html',
-            controller: '',
+            controller: 'MainController',
             resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
