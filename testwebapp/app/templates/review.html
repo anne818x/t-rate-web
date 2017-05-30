@@ -145,9 +145,12 @@
 
                         <div class="btn-group" style="width:100%">
                             <button class="btn btn-default glyphicon glyphicon-plus" ng-click="upvote(teacherReview.reviewID);"></button>
-                            <button class="btn btn-default glyphicon glyphicon-minus" ng-click="downvote(teacherReview.reviewID)"></button>
+                            <button class="btn btn-default glyphicon glyphicon-minus" ng-click="downvote(teacherReview.reviewID);"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal"
                                     data-target="#reportModal" ng-controller="ReportController" ng-click="selectedReview(teacherReview.reviewID)"></button>
+                        </div>
+                        <div class="btn-group" style="width:100%">
+                            <span class="label label-info">Total upvotes: {{teacherReview.voteScore}}</span>
                         </div>
                     </div>
                 </div>
