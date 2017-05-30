@@ -41,7 +41,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	$scope.selectedTeacher = {name:SharingFactory.getSelectedTeacher().name, course: SharingFactory.getSelectedTeacher().course, id: SharingFactory.getSelectedTeacher().id, atmos: SharingFactory.getSelectedTeacher().atmos, help: SharingFactory.getSelectedTeacher().help, prof: SharingFactory.getSelectedTeacher().prof, lec: SharingFactory.getSelectedTeacher().lec, prep: SharingFactory.getSelectedTeacher().prep, total: SharingFactory.getSelectedTeacher().total};
 	$scope.setTeacherPage = function(teacher){
-		SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID, teacher.Avg_Atmosphere, teacher.Avg_Helpfulness, teacher.Avg_Professionalism, teacher.Avg_Lectures, teacher, teacher.Avg_Preparation, teacher.Total);
+		SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID, teacher.AvgAtmos, teacher.AvgHelp, teacher.AvgProf, teacher.AvgLec, teacher.AvgPrep, teacher.Total);
 	}
 	
 	taglineGenerate();
@@ -255,8 +255,13 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 }
 	$scope.tag = tagline;
 }
-	
-	
-	
+
+
+	$scope.avgatmos = Math.round($scope.selectedTeacher.atmos *2)/2;
+	$scope.avghelp = Math.round($scope.selectedTeacher.help *2)/2;
+	$scope.avglec = Math.round($scope.selectedTeacher.lec *2)/2;
+	$scope.avgprep = Math.round($scope.selectedTeacher.prep *2)/2;
+	$scope.avgprof = Math.round($scope.selectedTeacher.prof *2)/2;
+	$scope.avgtotal = Math.round($scope.selectedTeacher.total *2)/2;
 
 }]);
