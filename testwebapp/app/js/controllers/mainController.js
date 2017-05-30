@@ -18,21 +18,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
     $scope.lecArray = [];
     $scope.prepArray = [];
     $scope.profArray = [];
-
-    $scope.selectedTeacher = {
-        name: SharingFactory.getSelectedTeacher().name,
-        course: SharingFactory.getSelectedTeacher().course,
-        id: SharingFactory.getSelectedTeacher().id
-    };
-    $scope.setTeacherPage = function (teacher) {
-        SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID);
-        $scope.atmos = teacher.Avg_Atmosphere;
-        $scope.help = teacher.Avg_Helpfulness;
-        $scope.prof = teacher.Avg_Professionalism;
-        $scope.lec = teacher.Avg_Lectures;
-        $scope.prep = teacher.Avg_Preparation;
-        $scope.total = teacher.Total;
-    };
 	
 	$scope.limit = 2;
 	$scope.tag="";
