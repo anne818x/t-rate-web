@@ -104,49 +104,27 @@
                     <h3 class="panel-title">Top rated teacher</h3>
                 </div>
                 <div class="panel-body">
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                        magna mollis euismod. Donec sed odio dui.</p>
-                    <table class="table table-condensed">
-                        <tbody>
-                        <tr>
-                            <th>Atmosphere</th>
-                            <td>
-                                ****
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Helpfulness</th>
-                            <td>
-                                *****
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Lectures</th>
-                            <td>****</td>
-                        </tr>
-                        <tr>
-                            <th>Preparation</th>
-                            <td>*</td>
-                        </tr>
-                        <tr>
-                            <th>Professionalism</th>
-                            <td>***</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <p>Teacher: {{topRatedTeach.name}}</p>
+                    <p>Course: {{topRatedTeach.course}}</p>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{topRatedTeach.atmos}}star.png" height="15"></h6>
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Helpfulness  <img class="pull-right" ng-src="images/stars/{{topRatedTeach.help}}star.png" height="15"></h6> 
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Lectures <img class="pull-right" ng-src="images/stars/{{topRatedTeach.lec}}star.png" height="15"></h6>  
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Preparation <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prep}}star.png" height="15"></h6>     
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prof}}star.png" height="15"></h6>
+                            
+                        </div>
                     <p> Comments: </p>
-                    <p class="emptyborder"><i>
-                        <small>"GREAT TEACHER!!!!!"</small>
-                    </i></p>
-                    <p class="emptyborder"><i>
-                        <small>"A longer comment. Sed lacus ipsum, dapibus sed luctus in, sollicitudin maximus turpis.
-                            Pellentesque ac massa vestibulum, vehicula odio ut, consectetur eros. Nullam felis massa,
-                            dignissim ac dolor non, vehicula tincidunt ante."
-                        </small>
-                    </i></p>
-                    <p class="emptyborder"><i>
-                        <small>"Yes yes yes"</small>
+                    <p class="emptyborder" ng-repeat="comment in topRatedCom"><i>
+                        <small>{{comment.comment}}</small>
                     </i></p>
                     <a class="btn btn-default btn-sm" href="#">
                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;

@@ -5,7 +5,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.reviews = SharingFactory.getReviews();
 	$scope.date = $moment().format('YYYY-MM-DD');
 	$scope.teacherReviews = [];
-	
+	$scope.topRatedCom = [];
+	$scope.topRatedTeach = [];
+		
 	if(SharingFactory.getTeachers().length == undefined || SharingFactory.getReviews().length == undefined){
 		SharingFactory.setTeachers();
 		SharingFactory.setReviews();
@@ -44,6 +46,35 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID, teacher.AvgAtmos, teacher.AvgHelp, teacher.AvgProf, teacher.AvgLec, teacher.AvgPrep, teacher.Total);
 	}
 	
+
+	//set top rated
+	if ($scope.topRatedCom.length == 0) {
+		var highScore = 0;
+		for (var i = 0; i < $scope.teachers.length; i++)
+		{
+			if ($scope.teachers[i].Total > highScore) {
+				var atmos = Math.round($scope.teachers[i].AvgAtmos *2)/2;
+				var help = Math.round($scope.teachers[i].AvgHelp *2)/2;
+				var lec = Math.round($scope.teachers[i].AvgLec *2)/2;
+				var prep = Math.round($scope.teachers[i].AvgPrep *2)/2;
+				var prof = Math.round($scope.teachers[i].AvgProf *2)/2;
+				var total = Math.round($scope.teachers[i].Total *2)/2;
+				$scope.topRatedTeach = {name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total}; 
+				highScore = $scope.teachers[i].Total;
+				console.log($scope.topRatedTeach);
+			}
+		}
+		console.log($scope.topRatedTeach.name);
+		console.log("high score is: " + highScore);
+
+		for (var i = 0; i < $scope.reviews.length; i++){
+			if($scope.reviews[i].TeacherID == $scope.topRatedTeach.id){
+				$scope.topRatedCom.push({comment: $scope.reviews[i].Comment});
+			}
+		}
+		console.log($scope.topRatedCom);
+	}
+
 	taglineGenerate();
 
     //var ref = firebase.database().ref("UpVotes");
