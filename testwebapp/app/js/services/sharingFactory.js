@@ -13,6 +13,8 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
 
+    var userVotes = [];
+
     sharingFactory.setUserData = function () {
         var fbUser = firebase.auth().currentUser;
         if (fbUser) {
@@ -71,7 +73,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
         });
     };
 
-    <!--Retrieve Stenden Locations from cloud-->
+    /*Retrieve Stenden Locations from cloud*/
     sharingFactory.setLocations = function () {
         $http.get(locationsUrl).then(function (data) {
             locations = data.data;
@@ -82,7 +84,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
         return locations;
     };
 
-    <!--Retrieve Stenden Courses from cloud-->
+    /*Retrieve Stenden Courses from cloud*/
     sharingFactory.setCourses = function () {
         $http.get(coursesUrl).then(function (data) {
             courses = data.data;
@@ -98,12 +100,53 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     }
 
     sharingFactory.setSelectedTeacher = function (name, id, course, atmos, help, prof, lec, prep, total) {
-        selectedTeacher = {name: name, id: id, course: course, atmos: atmos, help: help, prof: prof, lec: lec, prep: prep, total: total};
+        selectedTeacher = { name: name, id: id, course: course, atmos: atmos, help: help, prof: prof, lec: lec, prep: prep, total: total };
     }
 
     sharingFactory.getSelectedTeacher = function () {
         return selectedTeacher;
     }
+
+    sharingFactory.setUserVotes = function () {
+        if (sharingFactory.getUserData().UserID != null) {
+            var ref = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(sharingFactory.getUserData().UserID);
+            ref.on('value', function (snapshot) {
+                //console.log(snapshot.val());
+                snapshot.forEach(function (child) {
+                    var item = child.val();
+                    var key = child.getKey();
+                    //console.log(key);
+                    userVotes.push({ Key: key, Review_ID: item.Review_ID, Vote: item.Vote });
+                });
+            });
+        }
+    }
+
+    sharingFactory.getUserVotes = function () {
+        return userVotes;
+    };
+
+    /*    sharingFactory.setReviewVotes = function (reviewID) {
+            var ref = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo(reviewID);
+            ref.on('value', function (snapshot) {
+                //console.log(snapshot.val());
+                snapshot.forEach(function (child) {
+                    if (child.Vote == "True") {
+                        reviewVoteScore++;
+                    }
+                    else if (child.Vote == "False") {
+                        reviewVoteScore--;
+                    }
+                    else {
+                        reviewVoteScore += 0;
+                    }
+                });
+            });
+        }
+    
+        sharingFactory.getReviewVotes = function () {
+            return reviewVoteScore;
+        }*/
 
     return sharingFactory;
 }]);
