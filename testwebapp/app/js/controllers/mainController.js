@@ -15,8 +15,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	SharingFactory.setSignedIn();
 	SharingFactory.setUserData();
 	SharingFactory.setUserVotes();
- 	$scope.userVotes = SharingFactory.getUserVotes();
-	
+	$scope.userVotes = SharingFactory.getUserVotes();
+	$scope.tag = SharingFactory.getTagline();
 
 	$scope.helpArray = [];
 	$scope.atmosArray = [];
@@ -24,25 +24,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.prepArray = [];
 	$scope.profArray = [];
 
-	$scope.selectedTeacher = {
-		name: SharingFactory.getSelectedTeacher().name,
-		course: SharingFactory.getSelectedTeacher().course,
-		id: SharingFactory.getSelectedTeacher().id
-	};
-	$scope.setTeacherPage = function (teacher) {
-		SharingFactory.setSelectedTeacher(teacher.TeachName, teacher.TeacherID, teacher.CourseID);
-		$scope.atmos = teacher.Avg_Atmosphere;
-		$scope.help = teacher.Avg_Helpfulness;
-		$scope.prof = teacher.Avg_Professionalism;
-		$scope.lec = teacher.Avg_Lectures;
-		$scope.prep = teacher.Avg_Preparation;
-		$scope.total = teacher.Total;
-	};
-
 	$scope.limit = 2;
-	$scope.tag = "";
-
-
 
 	$scope.selectedTeacher = { name: SharingFactory.getSelectedTeacher().name, course: SharingFactory.getSelectedTeacher().course, id: SharingFactory.getSelectedTeacher().id, atmos: SharingFactory.getSelectedTeacher().atmos, help: SharingFactory.getSelectedTeacher().help, prof: SharingFactory.getSelectedTeacher().prof, lec: SharingFactory.getSelectedTeacher().lec, prep: SharingFactory.getSelectedTeacher().prep, total: SharingFactory.getSelectedTeacher().total };
 	$scope.setTeacherPage = function (teacher) {
@@ -77,12 +59,66 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		console.log($scope.topRatedCom);
 	}
 
-	taglineGenerate();
+	$scope.calcWeightedAvg = function (weight, star, array) {
 
-	//var ref = firebase.database().ref("UpVotes");
-	//console.log(ref);
-	//var votes = ref.orderByChild('UserID').equalTo(SharingFactory.getUserData().UserID);
-	//console.log(votes.toJSON());
+		$scope.scoreByWeight = 0;
+		$scope.sumOfWeight = 0;
+
+		for (var i = 0; i < array.length; i++) {
+			$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
+			console.log("value: " + array[i].value + " weight: " + array[i].weight);
+			$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
+		}
+		$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
+		$scope.sumOfWeight = $scope.sumOfWeight + weight;
+		$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
+		console.log("avg: " + $scope.avg);
+		console.log("score by weight: " + $scope.scoreByWeight);
+		return $scope.avg;
+	}
+
+
+	//display dynamic reviews		
+	for (var i = 0; i < $scope.reviews.length; i++) {
+
+		//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
+		if ($scope.reviews[i].TeacherID == $scope.selectedTeacher.id) {
+			var theid = $scope.reviews[i].TeacherID;
+			//console.log($scope.reviews[i].TeacherID);
+			//console.log($scope.selectedTeacher.id);
+			var reviewVoteScore = 0;
+
+			var ref = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo($scope.reviews[i].ReviewID);
+			ref.on('value', function (snapshot) {
+				console.log(snapshot.val());
+				snapshot.forEach(function (child) {
+					console.log(child.val().Vote);
+					if (child.val().Vote == "True") {
+						reviewVoteScore++;
+					}
+					else if (child.val().Vote == "False") {
+						reviewVoteScore--;
+					}
+					console.log(reviewVoteScore);
+				});
+			});
+
+			$scope.teacherReviews.push({
+				reviewID: $scope.reviews[i].ReviewID,
+				//teachId: $scope.reviews[i].TeacherID,
+				com: $scope.reviews[i].Comment,
+				//date: $scope.reviews[i].Date,
+				//userId: $scope.reviews[i].userID,
+				atmos: $scope.reviews[i].Atmos,
+				help: $scope.reviews[i].Help,
+				lec: $scope.reviews[i].Lec,
+				prep: $scope.reviews[i].Prep,
+				prof: $scope.reviews[i].Prof,
+				voteScore: reviewVoteScore
+			});
+		}
+	}
+
 
 	//*********************************Adding Review Area****************************************
 
@@ -152,7 +188,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				}
 
 			}
-
 			//get avergae
 			$scope.helpAvg = $scope.calcWeightedAvg(weight, he_rating, $scope.helpArray);
 			$scope.prepAvg = $scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray);
@@ -185,189 +220,104 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			$.each(arr, function (index, value) {
 				$(value).removeClass('active');
 			});
+
+
 		}
-	};
-
-	$scope.calcWeightedAvg = function (weight, star, array) {
-
-		$scope.scoreByWeight = 0;
-		$scope.sumOfWeight = 0;
-
-		for (var i = 0; i < array.length; i++) {
-			$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
-			console.log("value: " + array[i].value + " weight: " + array[i].weight);
-			$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
-		}
-		$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
-		$scope.sumOfWeight = $scope.sumOfWeight + weight;
-		$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
-		console.log("avg: " + $scope.avg);
-		console.log("score by weight: " + $scope.scoreByWeight);
-		return $scope.avg;
 	}
 
 
-	//display dynamic reviews		
-	for (var i = 0; i < $scope.reviews.length; i++) {
+		/*$('#reviewModal').on('hidden.bs.modal', function() {
+			// refresh to see new review on review page
+			location.reload();
+		})*/
+		/*********************************Voting of reviews****************************************/
+		// TODO Refactor into one method maybe?
+		$scope.upvote = function (reviewID) {
+			var userID = SharingFactory.getUserData().UserID;
+			var updateKey = "";
+			var voteUpdate = false;
+			var vote = "";
 
-		//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
-		if ($scope.reviews[i].TeacherID == $scope.selectedTeacher.id) {
-			var theid = $scope.reviews[i].TeacherID;
-			//console.log($scope.reviews[i].TeacherID);
-			//console.log($scope.selectedTeacher.id);
-
-			var reviewVoteScore = 0;
-
-			var ref = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo($scope.reviews[i].ReviewID);
-			ref.on('value', function (snapshot) {
-				console.log(snapshot.val());
-				snapshot.forEach(function (child) {
-					console.log(child.val().Vote);
-					if (child.val().Vote == "True") {
-						reviewVoteScore++;
+			$scope.userVotes.forEach(function (element) {
+				//console.log(element); //TODO Insane quantity of calls?!?!?
+				if (element.Review_ID == reviewID) {
+					if (element.Vote == "False" || element.Vote == "Null") {
+						vote = "True"
+						voteUpdate = true;
+						updateKey = element.Key;
 					}
-					else if (child.val().Vote == "False") {
-						reviewVoteScore--;
+					else if (element.Vote == "True") {
+						vote = "Null";
+						voteUpdate = true;
+						updateKey = element.Key;
 					}
-					console.log(reviewVoteScore);
+				}
+			}, this);
+
+			if (voteUpdate == true) {
+				firebase.database().ref('Votes/' + updateKey).set({
+					Review_ID: reviewID,
+					UserID: userID,
+					Vote: vote
 				});
-			});
-
-			$scope.teacherReviews.push({
-				reviewID: $scope.reviews[i].ReviewID,
-				//teachId: $scope.reviews[i].TeacherID,
-				com: $scope.reviews[i].Comment,
-				//date: $scope.reviews[i].Date,
-				//userId: $scope.reviews[i].userID,
-				atmos: $scope.reviews[i].Atmos,
-				help: $scope.reviews[i].Help,
-				lec: $scope.reviews[i].Lec,
-				prep: $scope.reviews[i].Prep,
-				prof: $scope.reviews[i].Prof,
-				voteScore: reviewVoteScore
-			});
-		}
-
-	}
-
-
-	/*$('#reviewModal').on('hidden.bs.modal', function() {
-		// refresh to see new review on review page
-		location.reload();
-	})*/
-	/*********************************Voting of reviews****************************************/
-	// TODO Refactor into one method maybe?
-	$scope.upvote = function (reviewID) {
-		var userID = SharingFactory.getUserData().UserID;
-		var updateKey = "";
-		var voteUpdate = false;
-		var vote = "";
-
-		$scope.userVotes.forEach(function (element) {
-			//console.log(element); //TODO Insane quantity of calls?!?!?
-			if (element.Review_ID == reviewID) {
-				if (element.Vote == "False" || element.Vote == "Null") {
-					vote = "True"
-					voteUpdate = true;
-					updateKey = element.Key;
-				}
-				else if (element.Vote == "True") {
-					vote = "Null";
-					voteUpdate = true;
-					updateKey = element.Key;
-				}
 			}
-		}, this);
-
-		if (voteUpdate == true) {
-			firebase.database().ref('Votes/' + updateKey).set({
-				Review_ID: reviewID,
-				UserID: userID,
-				Vote: vote
-			});
-		}
-		else {
-			firebase.database().ref('Votes/').push({
-				Review_ID: reviewID,
-				UserID: userID,
-				Vote: 'True'
-			});
-		}
-	};
-
-	$scope.downvote = function (reviewID) {
-		var userID = SharingFactory.getUserData().UserID;
-		var updateKey = "";
-		var voteUpdate = false;
-		var vote = "";
-
-		$scope.userVotes.forEach(function (element) {
-			//console.log(element);
-			if (element.Review_ID == reviewID) {
-				if (element.Vote == "True" || element.Vote == "Null") {
-					vote = "False"
-					voteUpdate = true;
-					updateKey = element.Key;
-				}
-				else if (element.Vote == "False") {
-					vote = "Null";
-					voteUpdate = true;
-					updateKey = element.Key;
-				}
+			else {
+				firebase.database().ref('Votes/').push({
+					Review_ID: reviewID,
+					UserID: userID,
+					Vote: 'True'
+				});
 			}
-		}, this);
+		};
 
-		if (voteUpdate == true) {
-			firebase.database().ref('Votes/' + updateKey).set({
-				Review_ID: reviewID,
-				UserID: userID,
-				Vote: vote
-			});
-		}
-		else {
-			firebase.database().ref('Votes/').push({
-				Review_ID: reviewID,
-				UserID: userID,
-				Vote: 'True'
-			});
-		}
-	};
+		$scope.downvote = function (reviewID) {
+			var userID = SharingFactory.getUserData().UserID;
+			var updateKey = "";
+			var voteUpdate = false;
+			var vote = "";
 
-	$scope.more = function () {
+			$scope.userVotes.forEach(function (element) {
+				//console.log(element);
+				if (element.Review_ID == reviewID) {
+					if (element.Vote == "True" || element.Vote == "Null") {
+						vote = "False"
+						voteUpdate = true;
+						updateKey = element.Key;
+					}
+					else if (element.Vote == "False") {
+						vote = "Null";
+						voteUpdate = true;
+						updateKey = element.Key;
+					}
+				}
+			}, this);
+
+			if (voteUpdate == true) {
+				firebase.database().ref('Votes/' + updateKey).set({
+					Review_ID: reviewID,
+					UserID: userID,
+					Vote: vote
+				});
+			}
+			else {
+				firebase.database().ref('Votes/').push({
+					Review_ID: reviewID,
+					UserID: userID,
+					Vote: 'True'
+				});
+			}
+		};
+
+		$scope.more = function () {
+			$scope.limit = $scope.reviews.length;
+		};
+
+		$scope.avgatmos = Math.round($scope.selectedTeacher.atmos * 2) / 2;
+		$scope.avghelp = Math.round($scope.selectedTeacher.help * 2) / 2;
+		$scope.avglec = Math.round($scope.selectedTeacher.lec * 2) / 2;
+		$scope.avgprep = Math.round($scope.selectedTeacher.prep * 2) / 2;
+		$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
+		$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;
 		$scope.limit = $scope.reviews.length;
-	};
 
-	function taglineGenerate() {
-		var x = Math.floor((Math.random() * 5) + 1);
-		var tagline;
-		switch (x) {
-			case 1:
-				tagline = '“We all need people who will give us feedback. That’s how we improve.” - Bill Gates';
-				break;
-			case 2:
-				tagline = '“Criticism, like rain, should be gentle enough to nourish a man’s growth without destroying his roots.” - Frank A. Clark';
-				break;
-			case 3:
-				tagline = '“Negative feedback can make us bitter or better." - Robin Sharma';
-				break;
-			case 4:
-				tagline = '“The key to learning is feedback. It is nearly impossible to learn anything without it.” - Steven Levitt';
-				break;
-			case 5:
-				tagline = '“Feedback is a gift you don\'t always have to accept.” - Amanda Brown';
-				break;
-			default:
-				tagline = "";
-		}
-		$scope.tag = tagline;
-	}
-
-
-	$scope.avgatmos = Math.round($scope.selectedTeacher.atmos * 2) / 2;
-	$scope.avghelp = Math.round($scope.selectedTeacher.help * 2) / 2;
-	$scope.avglec = Math.round($scope.selectedTeacher.lec * 2) / 2;
-	$scope.avgprep = Math.round($scope.selectedTeacher.prep * 2) / 2;
-	$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
-	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;
-
-}]);
+	}]);

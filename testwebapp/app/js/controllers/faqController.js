@@ -4,4 +4,5 @@ angular.module('myApp').controller('FaqController', ['$scope', '$http', 'Sharing
 
     $scope.IsSignedIn = SharingFactory.getSignedIn();
     $scope.userData = SharingFactory.getUserData();
+	$scope.tag = SharingFactory.getTagline();
 }]);

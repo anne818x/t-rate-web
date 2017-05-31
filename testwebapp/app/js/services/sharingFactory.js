@@ -12,6 +12,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var locationsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveLocation";
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
+	var tag = "";
 
     var userVotes = [];
 
@@ -106,6 +107,37 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.getSelectedTeacher = function () {
         return selectedTeacher;
     }
+	
+	sharingFactory.setTagline = function() {
+    var x = Math.floor((Math.random() * 5) + 1);
+	var tagline;
+    switch(x) {
+    case 1:
+        tagline = '“We all need people who will give us feedback. That’s how we improve.” - Bill Gates';
+        break;
+    case 2:
+        tagline = '“Criticism, like rain, should be gentle enough to nourish a man’s growth without destroying his roots.” - Frank A. Clark';
+        break;
+	case 3:
+        tagline = '“Negative feedback can make us bitter or better." - Robin Sharma';
+        break;
+	case 4:
+        tagline = '“The key to learning is feedback. It is nearly impossible to learn anything without it.” - Steven Levitt';
+        break;
+	case 5:
+        tagline = '“Feedback is a gift you don\'t always have to accept.” - Amanda Brown';
+        break;
+    default:
+        tagline ="";
+	}
+	tag = tagline;
+	}
+	
+	sharingFactory.getTagline = function(){
+		sharingFactory.setTagline();
+		console.log(tag);
+		return tag;
+	}
 
     sharingFactory.setUserVotes = function () {
         if (sharingFactory.getUserData().UserID != null) {
