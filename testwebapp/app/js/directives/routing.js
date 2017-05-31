@@ -21,7 +21,6 @@ app.config(function ($routeProvider,$locationProvider) {
         .when('/profile', {
             templateUrl : 'templates/profile.html',
             controller: 'ProfileController',
-			controller: 'MainController',
             resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -35,7 +34,7 @@ app.config(function ($routeProvider,$locationProvider) {
         .when('/profileSettings', {
             templateUrl : 'templates/profileSettings.html',
             controller: 'ProfileSettingsController',
-			controller: 'MainController',
+
             resolve: {
 
                 "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -49,7 +48,6 @@ app.config(function ($routeProvider,$locationProvider) {
         .when('/faq', {
             templateUrl : 'templates/faq.html',
             controller: 'FaqController',
-			controller: 'MainController',
             /*resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {

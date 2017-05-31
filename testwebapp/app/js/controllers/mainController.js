@@ -14,6 +14,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	}
 	SharingFactory.setSignedIn();
     SharingFactory.setUserData();
+	$scope.tag = SharingFactory.getTagline();
 
     $scope.helpArray = [];
     $scope.atmosArray = [];
@@ -37,7 +38,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
     };
 	
 	$scope.limit = 2;
-	$scope.tag="";
+	
 	
 	
 
@@ -74,8 +75,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		}
 		console.log($scope.topRatedCom);
 	}
-
-	taglineGenerate();
 
     //var ref = firebase.database().ref("UpVotes");
     //console.log(ref);
@@ -261,31 +260,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.more = function () {
 			$scope.limit = $scope.reviews.length;
     };
-	
-	function taglineGenerate() {
-    var x = Math.floor((Math.random() * 5) + 1);
-	var tagline;
-    switch(x) {
-    case 1:
-        tagline = '“We all need people who will give us feedback. That’s how we improve.” - Bill Gates';
-        break;
-    case 2:
-        tagline = '“Criticism, like rain, should be gentle enough to nourish a man’s growth without destroying his roots.” - Frank A. Clark';
-        break;
-	case 3:
-        tagline = '“Negative feedback can make us bitter or better." - Robin Sharma';
-        break;
-	case 4:
-        tagline = '“The key to learning is feedback. It is nearly impossible to learn anything without it.” - Steven Levitt';
-        break;
-	case 5:
-        tagline = '“Feedback is a gift you don\'t always have to accept.” - Amanda Brown';
-        break;
-    default:
-        tagline ="";
-}
-	$scope.tag = tagline;
-}
 
 
 	$scope.avgatmos = Math.round($scope.selectedTeacher.atmos *2)/2;

@@ -4,5 +4,6 @@ angular.module('myApp').controller('ProfileController', ['$scope', '$location', 
 
 	$scope.username = SharingFactory.getUser();
     $scope.userData = SharingFactory.getUserData();
+	$scope.tag = SharingFactory.getTagline();
 
 }]);

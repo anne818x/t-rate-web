@@ -4,6 +4,7 @@ app.controller('ProfileSettingsController', ['$scope', '$location', '$window', '
     $scope.currentLocationID = "";
     $scope.currentCourse = "Select Course";
     $scope.currentCourseID = "";
+	$scope.tag = SharingFactory.getTagline();
 
     var fbUser = firebase.auth().currentUser;
 
