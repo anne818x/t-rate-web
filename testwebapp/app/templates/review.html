@@ -145,8 +145,10 @@
                         </br>
 
                         <div class="btn-group" style="width:100%">
-                            <button class="btn btn-default glyphicon glyphicon-plus" ng-click="upvote(teacherReview.reviewID);"></button>
-                            <button class="btn btn-default glyphicon glyphicon-minus" ng-click="downvote(teacherReview.reviewID);"></button>
+                            <button class="btn btn-default glyphicon glyphicon-plus" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
+                                ng-click="upvote(teacherReview.reviewID);"></button>
+                            <button class="btn btn-default glyphicon glyphicon-minus" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
+                                ng-click="downvote(teacherReview.reviewID);"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal" data-target="#reportModal" ng-controller="ReportController"
                                 ng-click="selectedReview(teacherReview.reviewID)"></button>
                         </div>
@@ -357,4 +359,5 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+
 </script>

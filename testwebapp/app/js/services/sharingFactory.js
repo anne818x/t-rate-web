@@ -12,9 +12,9 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var locationsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveLocation";
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
-	var tag = "";
+    var tag = "";
 
-    var userVotes = [];
+    var userVotes;
 
     sharingFactory.setUserData = function () {
         var fbUser = firebase.auth().currentUser;
@@ -107,47 +107,46 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.getSelectedTeacher = function () {
         return selectedTeacher;
     }
-	
-	sharingFactory.setTagline = function() {
-    var x = Math.floor((Math.random() * 5) + 1);
-	var tagline;
-    switch(x) {
-    case 1:
-        tagline = '“We all need people who will give us feedback. That’s how we improve.” - Bill Gates';
-        break;
-    case 2:
-        tagline = '“Criticism, like rain, should be gentle enough to nourish a man’s growth without destroying his roots.” - Frank A. Clark';
-        break;
-	case 3:
-        tagline = '“Negative feedback can make us bitter or better." - Robin Sharma';
-        break;
-	case 4:
-        tagline = '“The key to learning is feedback. It is nearly impossible to learn anything without it.” - Steven Levitt';
-        break;
-	case 5:
-        tagline = '“Feedback is a gift you don\'t always have to accept.” - Amanda Brown';
-        break;
-    default:
-        tagline ="";
-	}
-	tag = tagline;
-	}
-	
-	sharingFactory.getTagline = function(){
-		sharingFactory.setTagline();
-		console.log(tag);
-		return tag;
-	}
+
+    sharingFactory.setTagline = function () {
+        var x = Math.floor((Math.random() * 5) + 1);
+        var tagline;
+        switch (x) {
+            case 1:
+                tagline = '“We all need people who will give us feedback. That’s how we improve.” - Bill Gates';
+                break;
+            case 2:
+                tagline = '“Criticism, like rain, should be gentle enough to nourish a man’s growth without destroying his roots.” - Frank A. Clark';
+                break;
+            case 3:
+                tagline = '“Negative feedback can make us bitter or better." - Robin Sharma';
+                break;
+            case 4:
+                tagline = '“The key to learning is feedback. It is nearly impossible to learn anything without it.” - Steven Levitt';
+                break;
+            case 5:
+                tagline = '“Feedback is a gift you don\'t always have to accept.” - Amanda Brown';
+                break;
+            default:
+                tagline = "";
+        }
+        tag = tagline;
+    }
+
+    sharingFactory.getTagline = function () {
+        sharingFactory.setTagline();
+        console.log(tag);
+        return tag;
+    }
 
     sharingFactory.setUserVotes = function () {
+        userVotes = [];
         if (sharingFactory.getUserData().UserID != null) {
             var ref = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(sharingFactory.getUserData().UserID);
             ref.on('value', function (snapshot) {
-                //console.log(snapshot.val());
                 snapshot.forEach(function (child) {
                     var item = child.val();
                     var key = child.getKey();
-                    //console.log(key);
                     userVotes.push({ Key: key, Review_ID: item.Review_ID, Vote: item.Vote });
                 });
             });
@@ -157,28 +156,6 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.getUserVotes = function () {
         return userVotes;
     };
-
-    /*    sharingFactory.setReviewVotes = function (reviewID) {
-            var ref = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo(reviewID);
-            ref.on('value', function (snapshot) {
-                //console.log(snapshot.val());
-                snapshot.forEach(function (child) {
-                    if (child.Vote == "True") {
-                        reviewVoteScore++;
-                    }
-                    else if (child.Vote == "False") {
-                        reviewVoteScore--;
-                    }
-                    else {
-                        reviewVoteScore += 0;
-                    }
-                });
-            });
-        }
-    
-        sharingFactory.getReviewVotes = function () {
-            return reviewVoteScore;
-        }*/
 
     return sharingFactory;
 }]);
