@@ -5,6 +5,8 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var courses = {};
     var reviews = {};
     var user = "";
+	var reports = {};
+	var requests = {};
     var signedIn = false;
     var selectedTeacher = {};
     var currentUser = {};
@@ -12,7 +14,9 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var locationsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveLocation";
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
-    var tag = "";
+    var reportsUrl = "https://us-central1-t-rate.cloudfunctions.net/reportData";
+	var requestsUrl = "https://us-central1-t-rate.cloudfunctions.net/requestData";
+	var tag = "";
 
     var userVotes;
 
@@ -99,6 +103,10 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.pushToDb = function (data, ref) {
         ref.push(data);
     }
+	
+	sharingFactory.removeFromDb = function (ref) {
+		ref.remove();
+	}
 
     sharingFactory.setSelectedTeacher = function (name, id, course, atmos, help, prof, lec, prep, total) {
         selectedTeacher = { name: name, id: id, course: course, atmos: atmos, help: help, prof: prof, lec: lec, prep: prep, total: total };
@@ -156,6 +164,27 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.getUserVotes = function () {
         return userVotes;
     };
+	
+	sharingFactory.getReports = function () {
+        return reports;
+    };
+
+    sharingFactory.setReports = function () {
+        $http.get(reportsUrl).then(function (data) {
+            reports = data.data;
+        });
+    };
+	
+	sharingFactory.getRequests = function () {
+        return requests;
+    };
+
+    sharingFactory.setRequests = function () {
+        $http.get(requestsUrl).then(function (data) {
+            requests = data.data;
+        });
+    };
+
 
     return sharingFactory;
 }]);

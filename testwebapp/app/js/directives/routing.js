@@ -84,9 +84,17 @@ app.config(function ($routeProvider,$locationProvider) {
             }]
         }
         })
-        .when('/admin', {
-            templateUrl : 'templates/admin.html',
-            controller: ''
+        .when('/adminhome', {
+            templateUrl : 'templates/adminhome.html',
+            controller: 'adminController',
+        })
+		.when('/adminreports', {
+            templateUrl : 'templates/adminreports.html',
+            controller: 'adminController',
+        })
+		.when('/adminrequests', {
+            templateUrl : 'templates/adminrequests.html',
+            controller: 'adminController',
         })
         .otherwise({
             redirectTo : '/home'

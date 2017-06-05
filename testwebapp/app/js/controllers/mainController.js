@@ -7,6 +7,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.teacherReviews = [];
 	$scope.topRatedCom = [];
 	$scope.topRatedTeach = [];
+	
+	SharingFactory.setCourses();
+	SharingFactory.setRequests();
+	$scope.courses = SharingFactory.getCourses();
+	$scope.requests = SharingFactory.getRequests();
 
 	if (SharingFactory.getTeachers().length == undefined || SharingFactory.getReviews().length == undefined) {
 		SharingFactory.setTeachers();
@@ -321,5 +326,38 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
 	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;
 	$scope.limit = $scope.reviews.length;
+	
+	$scope.selectedCourse = function (id, name) {
+				$scope.currentCourseID = id;
+				$scope.currentCourse = name;
+				};
+		
+		
+		$scope.addTeacher = function () {
+
+		if ($scope.teacher_name.length < 1) {
+			// error message text field empty or not enough characters
+			alert("this is where an error message would be if the text field is empty or there were not enough characters");
+		} else {
+			
+			    
+			// insert teacher to requests
+			
+			var data = {
+				TeachName: $scope.teacher_name,
+				CourseID: $scope.currentCourseID,
+				Status: "false",
+				Request_ID: $scope.requests.length + 1,
+			};
+
+			var ref = firebase.database().ref('Requests');
+			SharingFactory.pushToDb(data, ref);
+		}
+		
+
+
+		}
+
+
 
 }]);

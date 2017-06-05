@@ -149,7 +149,7 @@
                         <div class="input-group">
 
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
+                                <button class="btn btn-default" type="submit" data-toggle="modal" data-target="#addTeacherModal">
                                     <i class="glyphicon glyphicon-plus"></i> Add teacher
                                 </button>
                             </div>
@@ -188,3 +188,66 @@
         </div>
     </footer>
 </div>
+
+
+
+
+
+<!-- Modal -->
+        <div id="addTeacherModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Teacher missing? Add them here.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Add teacher</h3>
+                            </div>
+                            <div class="panel-body">
+                                <!-- Text area -->
+								<!-- Teacher Name-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Teacher Name</label>
+                                <div class="col-md-6 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input name="teacher_name" placeholder="Teacher Name" class="form-control"
+                                               type="text" ng-model="teacher_name">
+                                    </div>
+                                </div>
+                            </div>
+							</br>
+							</br>
+                            <div class="form-group">
+                        <label class="col-md-4 control-label">Course</label>
+                        <div class="col-md-6 inputGroupContainer">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{currentCourse}}
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
+                                    <li ng-repeat="item in courses" data-id="{{item.ID}}"
+                                        ng-click="selectedCourse(item.ID, item.Course)"><a>{{item.Course}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+					
+					<button type="submit" class="btn btn-success" ng-click="addTeacher()">Send
+                    </button>
+
+								
+                            </div>
+                        </div>
+						<p class="text-center small">Will be reviewed by administrator</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
