@@ -1,4 +1,4 @@
-angular.module('myApp').controller('ProfileController', ['$scope', '$location', 'SharingFactory', function ($scope, $location, SharingFactory) {
+angular.module('myApp').controller('ProfileController', ['$scope', '$location', 'SharingFactory', '$firebaseArray', function ($scope, $location, SharingFactory, $firebaseArray) {
 
 	SharingFactory.setUserData();
 
@@ -10,24 +10,20 @@ angular.module('myApp').controller('ProfileController', ['$scope', '$location', 
 	$scope.userReviews = [];
 	$scope.limit = 2;
 
-	firebase.database().ref("Reviews").orderByChild("userID").equalTo($scope.userData.UserID).on('value', function (snapshot) {
-		snapshot.forEach(function (element) {
-			var value = element.val();
+	var ref = firebase.database().ref("Reviews").orderByChild("userID").equalTo($scope.userData.UserID);
+	$scope.reviews = $firebaseArray(ref);
 
-			if (value.userID == $scope.userData.UserID) {
-				$scope.userReviews.push({
-					com: value.comment,
-					atmos: value.Atmosphere,
-					help: value.Helpfulness,
-					lec: value.Lectures,
-					prep: value.Preparation,
-					prof: value.Professionalism
-				});
-
-			}
-		});
-	});
-
+	$scope.deleteReview = function (reviewID) {
+		if (confirm("Are you sure you want to delete this review?") == true) {
+			var ref = firebase.database().ref('Reviews');
+			ref.orderByChild("Review_ID").equalTo(reviewID).on("child_added", function (snapshot) {
+				var removeReview = ref.child(snapshot.key);
+				SharingFactory.removeFromDb(removeReview);
+			});
+		} else {
+			
+		}
+	};
 
 	$scope.more = function () {
 		$scope.limit = $scope.userReviews.length;
