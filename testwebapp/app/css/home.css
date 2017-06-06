@@ -34,3 +34,7 @@ footer
 .noDisplay{
     display: none;
 }
+
+.tooltip{
+    min-width: 200px;
+}
