@@ -3,26 +3,27 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
-			</a>
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            </a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
                 </li>
-				<li>
+                <li>
                     <a href="#explore">Explore</a>
                 </li>
                 <li>
@@ -82,36 +83,43 @@
     <div class="row">
         </br>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Your most recent reviews</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="userReview in userReviews | limitTo: 4">
-                        <div class="well emptyborder" style="width: 100%; height: 8em; line-height: 1em; word-wrap: break-word;">
-                            <p><i>{{userReview.com}}</i></p>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="well well-sm" style="margin:0">
-                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{userReview.atmos}}star.png" height="15"></h6>
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Helpfulness  <img class="pull-right" ng-src="images/stars/{{userReview.help}}star.png" height="15"></h6> 
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Lectures <img class="pull-right" ng-src="images/stars/{{userReview.lec}}star.png" height="15"></h6>  
-                        </div>
-                            <div class="well well-sm" style="margin:0">
-                            <h6>Preparation <img class="pull-right" ng-src="images/stars/{{userReview.prep}}star.png" height="15"></h6>     
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{userReview.prof}}star.png" height="15"></h6>                          
-                        </div>   
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Your most recent reviews</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-5 well" style="margin:3%; margin-top:0;" ng-repeat="userReview in reviews | limitTo: 4">
+                    <div class="well emptyborder" style="width: 100%; height: 8em; line-height: 1em; word-wrap: break-word;">
+                        <p><i>{{userReview.comment}}</i></p>
                     </div>
-                </div>     
-            </div>    
+                    <div class="col-sm-12">
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{userReview.Atmosphere}}star.png" height="15"></h6>
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{userReview.Helpfulness}}star.png"
+                                    height="15"></h6>
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Lectures <img class="pull-right" ng-src="images/stars/{{userReview.Lectures}}star.png" height="15"></h6>
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Preparation <img class="pull-right" ng-src="images/stars/{{userReview.Preparation}}star.png"
+                                    height="15"></h6>
+                        </div>
+                        <div class="well well-sm" style="margin:0">
+                            <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{userReview.Professionalism}}star.png"
+                                    height="15"></h6>
+                        </div>
+                    </div>
+                    <div class="btn-group" style="width:100%; margin-top: 15px;">
+                        <button class="btn btn-danger glyphicon glyphicon-trash pull-right" data-toggle="tooltip" data-placement="left" title="Delete review"
+                            ng-click="deleteReview(userReview.Review_ID)"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
     <hr>
     <!-- Footer -->
     <footer>
@@ -123,43 +131,9 @@
     </footer>
 </div>
 
-<!-- Report Modal -->
-<div id="reportModal" ng-controller="ReportController" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Report review</h4>
-            </div>
-            <div class="modal-body">
-                <div class="panel-body">
-                    <form id="report" name="reportForm" role="form">
-                        <div class="input-group"
-                             ng-class="{'has-error' : reportForm.reportReason.$invalid && reportForm.reportReason.$touched, 'has-success' : reportForm.reportReason.$valid}">
-                                                    <span class="input-group-addon"><i
-                                                            class="glyphicon glyphicon-pencil"></i></span>
-                            <textarea id="reportReason" class="form-control" name="reportReason"
-                                      ng-model="reportReason"
-                                      placeholder="Write the reason for this report(min. 50 chars)"
-                                      required=""
-                                      minlength="50" maxlength="250" rows="5" style="resize: none"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" ng-disabled="reportForm.$invalid"
-                                style="width:100%; margin-top: 1%" ng-click="sendReport()"
-                                data-dismiss="modal">Send Report
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clear()" style="width:100%">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 
-
-     
+</script>
