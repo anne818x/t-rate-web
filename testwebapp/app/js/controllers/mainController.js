@@ -169,7 +169,32 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			// error message text field empty or not enough characters
 			alert("this is where an error message would be if the text field is empty or there were not enough characters");
 		} else {
-			// insert review to db
+			//check if review has been given to teacher during modle already
+			var existRev = false;
+			var ref = firebase.database().ref('Reviews');
+			ref.orderByChild("userID").equalTo(SharingFactory.getUserData().UserID).on("child_added", function (snapshot) {
+				var childKey = snapshot.child("TeacherID").val();
+				var childKey2 = snapshot.child("Date").val();
+				var mod1start = moment("2017-04-01");
+				var mod1end = moment("2017-06-24");
+				var reviewDate = moment(childKey2);
+				//console.log("date: " + reviewDate+ "date from firebase: " + childKey2);
+
+				if (childKey == $scope.selectedTeacher.id) {
+
+					if (reviewDate > mod1start && reviewDate < mod1end) {
+						existRev = true;
+					//console.log(childKey);
+					//console.log(" existing review: " + existRev);
+					
+					}
+				}
+			});
+			//if review been given do not add
+			if(existRev == true){
+				console.log("review exists for teacher");
+			}else{
+				// insert review to db
 			var data = {
 				Atmosphere: at_rating,
 				Date: $scope.date,
@@ -218,7 +243,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				Avg_Professionalism: $scope.profAvg,
 				Total: $scope.total
 			}).then(function (ref) {
-				console.log(ref);
 			}, function (error) {
 				console.log(error);
 			});
@@ -230,6 +254,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			$.each(arr, function (index, value) {
 				$(value).removeClass('active');
 			});
+			}
+
+			
 		}
 	}
 
