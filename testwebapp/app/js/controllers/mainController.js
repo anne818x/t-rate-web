@@ -7,6 +7,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.teacherReviews = [];
 	$scope.topRatedCom = [];
 	$scope.topRatedTeach = [];
+	$scope.currentCourse = "Select course";
 	
 	SharingFactory.setCourses();
 	SharingFactory.setRequests();
