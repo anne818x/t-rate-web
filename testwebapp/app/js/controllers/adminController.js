@@ -1,18 +1,10 @@
 app.controller('adminController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', function ($scope, $location, $window, SharingFactory, AuthFactory) {
 	
-
-	SharingFactory.setCourses();
-    $scope.courses = SharingFactory.getCourses();
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.rep = [];
 	$scope.req = [];
 	$scope.selectedReview = "";
 	$scope.teachers = SharingFactory.getTeachers();
-	
-	SharingFactory.setCourses();
-	SharingFactory.setRequests();
-	$scope.courses = SharingFactory.getCourses();
-	$scope.requests = SharingFactory.getRequests();
 	
 	$scope.reportsmessage = "";
 	$scope.requestsmessage = "";
@@ -23,10 +15,17 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 	if (SharingFactory.getReviews().length == undefined) {
 		SharingFactory.setReviews();
 	}
+	if (SharingFactory.getCourses().length == undefined) {
+		SharingFactory.getCourses();
+	}
+	if (SharingFactory.getRequests().length == undefined) {
+		SharingFactory.setRequests();
+	}
 	
 	$scope.reports = SharingFactory.getReports();
 	$scope.reviews = SharingFactory.getReviews();
 	$scope.requests = SharingFactory.getRequests();
+	$scope.courses = SharingFactory.getCourses();
 
 	
 	// Reports
@@ -102,8 +101,6 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					
 					}
 				};
-				
-				
 			}
 					
 		}
@@ -114,8 +111,10 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		//requests
 		for (var i = 0; i < $scope.requests.length; i++) {
 			for (var j = 0; j < $scope.courses.length; j++) {
-			if ($scope.requests[i].courseID == $scope.courses[j].ID)
+			if ($scope.requests[i].CourseID == $scope.courses[j].ID)
 				{
+					console.log($scope.courses[j].Course);
+					console.log($scope.courses[j].Course);
 				$scope.req.push({
 					teachname: $scope.requests[i].Teachname,
 					courseID: $scope.requests[i].CourseID,
@@ -171,6 +170,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 
 
 				}
+		}
 		}
 		
 
