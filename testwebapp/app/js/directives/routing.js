@@ -27,6 +27,7 @@ app.config(function ($routeProvider,$locationProvider) {
 
                 var auth = AuthFactory.auth();
                 console.log(auth);
+				console.log("Here it is!" + AuthFactory.requireAuth());
                 return AuthFactory.requireAuth();
             }]
         }
@@ -87,14 +88,42 @@ app.config(function ($routeProvider,$locationProvider) {
         .when('/adminhome', {
             templateUrl : 'templates/adminhome.html',
             controller: 'adminController',
+			resolve: {
+
+            "currentAuth": ["AuthFactory", function(AuthFactory) {
+
+                var auth = AuthFactory.auth();
+                console.log(auth);
+				console.log("Here it is!" + AuthFactory.requireAuth());
+                return AuthFactory.requireAuth();
+            }]
+		}
         })
 		.when('/adminreports', {
             templateUrl : 'templates/adminreports.html',
             controller: 'adminController',
+			resolve: {
+
+            "currentAuth": ["AuthFactory", function(AuthFactory) {
+
+                var auth = AuthFactory.auth();
+                console.log(auth);
+                return AuthFactory.requireAuth();
+            }]
+		}
         })
 		.when('/adminrequests', {
             templateUrl : 'templates/adminrequests.html',
             controller: 'adminController',
+			resolve: {
+
+            "currentAuth": ["AuthFactory", function(AuthFactory) {
+
+                var auth = AuthFactory.auth();
+                console.log(auth);
+                return AuthFactory.requireAuth();
+            }]
+		}
         })
         .otherwise({
             redirectTo : '/home'

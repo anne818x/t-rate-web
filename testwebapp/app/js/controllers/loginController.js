@@ -2,7 +2,12 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 
     $scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.tag = SharingFactory.getTagline();
+	$scope.currentUser = SharingFactory.getUserData().Name;
     SharingFactory.setSignedIn();
+	if (SharingFactory.getUsers().length == undefined) {
+		SharingFactory.setUsers();
+	}
+	$scope.users = SharingFactory.getUsers();
 
     $scope.signIn = function () {
 
@@ -15,7 +20,31 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
             if (firebase.auth().currentUser.emailVerified) {
                 SharingFactory.setUser(authData.uid);
                 alert("You are verified");
-                $location.path('/profile');
+				
+				var ref = firebase.database().ref('UserProfile');
+				
+				for (var i = 0; i < $scope.users.length; i++) {
+					if($scope.users[i].Name == $scope.currentUser){
+						console.log("Name: " + $scope.users[i].Name);
+						console.log("Name from fauth: " + $scope.currentUser);
+						console.log($scope.users[i].Role);
+						if ($scope.users[i].Role == "Admin")
+						{
+							console.log($scope.users[i].Role);
+							$location.path('/adminhome');
+						}
+					}
+					
+					else {
+						 $location.path('/profile');
+					}
+					
+				}
+					
+
+				
+				
+               
                 $('.modal-backdrop').remove();
             }
             else {

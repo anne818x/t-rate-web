@@ -5,6 +5,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var courses = {};
     var reviews = {};
     var user = "";
+	var users = {};
 	var reports = {};
 	var requests = {};
     var signedIn = false;
@@ -16,6 +17,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
     var reportsUrl = "https://us-central1-t-rate.cloudfunctions.net/reportData";
 	var requestsUrl = "https://us-central1-t-rate.cloudfunctions.net/requestData";
+	var userUrl = "https://us-central1-t-rate.cloudfunctions.net/userData";
 	var tag = "";
 
     var userVotes;
@@ -41,6 +43,16 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
 
     sharingFactory.setUser = function (value) {
         user = value;
+    };
+	
+	sharingFactory.getUsers = function () {
+        return users;
+    };
+
+    sharingFactory.setUsers = function () {
+        $http.get(userUrl).then(function (data) {
+            users = data.data;
+        });
     };
 
     sharingFactory.getSignedIn = function () {
