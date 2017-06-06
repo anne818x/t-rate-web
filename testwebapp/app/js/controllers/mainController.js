@@ -151,10 +151,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	$scope.addReview = function () {
 
-
-		var upvotes = false;
+		var upvotes = $scope.teacherReviews.voteScore;
 		var verified = false;
 		var weight = calculateWeight($scope.txt, verified, upvotes);
+		console.log("upvotes: " + upvotes);
+		console.log("weight: " + weight);
 
 		at_rating = $('input[name="Atmosphere"]:checked').val();
 		he_rating = $('input[name="Helpfulness"]:checked').val();

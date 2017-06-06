@@ -443,7 +443,7 @@ window.calculateWeight = function(review , verified, upvotes){
         weight += 2;
     }
 
-    if (verified === 'true'){
+    if (verified === true){
         weight += 2;
     }
 
@@ -455,7 +455,17 @@ window.calculateWeight = function(review , verified, upvotes){
         weight--;
     }
 
-    //TODO implement something for the upvotes.
+    if(upvotes > -10 && upvotes <= 6){
+        weight -= 2;
+    } else if(upvotes > 6 && upvotes <= 12){
+        weight--;
+    } else if(upvotes > 18 && upvotes <= 24){
+        weight++;
+    } else if(upvotes > 24 && upvotes <= 30){
+      	weight += 2;
+    } else if(upvotes <= -10){
+        weight = 0;
+    }
 
     return weight;
 }
