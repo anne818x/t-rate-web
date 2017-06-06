@@ -317,7 +317,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	};
 
 	$scope.more = function () {
-		$scope.limit = $scope.reviews.length;
+		$scope.limit = $scope.limit + 2;
 	};
 
 	$scope.avgatmos = Math.round($scope.selectedTeacher.atmos * 2) / 2;
@@ -326,7 +326,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.avgprep = Math.round($scope.selectedTeacher.prep * 2) / 2;
 	$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
 	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;
-	$scope.limit = $scope.reviews.length;
 	
 	$scope.selectedCourse = function (id, name) {
 				$scope.currentCourseID = id;

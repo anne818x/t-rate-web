@@ -26,7 +26,6 @@ angular.module('myApp').controller('ProfileController', ['$scope', '$location', 
 	};
 
 	$scope.more = function () {
-		$scope.limit = $scope.userReviews.length;
+		$scope.limit = $scope.limit + 2;
 	};
-	$scope.limit = $scope.userReviews.length;
 }]);
