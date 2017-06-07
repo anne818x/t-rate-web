@@ -1,4 +1,4 @@
-angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', 'SharingFactory', 'scanner', function ($scope, $http, $moment, SharingFactory, scanner) {
+angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', 'SharingFactory', 'scanner', 'AlertFactory', function ($scope, $http, $moment, SharingFactory, scanner, AlertFactory) {
 
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.teachers = SharingFactory.getTeachers();
@@ -72,14 +72,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 		for (var i = 0; i < array.length; i++) {
 			$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
-			console.log("value: " + array[i].value + " weight: " + array[i].weight);
 			$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
 		}
 		$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
 		$scope.sumOfWeight = $scope.sumOfWeight + weight;
 		$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
-		console.log("avg: " + $scope.avg);
-		console.log("score by weight: " + $scope.scoreByWeight);
 		return $scope.avg;
 	}
 
@@ -164,12 +161,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		pro_rating = $('input[name="Professionalism"]:checked').val();
 
 		if (at_rating == undefined || he_rating == undefined || le_rating == undefined || pre_rating == undefined || pro_rating == undefined) {
-			// error message not all ratings
-			alert("this is where an error message would be if they didnt fill in all ratings");
-		} else if ($scope.txt.length < 50) {
-			// error message text field empty or not enough characters
-			alert("this is where an error message would be if the text field is empty or there were not enough characters");
-		} else {
+			toastr.error(AlertFactory.getRateF, 'Error!');
+		}else {
 			//check if review has been given to teacher during modle already
 			var existRev = false;
 			var ref = firebase.database().ref('Reviews');
@@ -193,7 +186,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			});
 			//if review been given do not add
 			if(existRev == true){
-				console.log("review exists for teacher");
+				toastr.error(AlertFactory.getRevL, "Error!");
 			}else{
 				// insert review to db
 			var data = {
@@ -245,10 +238,10 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				Total: $scope.total
 			}).then(function (ref) {
 			}, function (error) {
-				console.log(error);
+				toastr.error(error, "Error!");
 			});
 
-			alert("this is where we will insert all the info to the db");
+			toastr.success(AlertFactory.getNRS, "Success!");
 			$("#reviewModal .close").click();
 
 			$scope.txt = null;
@@ -364,8 +357,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$scope.addTeacher = function () {
 
 		if ($scope.teacher_name.length < 1) {
-			// error message text field empty or not enough characters
-			alert("this is where an error message would be if the text field is empty or there were not enough characters");
+			toastr.error("Please fill in the teachers name", 'Error!');
 		} else {
 			
 			    
