@@ -72,7 +72,7 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title" ng-model="teacherName">{{selectedTeacher.name}}</h3>
+                <h3 class="panel-title">{{selectedTeacher.name}}</h3>
             </div>
             <div class="panel-body">
                 <div class="col-sm-6">
@@ -87,22 +87,22 @@
                 <div class="col-sm-4">
                     <h4><i>Average score</i></h4>
                     <div style="margin:0">
-                        <h6><b>Total</b> <img class="pull-right" ng-src="images/stars/{{avgtotal}}star.png" height="15"></h6>
+                        <h6><b>Total</b> <img class="pull-right" ng-src="images/stars/{{selectedTeacher.total}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{avgatmos}}star.png" height="15"></h6>
+                        <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{selectedTeacher.atmos}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{avghelp}}star.png" height="15"></h6>
+                        <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{selectedTeacher.help}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Lectures <img class="pull-right" ng-src="images/stars/{{avglec}}star.png" height="15"></h6>
+                        <h6>Lectures <img class="pull-right" ng-src="images/stars/{{selectedTeacher.lec}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Preparation <img class="pull-right" ng-src="images/stars/{{avgprep}}star.png" height="15"></h6>
+                        <h6>Preparation <img class="pull-right" ng-src="images/stars/{{selectedTeacher.prep}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{avgprof}}star.png" height="15"></h6>
+                        <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{selectedTeacher.prof}}star.png" height="15"></h6>
 
                     </div>
                 </div>

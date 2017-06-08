@@ -1,7 +1,7 @@
 angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory) {
 
 
-	//TODO Top Rated teacher, calculating of averages for teachers, voting of reviews
+	//TODO Top Rated teacher, voting of reviews
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 
 	var teacherRef = firebase.database().ref("Teachers");
@@ -23,6 +23,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.topRatedTeach = [];
 	$scope.currentCourse = "Select course";
 	$scope.reviewVoteScore = 0;
+	$scope.selectedTeacher = {};
 
 	//SharingFactory.setCourses();
 	SharingFactory.setRequests();
@@ -43,23 +44,44 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	$scope.limit = 2;
 
-	//selected teacher from Explore
-	$scope.setTeacherPage = function (TeacherID) {
+
+	//*****************set selected teacher from Explore***********************
+	$scope.selectedTeacher = {name: sessionStorage.selectedTeachName, course: sessionStorage.selectedTeachCourseName, atmos: sessionStorage.selectedTeachAvgAtmos, help:sessionStorage.selectedTeachAvgHelp, lec: sessionStorage.selectedTeachAvgLec, prep: sessionStorage.selectedTeachAvgPrep, prof: sessionStorage.selectedTeachAvgProf, total: sessionStorage.selectedTeachTotal};
+	$scope.setTeacherPage = function (TeacherID, TeachName, Course_ID, atmos, help, lec, prep, prof, total) {
 		sessionStorage.selectedTeacher = TeacherID;
+		sessionStorage.selectedTeachName = TeachName;
+		sessionStorage.selectedTeachCourseID = Course_ID;
+		sessionStorage.selectedTeachAvgHelp = Math.round(help* 2) / 2;
+		sessionStorage.selectedTeachAvgLec = Math.round(lec* 2) / 2;
+		sessionStorage.selectedTeachAvgPrep = Math.round(prep* 2) / 2;
+		sessionStorage.selectedTeachAvgProf = Math.round(prof* 2) / 2;
+		sessionStorage.selectedTeachAvgAtmos = Math.round(atmos* 2) / 2;
+		sessionStorage.selectedTeachTotal = Math.round(total* 2) / 2;
+
+
+		$scope.courses.$loaded().then(function (courses) {
+		for (var i = 0; i < courses.length; i++) {
+
+			//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
+			if (courses[i].Course_ID == sessionStorage.selectedTeachCourseID) {
+				sessionStorage.selectedTeachCourseName = courses[i].Course_Name;
+			}
+		}
+	});
 		$location.path('/review');
 	}
 
-	//set top rated
+	//******************************set top rated**********************************
 	if ($scope.topRatedCom.length == 0) {
 		var highScore = 0;
 		for (var i = 0; i < $scope.teachers.length; i++) {
 			if ($scope.teachers[i].Total > highScore) {
-				var atmos = Math.round($scope.teachers[i].AvgAtmos * 2) / 2;
-				var help = Math.round($scope.teachers[i].AvgHelp * 2) / 2;
-				var lec = Math.round($scope.teachers[i].AvgLec * 2) / 2;
-				var prep = Math.round($scope.teachers[i].AvgPrep * 2) / 2;
-				var prof = Math.round($scope.teachers[i].AvgProf * 2) / 2;
-				var total = Math.round($scope.teachers[i].Total * 2) / 2;
+				var atmos = $scope.teachers[i].AvgAtmos;
+				var help = $scope.teachers[i].AvgHelp;
+				var lec = $scope.teachers[i].AvgLec;
+				var prep = $scope.teachers[i].AvgPrep;
+				var prof = $scope.teachers[i].AvgProf;
+				var total = $scope.teachers[i].Total;
 				$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
 				highScore = $scope.teachers[i].Total;
 				console.log($scope.topRatedTeach);
@@ -89,8 +111,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	console.log($scope.topRatedCom);
 
-	//display dynamic reviews		
-
+	//**************************display dynamic reviews**********************************
 	$scope.reviews.$loaded().then(function (reviews) {
 		for (var i = 0; i < reviews.length; i++) {
 
@@ -120,7 +141,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					console.log("scope review\score: " + $scope.reviewVoteScore);
 				}).then(function () {
 					$scope.teacherReviews.push({
-						reviewID: reviews[i].ReviewID,
+						reviewID: reviews[i].Review_ID,
 						//teachId: $scope.reviews[i].TeacherID,
 						com: reviews[i].comment,
 						//date: $scope.reviews[i].Date,
@@ -143,6 +164,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			}
 		}
 	});
+
 	//*********************************Adding Review Area****************************************
 
 	var arr = ['.labelat', '.labelhe', '.labelle', '.labelpre', '.labelpro'];
@@ -188,7 +210,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				var mod1start = moment("2017-04-01");
 				var mod1end = moment("2017-06-24");
 				var reviewDate = moment(childKey2);
-				//console.log("date: " + reviewDate+ "date from firebase: " + childKey2);
+				console.log("date: " + reviewDate+ "date from firebase: " + childKey2);
 
 				if (childKey == $scope.selectedTeacher.id) {
 
@@ -212,39 +234,62 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					Lectures: le_rating,
 					Preparation: pre_rating,
 					Professionalism: pro_rating,
-					Review_ID: $scope.reviews.$loaded().length + 1,
+					Review_ID: $scope.reviews.length + 1,
 					TeacherID: sessionStorage.selectedTeacher,
 					Weight: weight,
 					comment: $scope.txt,
 					userID: SharingFactory.getUserData().UserID
 				};
-
 				var ref = firebase.database().ref('Reviews');
 				SharingFactory.pushToDb(data, ref);
 
 				//Calculate weighted average for teacher and update table
 				for (var i = 0; i < $scope.reviews.length; i++) {
 					if ($scope.reviews[i].TeacherID == sessionStorage.selectedTeacher) {
-						$scope.helpArray.push({ value: $scope.reviews[i].Helpfulness, weight: $scope.reviews[i].weight });
-						$scope.atmosArray.push({ value: $scope.reviews[i].Atmosphere, weight: $scope.reviews[i].weight });
-						$scope.lecArray.push({ value: $scope.reviews[i].Lectures, weight: $scope.reviews[i].weight });
-						$scope.prepArray.push({ value: $scope.reviews[i].Preparation, weight: $scope.reviews[i].weight });
-						$scope.profArray.push({ value: $scope.reviews[i].Professionalism, weight: $scope.reviews[i].weight });
+						$scope.helpArray.push({ value: $scope.reviews[i].Helpfulness, weight: $scope.reviews[i].Weight });
+						$scope.atmosArray.push({ value: $scope.reviews[i].Atmosphere, weight: $scope.reviews[i].Weight });
+						$scope.lecArray.push({ value: $scope.reviews[i].Lectures, weight: $scope.reviews[i].Weight });
+						$scope.prepArray.push({ value: $scope.reviews[i].Preparation, weight: $scope.reviews[i].Weight });
+						$scope.profArray.push({ value: $scope.reviews[i].Professionalism, weight: $scope.reviews[i].Weight });
 					}
 
 				}
 				//get avergae
-				$scope.helpAvg = $scope.calcWeightedAvg(weight, he_rating, $scope.helpArray);
-				$scope.prepAvg = $scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray);
-				$scope.lecAvg = $scope.calcWeightedAvg(weight, le_rating, $scope.lecArray);
-				$scope.profAvg = $scope.calcWeightedAvg(weight, pro_rating, $scope.profArray);
-				$scope.atmosAvg = $scope.calcWeightedAvg(weight, at_rating, $scope.atmosArray);
+				$scope.helpAvg = Math.round($scope.calcWeightedAvg(weight, he_rating, $scope.helpArray) * 2) / 2;
+				$scope.prepAvg = Math.round($scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray) * 2) / 2;
+				$scope.lecAvg = Math.round($scope.calcWeightedAvg(weight, le_rating, $scope.lecArray)* 2) / 2;
+				$scope.profAvg = Math.round($scope.calcWeightedAvg(weight, pro_rating, $scope.profArray)* 2) / 2;
+				$scope.atmosAvg = Math.round($scope.calcWeightedAvg(weight, at_rating, $scope.atmosArray)* 2) / 2;
 
 				//get total
 				$scope.total = ($scope.helpAvg + $scope.prepAvg + $scope.lecAvg + $scope.profAvg + $scope.atmosAvg) / 5;
 
+				//******************************88testing shit******************************
+				var ref = firebase.database().ref('Teachers');
+				ref.orderByChild("TeacherID").on("child_added", function (snapshot) {
+					if (snapshot.child("TeacherID").val() == sessionStorage.selectedTeacher) {
+						console.log("updating");
+						var childToUpDate = ref.child(snapshot.key);
+						childToUpDate.update({
+					Avg_Atmosphere: $scope.atmosAvg,
+					Avg_Helpfulness: $scope.helpAvg,
+					Avg_Lectures: $scope.lecAvg,
+					Avg_Preparation: $scope.prepAvg,
+					Avg_Professionalism: $scope.profAvg,
+					Total: $scope.total
+				}).then(function (ref) {
+				}, function (error) {
+					toastr.error(error, "Error!");
+				});
+					}
+
+			});
+				
+				//*******************************End of Test******************************
+
+
 				//enter teacher info in database
-				var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
+				/*var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
 				ref.update({
 					Avg_Atmosphere: $scope.atmosAvg,
 					Avg_Helpfulness: $scope.helpAvg,
@@ -256,7 +301,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				}, function (error) {
 					toastr.error(error, "Error!");
 				});
-
+*/
 				toastr.success(AlertFactory.getNRS, "Success!");
 				$("#reviewModal .close").click();
 
@@ -265,8 +310,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					$(value).removeClass('active');
 				});
 			}
-
-
 		}
 	}
 
@@ -278,22 +321,14 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 		for (var i = 0; i < array.length; i++) {
 			$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
-			console.log("value: " + array[i].value + " weight: " + array[i].weight);
 			$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
 		}
 		$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
 		$scope.sumOfWeight = $scope.sumOfWeight + weight;
 		$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
-		console.log("avg: " + $scope.avg);
-		console.log("score by weight: " + $scope.scoreByWeight);
 		return $scope.avg;
 	}
 
-
-	/*$('#reviewModal').on('hidden.bs.modal', function() {
-		// refresh to see new review on review page
-		location.reload();
-	})*/
 
 	/*********************************Voting of reviews****************************************/
 	// TODO Refactor into one method maybe?
