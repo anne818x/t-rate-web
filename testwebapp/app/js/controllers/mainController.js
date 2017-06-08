@@ -1,20 +1,21 @@
 angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory) {
 
-	//TODO Top Rated teacher, voting of reviews
+	//TODO Top Rated teacher, voting of reviews //displaying of reviews is not real time
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
+	$scope.currentMod = {};
 
 	var teacherRef = firebase.database().ref("Teachers");
 	var reviewsRef = firebase.database().ref("Reviews");
 	var coursesRef = firebase.database().ref("Courses");
 	var locationsRef = firebase.database().ref("Locations");
+	var modulesRef = firebase.database().ref("Modules");
 
 	$scope.teachers = $firebaseArray(teacherRef);
 	$scope.reviews = $firebaseArray(reviewsRef)
 	$scope.courses = $firebaseArray(coursesRef);
 	$scope.locations = $firebaseArray(locationsRef);
+	$scope.modules = $firebaseArray(modulesRef);
 
-
-	console.log($scope.reviews);
 	$scope.date = $moment().format('YYYY-MM-DD');
 
 	$scope.teacherReviews = [];
@@ -23,8 +24,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.currentCourse = "Select course";
 	$scope.reviewVoteScore = 0;
 	$scope.selectedTeacher = {};
-	$scope.searchTeachers = [];
-	$scope.displayTeacher = true;
 
 	//SharingFactory.setCourses();
 	SharingFactory.setRequests();
@@ -44,23 +43,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.profArray = [];
 
 	$scope.limit = 2;
-
-	//*************************************Search******************************
-	$scope.search = function(){
-		console.log("search: " +$scope.searchTxt);
-		if ($scope.searchTxt.length > 0) {
-			$scope.displayTeacher = false;
-		}else{
-			$scope.displayTeacher = true;
-		}
-	}
-
-if ($scope.searchTxt != undefined) {
-	console.log("if entered" + $scope.searchTxt.length);
-	if ($scope.searchTxt.length == 0) {
-		$scope.displayTeacher = false
-	}
-}
 
 	//*****************set selected teacher from Explore***********************
 	$scope.selectedTeacher = {name: sessionStorage.selectedTeachName, course: sessionStorage.selectedTeachCourseName, atmos: sessionStorage.selectedTeachAvgAtmos, help:sessionStorage.selectedTeachAvgHelp, lec: sessionStorage.selectedTeachAvgLec, prep: sessionStorage.selectedTeachAvgPrep, prof: sessionStorage.selectedTeachAvgProf, total: sessionStorage.selectedTeachTotal};
@@ -98,23 +80,82 @@ if ($scope.searchTxt != undefined) {
 	// 	}
 	// });
 
-	//set top rated
-	if ($scope.topRatedCom.length == 0) {
-		var highScore = 0;
-		for (var i = 0; i < $scope.teachers.length; i++) {
-			if ($scope.teachers[i].Total > highScore) {
-				var atmos = $scope.teachers[i].AvgAtmos;
-				var help = $scope.teachers[i].AvgHelp;
-				var lec = $scope.teachers[i].AvgLec;
-				var prep = $scope.teachers[i].AvgPrep;
-				var prof = $scope.teachers[i].AvgProf;
-				var total = $scope.teachers[i].Total;
-				$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
-				highScore = $scope.teachers[i].Total;
-				console.log($scope.topRatedTeach);
+	//****************************Set top Rated************************
+		$scope.modules.$loaded().then(function (modules) {
+			
+			for (var i = 0; i < modules.length; i++) {
+				if($scope.date >= modules[i].startDate && $scope.date <= modules[i].endDate ){
+					$scope.currentMod = {name: modules[i].$id, startDate: modules[i].startDate, endDate: modules[i].endDate};
+					console.log($scope.currentMod);
+				}
 			}
-		}
-	}
+		}).then(function (ref) {
+				//after module is set check if its the last day of the module
+				if ($scope.date == $scope.currentMod.endDate) {
+					//get top rated
+					if ($scope.topRatedTeach.length == 0) {
+						var highScore = 0;
+						for (var i = 0; i < $scope.teachers.length; i++) {
+							if ($scope.teachers[i].Total > highScore) {
+								var atmos = $scope.teachers[i].Avg_Atmosphere;
+								var help = $scope.teachers[i].Avg_Helpfulness;
+								var lec = $scope.teachers[i].Avg_Lectures;
+								var prep = $scope.teachers[i].Avg_Preparation;
+								var prof = $scope.teachers[i].Avg_Professionalism;
+								var total = $scope.teachers[i].Total;
+								$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
+								highScore = $scope.teachers[i].Total;
+								
+							}
+						}
+					}
+					var ref = firebase.database().ref('HallOfFame');
+					ref.on("child_added", function (snapshot) {
+							if (snapshot.key == $scope.currentMod.name) {
+								console.log("inserting");
+								var childToUpDate = ref.child(snapshot.key);
+								console.log($scope.topRatedTeach.atmos);
+								childToUpDate.update({
+									Avg_Atmosphere: $scope.topRatedTeach.atmos,
+									Avg_Helpfulness: $scope.topRatedTeach.help,
+									Avg_Lectures: $scope.topRatedTeach.lec,
+									Avg_Preparation: $scope.topRatedTeach.prep,
+									Avg_Professionalism: $scope.topRatedTeach.prof,
+									TeacherID: $scope.topRatedTeach.id,
+									Total: $scope.topRatedTeach.total
+								}).then(function (ref) {
+									}, function (error) {
+										toastr.error(error, "Error!");
+										});
+							}
+
+					});
+				}
+				else{
+					console.log("its not the end of module yet");
+				}
+			}, function (error) {
+					toastr.error(error, "Error!");
+				});
+
+
+	// if ($scope.topRatedCom.length == 0) {
+	// 	var highScore = 0;
+	// 	for (var i = 0; i < $scope.teachers.length; i++) {
+	// 		console.log(teachers[i]);
+	// 		if ($scope.teachers[i].Total > highScore) {
+	// 			var atmos = $scope.teachers[i].AvgAtmos;
+	// 			var help = $scope.teachers[i].AvgHelp;
+	// 			var lec = $scope.teachers[i].AvgLec;
+	// 			var prep = $scope.teachers[i].AvgPrep;
+	// 			var prof = $scope.teachers[i].AvgProf;
+	// 			var total = $scope.teachers[i].Total;
+	// 			$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
+	// 			highScore = $scope.teachers[i].Total;
+	// 			console.log("top rated: "+$scope.topRatedTeach);
+	// 		}
+	// 	}
+	// }
 
 	//console.log("high score is: " + highScore);
 
