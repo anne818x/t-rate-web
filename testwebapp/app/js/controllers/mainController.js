@@ -1,6 +1,5 @@
 angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory) {
 
-
 	//TODO Top Rated teacher, voting of reviews
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 
@@ -220,15 +219,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				var mod1start = moment("2017-04-01");
 				var mod1end = moment("2017-06-24");
 				var reviewDate = moment(childKey2);
-				console.log("date: " + reviewDate+ "date from firebase: " + childKey2);
 
-				if (childKey == $scope.selectedTeacher.id) {
+				if (childKey == sessionStorage.selectedTeacher) {
 
 					if (reviewDate > mod1start && reviewDate < mod1end) {
 						existRev = true;
-						//console.log(childKey);
-						//console.log(" existing review: " + existRev);
-
 					}
 				}
 			});
