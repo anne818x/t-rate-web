@@ -3,26 +3,27 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
-			</a>
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            </a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
                 </li>
-				<li>
+                <li>
                     <a href="#explore">Explore</a>
                 </li>
                 <li ng-hide="!IsSignedIn">
@@ -91,17 +92,10 @@
                     <h3 class="panel-title">Courses</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Information Technology</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Tourism Management</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Leisure Management</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Marketing</label>
+                    <div class="courses" ng-repeat="course in courses">
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">{{course.Course_Name}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,17 +104,10 @@
                     <h3 class="panel-title">Location</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Leeuwarden</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Emmen</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">South-Africa</label>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value="">Bali</label>
+                    <div class="courses" ng-repeat="location in locations">
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">{{location.Place}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,9 +152,9 @@
                 <div class="panel-body">
                     <div class="teacherCard" ng-repeat="teacher in teachers">
                         <h4>{{teacher.TeachName}}</h4>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-                            tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                        <a class="btn btn-default btn-sm" ng-click="setTeacherPage(teacher)" href="#review">
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                            mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        <a class="btn btn-default btn-sm" ng-click="setTeacherPage(teacher.TeacherID)" href="#review">
                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;
                         </a>
                         <table class="table table-condensed">
@@ -194,60 +181,59 @@
 
 
 <!-- Modal -->
-        <div id="addTeacherModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Teacher missing? Add them here.</h4>
+<div id="addTeacherModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Teacher missing? Add them here.</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add teacher</h3>
                     </div>
-                    <div class="modal-body">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Add teacher</h3>
-                            </div>
-                            <div class="panel-body">
-                                <!-- Text area -->
-								<!-- Teacher Name-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Teacher Name</label>
-                                <div class="col-md-6 inputGroupContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input name="teacher_name" placeholder="Teacher Name" class="form-control"
-                                               type="text" ng-model="teacher_name">
-                                    </div>
+                    <div class="panel-body">
+                        <!-- Text area -->
+                        <!-- Teacher Name-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Teacher Name</label>
+                            <div class="col-md-6 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input name="teacher_name" placeholder="Teacher Name" class="form-control" type="text" ng-model="teacher_name">
                                 </div>
                             </div>
-							</br>
-							</br>
-                            <div class="form-group">
-                        <label class="col-md-4 control-label">Course</label>
-                        <div class="col-md-6 inputGroupContainer">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{currentCourse}}
+                        </div>
+                        </br>
+                        </br>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Course</label>
+                            <div class="col-md-6 inputGroupContainer">
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true">{{currentCourse}}
                                     <span class="caret"></span></button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
-                                    <li ng-repeat="item in courses" data-id="{{item.ID}}"
-                                        ng-click="selectedCourse(item.ID, item.Course)"><a>{{item.Course}}</a></li>
-                                </ul>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
+                                        <li ng-repeat="item in courses" data-id="{{item.ID}}" ng-click="selectedCourse(item.ID, item.Course)"><a>{{item.Course}}</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-					</br></br>
-					<button type="submit" class="btn btn-success pull-right" ng-click="addTeacher()">Send
+                        </br>
+                        </br>
+                        <button type="submit" class="btn btn-success pull-right" ng-click="addTeacher()">Send
                     </button>
 
-								
-                            </div>
-                        </div>
-						<p class="text-center small">Will be reviewed by administrator</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                     </div>
                 </div>
+                <p class="text-center small">Will be reviewed by administrator</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
+    </div>
+</div>
