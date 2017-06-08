@@ -1,4 +1,4 @@
-angular.module('myApp').controller('FaqController', ['$scope', '$http', 'SharingFactory', function($scope, $http, SharingFactory) {
+angular.module('myApp').controller('AboutController', ['$scope', '$http', 'SharingFactory', function($scope, $http, SharingFactory) {
 
     SharingFactory.setUserData();
 

@@ -46,9 +46,9 @@ app.config(function ($routeProvider,$locationProvider) {
                 }]
             }
         })
-        .when('/faq', {
-            templateUrl : 'templates/faq.html',
-            controller: 'FaqController',
+        .when('/about', {
+            templateUrl : 'templates/about.html',
+            controller: 'AboutController',
             /*resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
