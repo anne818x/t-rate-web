@@ -394,7 +394,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
 	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;*/
 
-	$scope.limit = $scope.reviews.length;
+	//$scope.limit = $scope.reviews.length;
 
 	$scope.selectedCourse = function (id, name) {
 		$scope.currentCourseID = id;
