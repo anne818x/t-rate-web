@@ -23,6 +23,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.currentCourse = "Select course";
 	$scope.reviewVoteScore = 0;
 	$scope.selectedTeacher = {};
+	$scope.searchTeachers = [];
+	$scope.displayTeacher = true;
 
 	//SharingFactory.setCourses();
 	SharingFactory.setRequests();
@@ -43,6 +45,22 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	$scope.limit = 2;
 
+	//*************************************Search******************************
+	$scope.search = function(){
+		console.log("search: " +$scope.searchTxt);
+		if ($scope.searchTxt.length > 0) {
+			$scope.displayTeacher = false;
+		}else{
+			$scope.displayTeacher = true;
+		}
+	}
+
+if ($scope.searchTxt != undefined) {
+	console.log("if entered" + $scope.searchTxt.length);
+	if ($scope.searchTxt.length == 0) {
+		$scope.displayTeacher = false
+	}
+}
 
 	//*****************set selected teacher from Explore***********************
 	$scope.selectedTeacher = {name: sessionStorage.selectedTeachName, course: sessionStorage.selectedTeachCourseName, atmos: sessionStorage.selectedTeachAvgAtmos, help:sessionStorage.selectedTeachAvgHelp, lec: sessionStorage.selectedTeachAvgLec, prep: sessionStorage.selectedTeachAvgPrep, prof: sessionStorage.selectedTeachAvgProf, total: sessionStorage.selectedTeachTotal};

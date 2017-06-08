@@ -123,9 +123,9 @@
                     <div class="col-sm-8 col-md-8">
 
                         <div class="input-group" style="width:100%">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search"  ng-model="searchTxt" />
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
+                                <button class="btn btn-default" type="submit" ng-click="search()">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
@@ -150,7 +150,7 @@
         <div class="col-sm-8 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="teacherCard" ng-repeat="teacher in teachers">
+                    <div class="teacherCard" ng-repeat="teacher in teachers | filter:searchTxt">
                         <h4>{{teacher.TeachName}}</h4>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
                             mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
