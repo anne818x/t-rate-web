@@ -1,4 +1,4 @@
-angular.module('myApp').controller('LoginController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', function ($scope, $location, $window, SharingFactory, AuthFactory) {
+angular.module('myApp').controller('LoginController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', 'AlertFactory', function ($scope, $location, $window, SharingFactory, AuthFactory, AlertFactory) {
 
     $scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.tag = SharingFactory.getTagline();
@@ -19,7 +19,8 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
             console.log("User Successfully logged in with uid: ", authData.uid);
             if (firebase.auth().currentUser.emailVerified) {
                 SharingFactory.setUser(authData.uid);
-                alert("You are verified");
+                toastr.success("Welcome, You are now logged in", "Success!");
+                $("loginModal .close").click();
 				
 				var ref = firebase.database().ref('UserProfile');
 				
@@ -48,11 +49,11 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
                 $('.modal-backdrop').remove();
             }
             else {
-                alert("Please verify your email");
+                toastr.error(AlertFactory.getVE ,'Error!');
                 AuthFactory.logout();
             }
         }, function (error) {
-            alert("Authentication Failed: " + error);
+        	toastr.error("The password is invalid or the user does not have a password." ,'Authentication Error!');
         })
     }
 

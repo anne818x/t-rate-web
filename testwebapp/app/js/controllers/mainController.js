@@ -1,6 +1,7 @@
-angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', 'SharingFactory', 'scanner', '$firebaseArray', '$location', function ($scope, $http, $moment, SharingFactory, scanner, $firebaseArray, $location) {
+angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory) {
 
-//TODO Top Rated teacher, calculating of averages for teachers, voting of reviews
+
+	//TODO Top Rated teacher, calculating of averages for teachers, voting of reviews
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 
 	var teacherRef = firebase.database().ref("Teachers");
@@ -68,11 +69,24 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	//console.log("high score is: " + highScore);
 
-	for (var i = 0; i < $scope.reviews.length; i++) {
-		if ($scope.reviews[i].TeacherID == $scope.topRatedTeach.id) {
-			$scope.topRatedCom.push({ comment: $scope.reviews[i].Comment });
-		}
-	}
+	/*<<<<<<< HEAD
+		for (var i = 0; i < $scope.reviews.length; i++) {
+			if ($scope.reviews[i].TeacherID == $scope.topRatedTeach.id) {
+				$scope.topRatedCom.push({ comment: $scope.reviews[i].Comment });
+			}
+	=======*/
+	/*		$scope.scoreByWeight = 0;
+			$scope.sumOfWeight = 0;
+	
+			for (var i = 0; i < array.length; i++) {
+				$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
+				$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
+			}
+			$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
+			$scope.sumOfWeight = $scope.sumOfWeight + weight;
+			$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
+			return $scope.avg;*/
+
 	console.log($scope.topRatedCom);
 
 	//display dynamic reviews		
@@ -150,9 +164,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	$scope.addReview = function () {
 
-		var upvotes = false;
+		var upvotes = $scope.teacherReviews.voteScore;
 		var verified = false;
 		var weight = calculateWeight($scope.txt, verified, upvotes);
+		console.log("upvotes: " + upvotes);
+		console.log("weight: " + weight);
 
 		at_rating = $('input[name="Atmosphere"]:checked').val();
 		he_rating = $('input[name="Helpfulness"]:checked').val();
@@ -161,73 +177,96 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		pro_rating = $('input[name="Professionalism"]:checked').val();
 
 		if (at_rating == undefined || he_rating == undefined || le_rating == undefined || pre_rating == undefined || pro_rating == undefined) {
-			// error message not all ratings
-			alert("this is where an error message would be if they didnt fill in all ratings");
-		} else if ($scope.txt.length < 50) {
-			// error message text field empty or not enough characters
-			alert("this is where an error message would be if the text field is empty or there were not enough characters");
+			toastr.error(AlertFactory.getRateF, 'Error!');
 		} else {
-			// insert review to db
-			var data = {
-				Atmosphere: at_rating,
-				Date: $scope.date,
-				Helpfulness: he_rating,
-				Lectures: le_rating,
-				Preparation: pre_rating,
-				Professionalism: pro_rating,
-				Review_ID: $scope.reviews.$loaded().length + 1,
-				TeacherID: sessionStorage.selectedTeacher,
-				Weight: weight,
-				comment: $scope.txt,
-				userID: SharingFactory.getUserData().UserID
-			};
-
+			//check if review has been given to teacher during modle already
+			var existRev = false;
 			var ref = firebase.database().ref('Reviews');
-			SharingFactory.pushToDb(data, ref);
+			ref.orderByChild("userID").equalTo(SharingFactory.getUserData().UserID).on("child_added", function (snapshot) {
+				var childKey = snapshot.child("TeacherID").val();
+				var childKey2 = snapshot.child("Date").val();
+				var mod1start = moment("2017-04-01");
+				var mod1end = moment("2017-06-24");
+				var reviewDate = moment(childKey2);
+				//console.log("date: " + reviewDate+ "date from firebase: " + childKey2);
 
-			//Calculate weighted average for teacher and update table
-			for (var i = 0; i < $scope.reviews.length; i++) {
-				if ($scope.reviews[i].TeacherID == sessionStorage.selectedTeacher) {
-					$scope.helpArray.push({ value: $scope.reviews[i].Helpfulness, weight: $scope.reviews[i].weight });
-					$scope.atmosArray.push({ value: $scope.reviews[i].Atmosphere, weight: $scope.reviews[i].weight });
-					$scope.lecArray.push({ value: $scope.reviews[i].Lectures, weight: $scope.reviews[i].weight });
-					$scope.prepArray.push({ value: $scope.reviews[i].Preparation, weight: $scope.reviews[i].weight });
-					$scope.profArray.push({ value: $scope.reviews[i].Professionalism, weight: $scope.reviews[i].weight });
+				if (childKey == $scope.selectedTeacher.id) {
+
+					if (reviewDate > mod1start && reviewDate < mod1end) {
+						existRev = true;
+						//console.log(childKey);
+						//console.log(" existing review: " + existRev);
+
+					}
 				}
+			});
+			//if review been given do not add
+			if (existRev == true) {
+				toastr.error(AlertFactory.getRevL, "Error!");
+			} else {
+				// insert review to db
+				var data = {
+					Atmosphere: at_rating,
+					Date: $scope.date,
+					Helpfulness: he_rating,
+					Lectures: le_rating,
+					Preparation: pre_rating,
+					Professionalism: pro_rating,
+					Review_ID: $scope.reviews.$loaded().length + 1,
+					TeacherID: sessionStorage.selectedTeacher,
+					Weight: weight,
+					comment: $scope.txt,
+					userID: SharingFactory.getUserData().UserID
+				};
 
+				var ref = firebase.database().ref('Reviews');
+				SharingFactory.pushToDb(data, ref);
+
+				//Calculate weighted average for teacher and update table
+				for (var i = 0; i < $scope.reviews.length; i++) {
+					if ($scope.reviews[i].TeacherID == sessionStorage.selectedTeacher) {
+						$scope.helpArray.push({ value: $scope.reviews[i].Helpfulness, weight: $scope.reviews[i].weight });
+						$scope.atmosArray.push({ value: $scope.reviews[i].Atmosphere, weight: $scope.reviews[i].weight });
+						$scope.lecArray.push({ value: $scope.reviews[i].Lectures, weight: $scope.reviews[i].weight });
+						$scope.prepArray.push({ value: $scope.reviews[i].Preparation, weight: $scope.reviews[i].weight });
+						$scope.profArray.push({ value: $scope.reviews[i].Professionalism, weight: $scope.reviews[i].weight });
+					}
+
+				}
+				//get avergae
+				$scope.helpAvg = $scope.calcWeightedAvg(weight, he_rating, $scope.helpArray);
+				$scope.prepAvg = $scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray);
+				$scope.lecAvg = $scope.calcWeightedAvg(weight, le_rating, $scope.lecArray);
+				$scope.profAvg = $scope.calcWeightedAvg(weight, pro_rating, $scope.profArray);
+				$scope.atmosAvg = $scope.calcWeightedAvg(weight, at_rating, $scope.atmosArray);
+
+				//get total
+				$scope.total = ($scope.helpAvg + $scope.prepAvg + $scope.lecAvg + $scope.profAvg + $scope.atmosAvg) / 5;
+
+				//enter teacher info in database
+				var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
+				ref.update({
+					Avg_Atmosphere: $scope.atmosAvg,
+					Avg_Helpfulness: $scope.helpAvg,
+					Avg_Lectures: $scope.lecAvg,
+					Avg_Preparation: $scope.prepAvg,
+					Avg_Professionalism: $scope.profAvg,
+					Total: $scope.total
+				}).then(function (ref) {
+				}, function (error) {
+					toastr.error(error, "Error!");
+				});
+
+				toastr.success(AlertFactory.getNRS, "Success!");
+				$("#reviewModal .close").click();
+
+				$scope.txt = null;
+				$.each(arr, function (index, value) {
+					$(value).removeClass('active');
+				});
 			}
-			//get avergae
-			$scope.helpAvg = $scope.calcWeightedAvg(weight, he_rating, $scope.helpArray);
-			$scope.prepAvg = $scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray);
-			$scope.lecAvg = $scope.calcWeightedAvg(weight, le_rating, $scope.lecArray);
-			$scope.profAvg = $scope.calcWeightedAvg(weight, pro_rating, $scope.profArray);
-			$scope.atmosAvg = $scope.calcWeightedAvg(weight, at_rating, $scope.atmosArray);
 
-			//get total
-			$scope.total = ($scope.helpAvg + $scope.prepAvg + $scope.lecAvg + $scope.profAvg + $scope.atmosAvg) / 5;
 
-			//enter teacher info in database
-			var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
-			ref.update({
-				Avg_Atmosphere: $scope.atmosAvg,
-				Avg_Helpfulness: $scope.helpAvg,
-				Avg_Lectures: $scope.lecAvg,
-				Avg_Preparation: $scope.prepAvg,
-				Avg_Professionalism: $scope.profAvg,
-				Total: $scope.total
-			}).then(function (ref) {
-				console.log(ref);
-			}, function (error) {
-				console.log(error);
-			});
-
-			alert("this is where we will insert all the info to the db");
-			$("#reviewModal .close").click();
-
-			$scope.txt = null;
-			$.each(arr, function (index, value) {
-				$(value).removeClass('active');
-			});
 		}
 	}
 
@@ -335,7 +374,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	};
 
 	$scope.more = function () {
-		$scope.limit = $scope.reviews.length;
+		$scope.limit = $scope.limit + 2;
 	};
 
 	/*$scope.avgatmos = Math.round($scope.selectedTeacher.atmos * 2) / 2;
@@ -343,8 +382,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.avglec = Math.round($scope.selectedTeacher.lec * 2) / 2;
 	$scope.avgprep = Math.round($scope.selectedTeacher.prep * 2) / 2;
 	$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
-	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;
-	$scope.limit = $scope.reviews.length;*/
+	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;*/
+
+	$scope.limit = $scope.reviews.length;
 
 	$scope.selectedCourse = function (id, name) {
 		$scope.currentCourseID = id;
@@ -355,8 +395,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.addTeacher = function () {
 
 		if ($scope.teacher_name.length < 1) {
-			// error message text field empty or not enough characters
-			alert("this is where an error message would be if the text field is empty or there were not enough characters");
+			toastr.error("Please fill in the teachers name", 'Error!');
 		} else {
 			// insert teacher to requests
 			var data = {
