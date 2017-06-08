@@ -71,7 +71,17 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$location.path('/review');
 	}
 
-	//******************************set top rated**********************************
+	// /*********************************Find selected teacher name****************************************/
+	// $scope.selectedTeacherName = "";
+	// $scope.teachers.$loaded().then(function (teachers) {
+	// 	for (var i = 0; i < teachers.length; i++) { 
+	// 		if(teachers[i].TeacherID == sessionStorage.selectedTeacher){
+	// 			$scope.selectedTeacherName = teachers[i].TeachName;
+	// 		}
+	// 	}
+	// });
+
+	//set top rated
 	if ($scope.topRatedCom.length == 0) {
 		var highScore = 0;
 		for (var i = 0; i < $scope.teachers.length; i++) {
@@ -419,7 +429,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.avgprof = Math.round($scope.selectedTeacher.prof * 2) / 2;
 	$scope.avgtotal = Math.round($scope.selectedTeacher.total * 2) / 2;*/
 
-	$scope.limit = $scope.reviews.length;
+	//$scope.limit = $scope.reviews.length;
 
 	$scope.selectedCourse = function (id, name) {
 		$scope.currentCourseID = id;
