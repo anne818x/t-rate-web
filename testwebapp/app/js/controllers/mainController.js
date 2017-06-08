@@ -49,6 +49,16 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$location.path('/review');
 	}
 
+	/*********************************Find selected teacher name****************************************/
+	$scope.selectedTeacherName = "";
+	$scope.teachers.$loaded().then(function (teachers) {
+		for (var i = 0; i < teachers.length; i++) { 
+			if(teachers[i].TeacherID == sessionStorage.selectedTeacher){
+				$scope.selectedTeacherName = teachers[i].TeachName;
+			}
+		}
+	});
+
 	//set top rated
 	if ($scope.topRatedCom.length == 0) {
 		var highScore = 0;
