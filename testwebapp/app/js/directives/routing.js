@@ -46,9 +46,9 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
-        .when('/faq', {
-            templateUrl: 'templates/faq.html',
-            controller: 'FaqController',
+        .when('/about', {
+            templateUrl : 'templates/about.html',
+            controller: 'AboutController',
             /*resolve: {
 
             "currentAuth": ["AuthFactory", function(AuthFactory) {
@@ -74,16 +74,7 @@ app.config(function ($routeProvider, $locationProvider) {
         })
         .when('/review', {
             templateUrl: 'templates/review.html',
-            controller: 'MainController',
-            resolve: {
-
-                "currentAuth": ["AuthFactory", function (AuthFactory) {
-
-                    var auth = AuthFactory.auth();
-                    console.log(auth);
-                    return AuthFactory.requireAuth();
-                }]
-            }
+            controller: 'MainController'
         })
         .when('/adminhome', {
             templateUrl: 'templates/adminhome.html',

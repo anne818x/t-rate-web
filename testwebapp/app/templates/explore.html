@@ -40,7 +40,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#faq">FAQ</a>
+                    <a href="#about">About</a>
                 </li>
                 <li>
                     <a href="#contact" ng-hide="!IsSignedIn">Contact</a>
@@ -123,9 +123,9 @@
                     <div class="col-sm-8 col-md-8">
 
                         <div class="input-group" style="width:100%">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search"  ng-model="searchTxt" />
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
+                                <button class="btn btn-default" type="submit" ng-click="search()">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
@@ -150,11 +150,11 @@
         <div class="col-sm-8 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="teacherCard" ng-repeat="teacher in teachers">
+                    <div class="teacherCard" ng-repeat="teacher in teachers | filter:searchTxt">
                         <h4>{{teacher.TeachName}}</h4>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
                             mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                        <a class="btn btn-default btn-sm" ng-click="setTeacherPage(teacher.TeacherID)" href="#review">
+                        <a class="btn btn-default btn-sm" ng-click="setTeacherPage(teacher.TeacherID, teacher.TeachName, teacher.Course_ID, teacher.Avg_Atmosphere, teacher.Avg_Helpfulness, teacher.Avg_Lectures, teacher.Avg_Preparation, teacher.Avg_Professionalism, teacher.Total)" href="#review">
                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;
                         </a>
                         <table class="table table-condensed">

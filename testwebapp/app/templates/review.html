@@ -27,9 +27,9 @@
                     <a href="#explore">Explore</a>
                 </li>
                 <li>
-                    <a href="#profile">Profile</a>
+                    <a href="#profile" ng-hide="!IsSignedIn">Profile</a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown" ng-hide="!IsSignedIn">
                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -40,15 +40,22 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#faq">FAQ</a>
+                    <a href="#about">About</a>
                 </li>
                 <li>
-                    <a href="#contact">Contact</a>
+                    <a href="#contact" ng-hide="!IsSignedIn">Contact</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li ng-hide="IsSignedIn">
+                    <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
+                </li>
+                <li ng-hide="!IsSignedIn">
                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
+                </li>
+                <li ng-hide="IsSignedIn">
+                    <!--- no sign up modal yet-->
+                    <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
                 </li>
             </ul>
             <!-- search bar -->
@@ -72,6 +79,7 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
+                <h3 class="panel-title">{{selectedTeacher.name}}</h3>
                 <h3 class="panel-title" ng-model="teacherName">{{selectedTeacherName}}</h3>
             </div>
             <div class="panel-body">
@@ -79,7 +87,7 @@
                     <p>Course taught by this lecturer: {{selectedTeacher.course}} </p>
                     <div class="form-group">
                         <br></br>
-                        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#reviewModal">
+                        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#reviewModal" ng-disabled="(!IsSignedIn)">
                             Rate this teacher &raquo;
                         </button>
                     </div>
@@ -87,22 +95,22 @@
                 <div class="col-sm-4">
                     <h4><i>Average score</i></h4>
                     <div style="margin:0">
-                        <h6><b>Total</b> <img class="pull-right" ng-src="images/stars/{{avgtotal}}star.png" height="15"></h6>
+                        <h6><b>Total</b> <img class="pull-right" ng-src="images/stars/{{selectedTeacher.total}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{avgatmos}}star.png" height="15"></h6>
+                        <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{selectedTeacher.atmos}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{avghelp}}star.png" height="15"></h6>
+                        <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{selectedTeacher.help}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Lectures <img class="pull-right" ng-src="images/stars/{{avglec}}star.png" height="15"></h6>
+                        <h6>Lectures <img class="pull-right" ng-src="images/stars/{{selectedTeacher.lec}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Preparation <img class="pull-right" ng-src="images/stars/{{avgprep}}star.png" height="15"></h6>
+                        <h6>Preparation <img class="pull-right" ng-src="images/stars/{{selectedTeacher.prep}}star.png" height="15"></h6>
                     </div>
                     <div style="margin:0">
-                        <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{avgprof}}star.png" height="15"></h6>
+                        <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{selectedTeacher.prof}}star.png" height="15"></h6>
 
                     </div>
                 </div>
@@ -145,12 +153,12 @@
                         </br>
 
                         <div class="btn-group" style="width:100%">
-                            <button id="up{{teacherReview.reviewID}}" class="btn btn-default glyphicon glyphicon-thumbs-up" ng-disabled="IsSignedIn == false" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
-                                ng-click="upvote(teacherReview.reviewID);"></button>
-                            <button id="down{{teacherReview.reviewID}}" class="btn btn-default glyphicon glyphicon-thumbs-down" ng-disabled="IsSignedIn == false" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
-                                ng-click="downvote(teacherReview.reviewID);"></button>
+                            <button class="btn btn-default glyphicon glyphicon-thumbs-up" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
+                                ng-click="upvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
+                            <button class="btn btn-default glyphicon glyphicon-thumbs-down" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
+                                ng-click="downvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal" data-target="#reportModal" ng-controller="ReportController"
-                                ng-click="selectedReview(teacherReview.reviewID)"></button>
+                                ng-click="selectedReview(teacherReview.reviewID)" ng-disabled="(!IsSignedIn)"></button>
                         </div>
                         <div class="btn-group" style="width:100%">
                             <span class="label label-info">Total upvotes: {{teacherReview.voteScore}}</span>
@@ -327,7 +335,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Report review</h4>
+                        <h4 class="modal-title" ng-disabled="(!IsSignedIn)">Report review</h4>
                     </div>
                     <div class="modal-body">
                         <div class="panel-body">

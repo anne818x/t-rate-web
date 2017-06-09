@@ -1,22 +1,22 @@
 angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', '$q', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory, $q) {
 
-
 	//TODO Top Rated teacher, calculating of averages for teachers, voting of reviews
 	SharingFactory.setSignedIn();
-	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	SharingFactory.setUserData();
+	$scope.IsSignedIn = SharingFactory.getSignedIn();
+	$scope.currentMod = {};
 
 	var teacherRef = firebase.database().ref("Teachers");
 	var reviewsRef = firebase.database().ref("Reviews");
 	var coursesRef = firebase.database().ref("Courses");
 	var locationsRef = firebase.database().ref("Locations");
-
-
+	var modulesRef = firebase.database().ref("Modules");
 
 	$scope.teachers = $firebaseArray(teacherRef);
 	$scope.reviews = $firebaseArray(reviewsRef)
 	$scope.courses = $firebaseArray(coursesRef);
 	$scope.locations = $firebaseArray(locationsRef);
+	$scope.modules = $firebaseArray(modulesRef);
 	var userVotes = [];
 
 	/*********************************Get user votes****************************************/
@@ -44,6 +44,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.topRatedTeach = [];
 	$scope.currentCourse = "Select course";
 	$scope.reviewVoteScore = 0;
+	$scope.selectedTeacher = {};
 
 	//SharingFactory.setCourses();
 	SharingFactory.setRequests();
@@ -60,39 +61,117 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	$scope.limit = 2;
 
-	//selected teacher from Explore
-	$scope.setTeacherPage = function (TeacherID) {
+	//*****************set selected teacher from Explore***********************
+	$scope.selectedTeacher = { name: sessionStorage.selectedTeachName, course: sessionStorage.selectedTeachCourseName, atmos: sessionStorage.selectedTeachAvgAtmos, help: sessionStorage.selectedTeachAvgHelp, lec: sessionStorage.selectedTeachAvgLec, prep: sessionStorage.selectedTeachAvgPrep, prof: sessionStorage.selectedTeachAvgProf, total: sessionStorage.selectedTeachTotal };
+	$scope.setTeacherPage = function (TeacherID, TeachName, Course_ID, atmos, help, lec, prep, prof, total) {
 		sessionStorage.selectedTeacher = TeacherID;
+		sessionStorage.selectedTeachName = TeachName;
+		sessionStorage.selectedTeachCourseID = Course_ID;
+		sessionStorage.selectedTeachAvgHelp = Math.round(help * 2) / 2;
+		sessionStorage.selectedTeachAvgLec = Math.round(lec * 2) / 2;
+		sessionStorage.selectedTeachAvgPrep = Math.round(prep * 2) / 2;
+		sessionStorage.selectedTeachAvgProf = Math.round(prof * 2) / 2;
+		sessionStorage.selectedTeachAvgAtmos = Math.round(atmos * 2) / 2;
+		sessionStorage.selectedTeachTotal = Math.round(total * 2) / 2;
+
+
+		$scope.courses.$loaded().then(function (courses) {
+			for (var i = 0; i < courses.length; i++) {
+				//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
+				if (courses[i].Course_ID == sessionStorage.selectedTeachCourseID) {
+					sessionStorage.selectedTeachCourseName = courses[i].Course_Name;
+				}
+			}
+		});
 		$location.path('/review');
 	}
 
-	/*********************************selected teacher name****************************************/
-	$scope.selectedTeacherName = "";
-	$scope.teachers.$loaded().then(function (teachers) {
-		for (var i = 0; i < teachers.length; i++) {
-			if (teachers[i].TeacherID == sessionStorage.selectedTeacher) {
-				$scope.selectedTeacherName = teachers[i].TeachName;
+	// /*********************************Find selected teacher name****************************************/
+	// $scope.selectedTeacherName = "";
+	// $scope.teachers.$loaded().then(function (teachers) {
+	// 	for (var i = 0; i < teachers.length; i++) { 
+	// 		if(teachers[i].TeacherID == sessionStorage.selectedTeacher){
+	// 			$scope.selectedTeacherName = teachers[i].TeachName;
+	// 		}
+	// 	}
+	// });
+
+	//****************************Set top Rated************************
+	$scope.modules.$loaded().then(function (modules) {
+
+		for (var i = 0; i < modules.length; i++) {
+			if ($scope.date >= modules[i].startDate && $scope.date <= modules[i].endDate) {
+				$scope.currentMod = { name: modules[i].$id, startDate: modules[i].startDate, endDate: modules[i].endDate };
+				console.log($scope.currentMod);
 			}
 		}
+	}).then(function (ref) {
+		//after module is set check if its the last day of the module
+		if ($scope.date == $scope.currentMod.endDate) {
+			//get top rated
+			if ($scope.topRatedTeach.length == 0) {
+				var highScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Total > highScore) {
+						var atmos = $scope.teachers[i].Avg_Atmosphere;
+						var help = $scope.teachers[i].Avg_Helpfulness;
+						var lec = $scope.teachers[i].Avg_Lectures;
+						var prep = $scope.teachers[i].Avg_Preparation;
+						var prof = $scope.teachers[i].Avg_Professionalism;
+						var total = $scope.teachers[i].Total;
+						$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
+						highScore = $scope.teachers[i].Total;
+
+					}
+				}
+			}
+			var ref = firebase.database().ref('HallOfFame');
+			ref.on("child_added", function (snapshot) {
+				if (snapshot.key == $scope.currentMod.name) {
+					console.log("inserting");
+					var childToUpDate = ref.child(snapshot.key);
+					console.log($scope.topRatedTeach.atmos);
+					childToUpDate.update({
+						Avg_Atmosphere: $scope.topRatedTeach.atmos,
+						Avg_Helpfulness: $scope.topRatedTeach.help,
+						Avg_Lectures: $scope.topRatedTeach.lec,
+						Avg_Preparation: $scope.topRatedTeach.prep,
+						Avg_Professionalism: $scope.topRatedTeach.prof,
+						TeacherID: $scope.topRatedTeach.id,
+						Total: $scope.topRatedTeach.total
+					}).then(function (ref) {
+					}, function (error) {
+						toastr.error(error, "Error!");
+					});
+				}
+
+			});
+		}
+		else {
+			console.log("its not the end of module yet");
+		}
+	}, function (error) {
+		toastr.error(error, "Error!");
 	});
 
-	//set top rated
-	if ($scope.topRatedCom.length == 0) {
-		var highScore = 0;
-		for (var i = 0; i < $scope.teachers.length; i++) {
-			if ($scope.teachers[i].Total > highScore) {
-				var atmos = Math.round($scope.teachers[i].AvgAtmos * 2) / 2;
-				var help = Math.round($scope.teachers[i].AvgHelp * 2) / 2;
-				var lec = Math.round($scope.teachers[i].AvgLec * 2) / 2;
-				var prep = Math.round($scope.teachers[i].AvgPrep * 2) / 2;
-				var prof = Math.round($scope.teachers[i].AvgProf * 2) / 2;
-				var total = Math.round($scope.teachers[i].Total * 2) / 2;
-				$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
-				highScore = $scope.teachers[i].Total;
-				console.log($scope.topRatedTeach);
-			}
-		}
-	}
+
+	// if ($scope.topRatedCom.length == 0) {
+	// 	var highScore = 0;
+	// 	for (var i = 0; i < $scope.teachers.length; i++) {
+	// 		console.log(teachers[i]);
+	// 		if ($scope.teachers[i].Total > highScore) {
+	// 			var atmos = $scope.teachers[i].AvgAtmos;
+	// 			var help = $scope.teachers[i].AvgHelp;
+	// 			var lec = $scope.teachers[i].AvgLec;
+	// 			var prep = $scope.teachers[i].AvgPrep;
+	// 			var prof = $scope.teachers[i].AvgProf;
+	// 			var total = $scope.teachers[i].Total;
+	// 			$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
+	// 			highScore = $scope.teachers[i].Total;
+	// 			console.log("top rated: "+$scope.topRatedTeach);
+	// 		}
+	// 	}
+	// }
 
 	//console.log("high score is: " + highScore);
 
@@ -116,8 +195,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	console.log($scope.topRatedCom);
 
-	/*********************************Dynamic review generate****************************************/
-
+	//**************************display dynamic reviews**********************************
 	$scope.reviews.$loaded().then(function (reviews) {
 		for (var i = 0; i < reviews.length; i++) {
 
@@ -151,6 +229,27 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 							$scope.currentVote = element.Vote;
 							console.log("Review: " + reviews[i].Review_ID + " :" + element.Vote)
 						}
+<<<<<<< HEAD
+=======
+						console.log("after for: " + reviewScore);
+					});
+					console.log("after votes loaded: " + reviewScore);
+					console.log("scope review\score: " + $scope.reviewVoteScore);
+				}).then(function () {
+					$scope.teacherReviews.push({
+						reviewID: reviews[i].Review_ID,
+						//teachId: $scope.reviews[i].TeacherID,
+						com: reviews[i].comment,
+						//date: $scope.reviews[i].Date,
+						//userId: $scope.reviews[i].userID,
+						atmos: reviews[i].Atmosphere,
+						help: reviews[i].Helpfulness,
+						lec: reviews[i].Lectures,
+						prep: reviews[i].Preparation,
+						prof: reviews[i].Professionalism,
+						currentVote: $scope.currentVote,
+						voteScore: $scope.reviewScore
+>>>>>>> 9ae2c7c3b9bcf7990467e40ad3b151ad60b605ae
 					});
 				}*/
 
@@ -172,6 +271,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			}
 		}
 	});
+
 	//*********************************Adding Review Area****************************************
 
 	var arr = ['.labelat', '.labelhe', '.labelle', '.labelpre', '.labelpro'];
@@ -217,15 +317,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				var mod1start = moment("2017-04-01");
 				var mod1end = moment("2017-06-24");
 				var reviewDate = moment(childKey2);
-				//console.log("date: " + reviewDate+ "date from firebase: " + childKey2);
 
-				if (childKey == $scope.selectedTeacher.id) {
+				if (childKey == sessionStorage.selectedTeacher) {
 
 					if (reviewDate > mod1start && reviewDate < mod1end) {
 						existRev = true;
-						//console.log(childKey);
-						//console.log(" existing review: " + existRev);
-
 					}
 				}
 			});
@@ -241,39 +337,62 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					Lectures: le_rating,
 					Preparation: pre_rating,
 					Professionalism: pro_rating,
-					Review_ID: $scope.reviews.$loaded().length + 1,
+					Review_ID: $scope.reviews.length + 1,
 					TeacherID: sessionStorage.selectedTeacher,
 					Weight: weight,
 					comment: $scope.txt,
 					userID: SharingFactory.getUserData().UserID
 				};
-
 				var ref = firebase.database().ref('Reviews');
 				SharingFactory.pushToDb(data, ref);
 
 				//Calculate weighted average for teacher and update table
 				for (var i = 0; i < $scope.reviews.length; i++) {
 					if ($scope.reviews[i].TeacherID == sessionStorage.selectedTeacher) {
-						$scope.helpArray.push({ value: $scope.reviews[i].Helpfulness, weight: $scope.reviews[i].weight });
-						$scope.atmosArray.push({ value: $scope.reviews[i].Atmosphere, weight: $scope.reviews[i].weight });
-						$scope.lecArray.push({ value: $scope.reviews[i].Lectures, weight: $scope.reviews[i].weight });
-						$scope.prepArray.push({ value: $scope.reviews[i].Preparation, weight: $scope.reviews[i].weight });
-						$scope.profArray.push({ value: $scope.reviews[i].Professionalism, weight: $scope.reviews[i].weight });
+						$scope.helpArray.push({ value: $scope.reviews[i].Helpfulness, weight: $scope.reviews[i].Weight });
+						$scope.atmosArray.push({ value: $scope.reviews[i].Atmosphere, weight: $scope.reviews[i].Weight });
+						$scope.lecArray.push({ value: $scope.reviews[i].Lectures, weight: $scope.reviews[i].Weight });
+						$scope.prepArray.push({ value: $scope.reviews[i].Preparation, weight: $scope.reviews[i].Weight });
+						$scope.profArray.push({ value: $scope.reviews[i].Professionalism, weight: $scope.reviews[i].Weight });
 					}
 
 				}
 				//get avergae
-				$scope.helpAvg = $scope.calcWeightedAvg(weight, he_rating, $scope.helpArray);
-				$scope.prepAvg = $scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray);
-				$scope.lecAvg = $scope.calcWeightedAvg(weight, le_rating, $scope.lecArray);
-				$scope.profAvg = $scope.calcWeightedAvg(weight, pro_rating, $scope.profArray);
-				$scope.atmosAvg = $scope.calcWeightedAvg(weight, at_rating, $scope.atmosArray);
+				$scope.helpAvg = Math.round($scope.calcWeightedAvg(weight, he_rating, $scope.helpArray) * 2) / 2;
+				$scope.prepAvg = Math.round($scope.calcWeightedAvg(weight, pre_rating, $scope.prepArray) * 2) / 2;
+				$scope.lecAvg = Math.round($scope.calcWeightedAvg(weight, le_rating, $scope.lecArray) * 2) / 2;
+				$scope.profAvg = Math.round($scope.calcWeightedAvg(weight, pro_rating, $scope.profArray) * 2) / 2;
+				$scope.atmosAvg = Math.round($scope.calcWeightedAvg(weight, at_rating, $scope.atmosArray) * 2) / 2;
 
 				//get total
 				$scope.total = ($scope.helpAvg + $scope.prepAvg + $scope.lecAvg + $scope.profAvg + $scope.atmosAvg) / 5;
 
+				//******************************88testing shit******************************
+				var ref = firebase.database().ref('Teachers');
+				ref.orderByChild("TeacherID").on("child_added", function (snapshot) {
+					if (snapshot.child("TeacherID").val() == sessionStorage.selectedTeacher) {
+						console.log("updating");
+						var childToUpDate = ref.child(snapshot.key);
+						childToUpDate.update({
+							Avg_Atmosphere: $scope.atmosAvg,
+							Avg_Helpfulness: $scope.helpAvg,
+							Avg_Lectures: $scope.lecAvg,
+							Avg_Preparation: $scope.prepAvg,
+							Avg_Professionalism: $scope.profAvg,
+							Total: $scope.total
+						}).then(function (ref) {
+						}, function (error) {
+							toastr.error(error, "Error!");
+						});
+					}
+
+				});
+
+				//*******************************End of Test******************************
+
+
 				//enter teacher info in database
-				var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
+				/*var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
 				ref.update({
 					Avg_Atmosphere: $scope.atmosAvg,
 					Avg_Helpfulness: $scope.helpAvg,
@@ -285,7 +404,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				}, function (error) {
 					toastr.error(error, "Error!");
 				});
-
+*/
 				toastr.success(AlertFactory.getNRS, "Success!");
 				$("#reviewModal .close").click();
 
@@ -294,8 +413,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					$(value).removeClass('active');
 				});
 			}
-
-
 		}
 	}
 
@@ -307,22 +424,14 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 		for (var i = 0; i < array.length; i++) {
 			$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
-			console.log("value: " + array[i].value + " weight: " + array[i].weight);
 			$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
 		}
 		$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
 		$scope.sumOfWeight = $scope.sumOfWeight + weight;
 		$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
-		console.log("avg: " + $scope.avg);
-		console.log("score by weight: " + $scope.scoreByWeight);
 		return $scope.avg;
 	}
 
-
-	/*$('#reviewModal').on('hidden.bs.modal', function() {
-		// refresh to see new review on review page
-		location.reload();
-	})*/
 
 	/*********************************Voting of reviews****************************************/
 	// TODO Refactor into one method maybe?
