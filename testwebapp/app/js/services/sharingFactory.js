@@ -5,9 +5,9 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var courses = {};
     var reviews = {};
     var user = "";
-	var users = {};
-	var reports = {};
-	var requests = {};
+    var users = {};
+    var reports = {};
+    var requests = {};
     var signedIn = false;
     var selectedTeacher = {};
     var currentUser = {};
@@ -16,9 +16,9 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var coursesUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveCourse";
     var reviewsUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveReviews";
     var reportsUrl = "https://us-central1-t-rate.cloudfunctions.net/reportData";
-	var requestsUrl = "https://us-central1-t-rate.cloudfunctions.net/requestData";
-	var userUrl = "https://us-central1-t-rate.cloudfunctions.net/userData";
-	var tag = "";
+    var requestsUrl = "https://us-central1-t-rate.cloudfunctions.net/requestData";
+    var userUrl = "https://us-central1-t-rate.cloudfunctions.net/userData";
+    var tag = "";
 
     var userVotes;
 
@@ -44,8 +44,8 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.setUser = function (value) {
         user = value;
     };
-	
-	sharingFactory.getUsers = function () {
+
+    sharingFactory.getUsers = function () {
         return users;
     };
 
@@ -115,10 +115,10 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.pushToDb = function (data, ref) {
         ref.push(data);
     }
-	
-	sharingFactory.removeFromDb = function (ref) {
-		ref.remove();
-	}
+
+    sharingFactory.removeFromDb = function (ref) {
+        ref.remove();
+    }
 
     sharingFactory.setSelectedTeacher = function (name, id, course, atmos, help, prof, lec, prep, total) {
         selectedTeacher = { name: name, id: id, course: course, atmos: atmos, help: help, prof: prof, lec: lec, prep: prep, total: total };
@@ -160,24 +160,13 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     }
 
     sharingFactory.setUserVotes = function () {
-        userVotes = [];
-        if (sharingFactory.getUserData().UserID != null) {
-            var ref = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(sharingFactory.getUserData().UserID);
-            ref.on('value', function (snapshot) {
-                snapshot.forEach(function (child) {
-                    var item = child.val();
-                    var key = child.getKey();
-                    userVotes.push({ Key: key, Review_ID: item.Review_ID, Vote: item.Vote });
-                });
-            });
-        }
     }
 
     sharingFactory.getUserVotes = function () {
         return userVotes;
     };
-	
-	sharingFactory.getReports = function () {
+
+    sharingFactory.getReports = function () {
         return reports;
     };
 
@@ -186,8 +175,8 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
             reports = data.data;
         });
     };
-	
-	sharingFactory.getRequests = function () {
+
+    sharingFactory.getRequests = function () {
         return requests;
     };
 

@@ -1,21 +1,42 @@
-angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory) {
+angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', '$q', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory, $q) {
 
 
 	//TODO Top Rated teacher, calculating of averages for teachers, voting of reviews
+	SharingFactory.setSignedIn();
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
+	SharingFactory.setUserData();
 
 	var teacherRef = firebase.database().ref("Teachers");
 	var reviewsRef = firebase.database().ref("Reviews");
 	var coursesRef = firebase.database().ref("Courses");
 	var locationsRef = firebase.database().ref("Locations");
 
+
+
 	$scope.teachers = $firebaseArray(teacherRef);
 	$scope.reviews = $firebaseArray(reviewsRef)
 	$scope.courses = $firebaseArray(coursesRef);
 	$scope.locations = $firebaseArray(locationsRef);
+	var userVotes = [];
 
+	/*********************************Get user votes****************************************/
+	function getUserVotes() {
+		var deferred = $q.defer();
 
-	console.log($scope.reviews);
+		return $q(function () {
+			if (SharingFactory.getUserData().UserID) {
+				var userVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
+				$scope.userVotes = $firebaseArray(userVotesRef);
+				$scope.userVotes.$loaded().then(function (votes) {
+					for (var i = 0; i < votes.length; i++) {
+						var key = votes[i].$id;
+						userVotes.push({ Key: key, Review_ID: votes[i].Review_ID, Vote: votes[i].Vote, UserID: votes[i].UserID });
+					}
+				});
+			}
+		})
+	}
+
 	$scope.date = $moment().format('YYYY-MM-DD');
 
 	$scope.teacherReviews = [];
@@ -29,10 +50,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	//$scope.courses = SharingFactory.getCourses();
 	$scope.requests = SharingFactory.getRequests();
 
-	SharingFactory.setSignedIn();
-	SharingFactory.setUserData();
-	SharingFactory.setUserVotes();
-	$scope.userVotes = SharingFactory.getUserVotes();
 	$scope.tag = SharingFactory.getTagline();
 
 	$scope.helpArray = [];
@@ -49,11 +66,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$location.path('/review');
 	}
 
-	/*********************************Find selected teacher name****************************************/
+	/*********************************selected teacher name****************************************/
 	$scope.selectedTeacherName = "";
 	$scope.teachers.$loaded().then(function (teachers) {
-		for (var i = 0; i < teachers.length; i++) { 
-			if(teachers[i].TeacherID == sessionStorage.selectedTeacher){
+		for (var i = 0; i < teachers.length; i++) {
+			if (teachers[i].TeacherID == sessionStorage.selectedTeacher) {
 				$scope.selectedTeacherName = teachers[i].TeachName;
 			}
 		}
@@ -99,57 +116,59 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	console.log($scope.topRatedCom);
 
-	//display dynamic reviews		
+	/*********************************Dynamic review generate****************************************/
 
 	$scope.reviews.$loaded().then(function (reviews) {
 		for (var i = 0; i < reviews.length; i++) {
 
 			//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
 			if (reviews[i].TeacherID == sessionStorage.selectedTeacher) {
-				$scope.reviewScore = 0;
-				//console.log(reviews[i]);
+				var reviewScore = 0;
 
-				$.when(function () {
-					var userVotesRef = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo(reviews[i].Review_ID);
-					$scope.userVotes = $firebaseArray(userVotesRef);
-					$scope.userVotes.$loaded().then(function (votes) {
-						for (var i = 0; i < votes.length; i++) {
-							console.log(votes[i].Vote);
-							if (votes[i].Vote == "True") {
-								$scope.reviewScore += 1;
-								console.log(reviewScore);
-							}
-							else if (votes[i].Vote == "False") {
-								$scope.reviewScore -= 1;
-								console.log(reviewScore);
-							}
+				var usersVotesRef = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo(reviews[i].Review_ID);
+				$scope.usersVotes = $firebaseArray(usersVotesRef);
+				$scope.usersVotes.$loaded().then(function (votes) {
+					for (var i = 0; i < votes.length; i++) {
+						//	console.log(votes[i].Vote);
+						if (votes[i].Vote == "True") {
+							reviewScore += 1;
 						}
-						console.log("after for: " + reviewScore);
-					});
-					console.log("after votes loaded: " + reviewScore);
-					console.log("scope review\score: " + $scope.reviewVoteScore);
-				}).then(function () {
-					$scope.teacherReviews.push({
-						reviewID: reviews[i].ReviewID,
-						//teachId: $scope.reviews[i].TeacherID,
-						com: reviews[i].comment,
-						//date: $scope.reviews[i].Date,
-						//userId: $scope.reviews[i].userID,
-						atmos: reviews[i].Atmosphere,
-						help: reviews[i].Helpfulness,
-						lec: reviews[i].Lectures,
-						prep: reviews[i].Preparation,
-						prof: reviews[i].Professionalism,
-						currentVote: $scope.currentVote,
-						voteScore: $scope.reviewScore
-					});
-				})
-
-				/*$scope.userVotes.forEach(function (element) {
-					if (element.Review_ID == reviews[i].Review_ID) {
-						$scope.currentVote = element.Vote;
+						else if (votes[i].Vote == "False") {
+							$scope.reviewScore -= 1;
+						}
 					}
-				});*/
+					//	console.log("after for: " + reviewScore);
+				});
+				//	console.log("after votes loaded: " + reviewScore);
+				//	console.log("scope review\score: " + reviewScore);
+
+				//get current user's vote for this review
+				/*if (SharingFactory.getUserData().UserID) {
+					$scope.userVotes.forEach(function (element) {
+						console.log(element);
+						$scope.currentVote = "";
+						if (element.Review_ID == reviews[i].Review_ID) {
+							$scope.currentVote = element.Vote;
+							console.log("Review: " + reviews[i].Review_ID + " :" + element.Vote)
+						}
+					});
+				}*/
+
+				$scope.teacherReviews.push({
+					reviewID: reviews[i].Review_ID,
+					//teachId: $scope.reviews[i].TeacherID,
+					com: reviews[i].comment,
+					//date: $scope.reviews[i].Date,
+					//userId: $scope.reviews[i].userID,
+					atmos: reviews[i].Atmosphere,
+					help: reviews[i].Helpfulness,
+					lec: reviews[i].Lectures,
+					prep: reviews[i].Preparation,
+					prof: reviews[i].Professionalism,
+					currentVote: $scope.currentVote,
+					voteScore: reviewScore
+				});
+
 			}
 		}
 	});
@@ -313,37 +332,52 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		var voteUpdate = false;
 		var vote = "";
 
-		$scope.userVotes.forEach(function (element) {
-			//console.log(element); //TODO Insane quantity of calls?!?!?
-			if (element.Review_ID == reviewID) {
-				if (element.Vote == "False" || element.Vote == "Null") {
-					vote = "True"
-					voteUpdate = true;
-					updateKey = element.Key;
+		//trying to use promise but doesn't work...
+		var promise = getUserVotes();
+		promise.then(function (userVotes) {
+			userVotes.forEach(function (element) {
+				console.log(element); //TODO Insane quantity of calls?!?!?
+				if (element.Review_ID == reviewID) {
+					if (element.Vote == "False" || element.Vote == "Null") {
+						vote = "True"
+						voteUpdate = true;
+						updateKey = element.Key;
+					}
+					else if (element.Vote == "True") {
+						vote = "Null";
+						voteUpdate = true;
+						updateKey = element.Key;
+					}
 				}
-				else if (element.Vote == "True") {
-					vote = "Null";
-					voteUpdate = true;
-					updateKey = element.Key;
-				}
-			}
-		}, this);
+			}, this);
 
-		if (voteUpdate == true) {
-			firebase.database().ref('Votes/' + updateKey).set({
-				Review_ID: reviewID,
-				UserID: userID,
-				Vote: vote
-			});
-		}
-		else {
-			firebase.database().ref('Votes/').push({
-				Review_ID: reviewID,
-				UserID: userID,
-				Vote: 'True'
-			});
-		}
-	};
+			if (voteUpdate == true) {
+				firebase.database().ref('Votes/' + updateKey).set({
+					Review_ID: reviewID,
+					UserID: userID,
+					Vote: vote
+				});
+			}
+			else {
+				firebase.database().ref('Votes/').push({
+					Review_ID: reviewID,
+					UserID: userID,
+					Vote: 'True'
+				});
+			}
+
+			//this should update the vote buttons
+			if (vote == "True") {
+				$('#up' + reviewID).addClass('btn-success');
+				$('#down' + reviewID).removeClass('btn-danger');
+			}
+			else if (vote == "Null") {
+				$('#up' + reviewID).removeClass('btn-success');
+				$('#down' + reviewID).removeClass('btn-danger');
+			}
+		})
+	}
+
 
 	$scope.downvote = function (reviewID) {
 		var userID = SharingFactory.getUserData().UserID;
@@ -351,7 +385,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		var voteUpdate = false;
 		var vote = "";
 
-		$scope.userVotes.forEach(function (element) {
+		userVotes.forEach(function (element) {
 			//console.log(element);
 			if (element.Review_ID == reviewID) {
 				if (element.Vote == "True" || element.Vote == "Null") {
@@ -378,8 +412,17 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			firebase.database().ref('Votes/').push({
 				Review_ID: reviewID,
 				UserID: userID,
-				Vote: 'True'
+				Vote: 'False'
 			});
+		}
+		//this should update the vote buttons
+		if (vote == "False") {
+			$('#up' + reviewID).removeClass('btn-success');
+			$('#down' + reviewID).addClass('btn-danger');
+		}
+		else if (vote == "Null") {
+			$('#up' + reviewID).removeClass('btn-success');
+			$('#down' + reviewID).removeClass('btn-danger');
 		}
 	};
 

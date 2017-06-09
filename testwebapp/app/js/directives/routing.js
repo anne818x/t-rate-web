@@ -1,44 +1,44 @@
-app.config(function ($routeProvider,$locationProvider) {
+app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
     $routeProvider
         .when('/home', {
-            templateUrl : 'templates/home.html',
+            templateUrl: 'templates/home.html',
             controller: 'MainController'
         })
         .when('/logout', {
-        templateUrl:'templates/home.html',
-        controller:'',
-        resolve: {
-            "logout": ["AuthFactory", function(AuthFactory) {
-                AuthFactory.logout();
-            }]
-        }
-       })
+            templateUrl: 'templates/home.html',
+            controller: '',
+            resolve: {
+                "logout": ["AuthFactory", function (AuthFactory) {
+                    AuthFactory.logout();
+                }]
+            }
+        })
         .when('/explore', {
-            templateUrl : 'templates/explore.html',
+            templateUrl: 'templates/explore.html',
             controller: 'MainController',
         })
         .when('/profile', {
-            templateUrl : 'templates/profile.html',
+            templateUrl: 'templates/profile.html',
             controller: 'ProfileController',
             resolve: {
 
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
-                var auth = AuthFactory.auth();
-                console.log(auth);
-				console.log("Here it is!" + AuthFactory.requireAuth());
-                return AuthFactory.requireAuth();
-            }]
-        }
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    console.log("Here it is!" + AuthFactory.requireAuth());
+                    return AuthFactory.requireAuth();
+                }]
+            }
         })
         .when('/profileSettings', {
-            templateUrl : 'templates/profileSettings.html',
+            templateUrl: 'templates/profileSettings.html',
             controller: 'ProfileSettingsController',
 
             resolve: {
 
-                "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
                     var auth = AuthFactory.auth();
                     console.log(auth);
@@ -47,7 +47,7 @@ app.config(function ($routeProvider,$locationProvider) {
             }
         })
         .when('/faq', {
-            templateUrl : 'templates/faq.html',
+            templateUrl: 'templates/faq.html',
             controller: 'FaqController',
             /*resolve: {
 
@@ -60,72 +60,72 @@ app.config(function ($routeProvider,$locationProvider) {
         }*/
         })
         .when('/contact', {
-            templateUrl : 'templates/contact.html',
+            templateUrl: 'templates/contact.html',
             controller: 'MainController',
             resolve: {
 
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
-                var auth = AuthFactory.auth();
-                console.log(auth);
-                return AuthFactory.requireAuth();
-            }]
-        }
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
         })
         .when('/review', {
-            templateUrl : 'templates/review.html',
+            templateUrl: 'templates/review.html',
             controller: 'MainController',
             resolve: {
 
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
-                var auth = AuthFactory.auth();
-                console.log(auth);
-                return AuthFactory.requireAuth();
-            }]
-        }
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
         })
         .when('/adminhome', {
-            templateUrl : 'templates/adminhome.html',
+            templateUrl: 'templates/adminhome.html',
             controller: 'adminController',
-			resolve: {
+            resolve: {
 
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
-                var auth = AuthFactory.auth();
-                console.log(auth);
-				console.log("Here it is!" + AuthFactory.requireAuth());
-                return AuthFactory.requireAuth();
-            }]
-		}
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    console.log("Here it is!" + AuthFactory.requireAuth());
+                    return AuthFactory.requireAuth();
+                }]
+            }
         })
-		.when('/adminreports', {
-            templateUrl : 'templates/adminreports.html',
+        .when('/adminreports', {
+            templateUrl: 'templates/adminreports.html',
             controller: 'adminController',
-			resolve: {
+            resolve: {
 
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
-                var auth = AuthFactory.auth();
-                console.log(auth);
-                return AuthFactory.requireAuth();
-            }]
-		}
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
         })
-		.when('/adminrequests', {
-            templateUrl : 'templates/adminrequests.html',
+        .when('/adminrequests', {
+            templateUrl: 'templates/adminrequests.html',
             controller: 'adminController',
-			resolve: {
+            resolve: {
 
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
 
-                var auth = AuthFactory.auth();
-                console.log(auth);
-                return AuthFactory.requireAuth();
-            }]
-		}
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
         })
         .otherwise({
-            redirectTo : '/home'
+            redirectTo: '/home'
         });
 });
