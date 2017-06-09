@@ -435,28 +435,45 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 	/*********************************Voting of reviews****************************************/
 	// TODO Refactor into one method maybe?
+	//Removed promis, used then(function(){}) instead
 	$scope.upvote = function (reviewID) {
 		var userID = SharingFactory.getUserData().UserID;
 		var updateKey = "";
 		var voteUpdate = false;
 		var vote = "";
 
-		//trying to use promise but doesn't work...
-		var promise = getUserVotes();
-		promise.then(function (userVotes) {
-			userVotes.forEach(function (element) {
+			console.log("when");
+				var userVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
+				$scope.userVotes = $firebaseArray(userVotesRef);
+				$scope.userVotes.$loaded().then(function (votes) {
+					for (var i = 0; i < votes.length; i++) {
+						var key = votes[i].$id;
+						userVotes.push({ Key: key, Review_ID: votes[i].Review_ID, Vote: votes[i].Vote, UserID: votes[i].UserID });
+					}
+				}).then(function () {
+				console.log("Then");
+					userVotes.forEach(function (element) {
 				console.log(element); //TODO Insane quantity of calls?!?!?
 				if (element.Review_ID == reviewID) {
-					if (element.Vote == "False" || element.Vote == "Null") {
-						vote = "True"
+					if (element.Vote == "False" ) {
+						vote = "True";
+						$scope.currentVote = 'True';
 						voteUpdate = true;
 						updateKey = element.Key;
 					}
 					else if (element.Vote == "True") {
 						vote = "Null";
+						$scope.currentVote = 'Null';
 						voteUpdate = true;
 						updateKey = element.Key;
 					}
+					else if (element.Vote == "Null") {
+						vote = "True";
+						$scope.currentVote = 'True';
+						voteUpdate = true;
+						updateKey = element.Key;
+					}
+					console.log($scope.currentVote);
 				}
 			}, this);
 
@@ -475,6 +492,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				});
 			}
 
+			console.log(vote);
 			//this should update the vote buttons
 			if (vote == "True") {
 				$('#up' + reviewID).addClass('btn-success');
@@ -484,7 +502,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				$('#up' + reviewID).removeClass('btn-success');
 				$('#down' + reviewID).removeClass('btn-danger');
 			}
-		})
+			})
 	}
 
 
