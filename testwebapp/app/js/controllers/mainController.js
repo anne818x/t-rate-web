@@ -338,7 +338,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					Preparation: pre_rating,
 					Professionalism: pro_rating,
 					Review_ID: $scope.reviews.length + 1,
-					TeacherID: sessionStorage.selectedTeacher,
+					TeacherID: parseInt(sessionStorage.selectedTeacher, 10),
 					Weight: weight,
 					comment: $scope.txt,
 					userID: SharingFactory.getUserData().UserID

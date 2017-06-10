@@ -1,14 +1,37 @@
 app.controller('adminController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', function ($scope, $location, $window, SharingFactory, AuthFactory) {
 	
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
+	//reports
 	$scope.rep = [];
+	//requests
 	$scope.req = [];
+	//teachers
+	$scope.teach = [];
 	$scope.selectedReview = "";
-	$scope.teachers = SharingFactory.getTeachers();
 	
 	$scope.reportsmessage = "";
 	$scope.requestsmessage = "";
+	$scope.deletemessage = "";
+	
+	$scope.revid = [];
+	$scope.removedReviews = [];
+	$scope.removedVotes = [];
+	
+/* 	var teachersRef = firebase.database().ref("Teachers");
+	var reportsRef = firebase.database().ref("Reports");
+	var reviewsRef = firebase.database().ref("Reviews");
+	var requestsRef = firebase.database().ref("Requests");
+	var coursesRef = firebase.database().ref("Courses");
 
+	$scope.teachers = $firebaseArray(teachersRef);
+	$scope.reports = $firebaseArray(reportsRef);
+	$scope.reviews = $firebaseArray(reviewsRef);
+	$scope.requests = $firebaseArray(requestsRef);
+	$scope.courses = $firebaseArray(coursesRef); */
+
+	if (SharingFactory.getTeachers().length == undefined) {
+		SharingFactory.setTeachers();
+	}
 	if (SharingFactory.getReports().length == undefined) {
 		SharingFactory.setReports();
 	}
@@ -16,16 +39,18 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		SharingFactory.setReviews();
 	}
 	if (SharingFactory.getCourses().length == undefined) {
-		SharingFactory.getCourses();
+		SharingFactory.setCourses();
 	}
 	if (SharingFactory.getRequests().length == undefined) {
 		SharingFactory.setRequests();
 	}
 	
+	$scope.teachers = SharingFactory.getTeachers();
 	$scope.reports = SharingFactory.getReports();
 	$scope.reviews = SharingFactory.getReviews();
 	$scope.requests = SharingFactory.getRequests();
 	$scope.courses = SharingFactory.getCourses();
+	console.log($scope.courses.length);
 
 	
 	// Reports
@@ -109,6 +134,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		//end reports
 		
 		//requests
+		
 		for (var i = 0; i < $scope.requests.length; i++) {
 			for (var j = 0; j < $scope.courses.length; j++) {
 			if ($scope.requests[i].CourseID == $scope.courses[j].ID)
@@ -142,7 +168,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					
 					if (confirm("Are you sure you want to accept this request? The teacher will be added to the system.")) {
 					
-					// insert review to db
+					// 
 			var data = { 
  Avg_Helpfulness: 0,
  Avg_Lectures: 0,
@@ -156,14 +182,14 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
  
 			};
 
-			var ref = firebase.database().ref('Teachers');
-			SharingFactory.pushToDb(data, ref);
+			var tref = firebase.database().ref('Teachers');
+			SharingFactory.pushToDb(data, tref);
 	
 	
 					
 					var refreq = firebase.database().ref('Requests');
 					refreq.orderByChild("Request_ID").equalTo(requestID).on("child_added", function(snapshot) {
-					var removeRequest = ref.child(snapshot.key);
+					var removeRequest = refreq.child(snapshot.key);
 					SharingFactory.removeFromDb(removeRequest);
 					
 					});
@@ -173,6 +199,73 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 				}
 		}
 		}
+		
+		// end requests
+		
+		
+		
+		
+		
+		//deletion
+		for (var i = 0; i < $scope.teachers.length; i++) {
+			for (var j = 0; j < $scope.courses.length; j++) {
+			if ($scope.teachers[i].CourseID == $scope.courses[j].ID)
+			{
+				$scope.teach.push({
+					teachID: $scope.teachers[i].ID,
+					teachname: $scope.teachers[i].TeachName,
+					courseID: $scope.teachers[i].CourseID,
+					coursename: $scope.courses[j].Course,
+				});
+			}
+			}
+		
+					
+				
+
+				$scope.deleteTeacher = function (ID) {
+					
+					if (confirm("Are you sure you want to delete this teacher? They will be deleted as well as their reviews.")) {
+
+					//delete teacher
+					var teachref = firebase.database().ref('Teachers');
+					console.log(teachref);
+					teachref.orderByChild("TeacherID").equalTo(ID).on("child_added", function(snapshot) {
+					var removeTeacher = teachref.child(snapshot.key);
+					SharingFactory.removeFromDb(removeTeacher);
+					});
+					
+					// delete teacher's reviews
+					var reviewref = firebase.database().ref('Reviews');
+					reviewref.orderByChild("TeacherID").equalTo(ID).on("child_added", function(snapshot) {					
+					var array = [reviewref.child(snapshot.key)];
+
+					$scope.revid.push({
+						id: snapshot.child("Review_ID").val(),
+						});
+					var removeReviews = array[0];
+					SharingFactory.removeFromDb(removeReviews);
+					});
+					
+					// delete teacher's reviews' votes
+					var voteref = firebase.database().ref('Votes');
+					for(var i = 0; i < $scope.revid.length; i++)
+					{
+					voteref.orderByChild("Review_ID").equalTo($scope.revid[i].id).on("child_added", function(snapshot) {
+						var array = [voteref.child(snapshot.key)];
+						
+					var removeVotes = array[0];
+					SharingFactory.removeFromDb(removeVotes);
+					});
+					}
+				
+					}
+					
+				}
+ 
+		}
+		
+		// end deletion
 		
 
 		
@@ -189,6 +282,8 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		} else {
 			$scope.requestssmessage = "There are currently no requests for teachers";
 		}
+		
+		$scope.deletemessage = "There are " + $scope.teachers.length + " teachers in the system";
 		
 
 		

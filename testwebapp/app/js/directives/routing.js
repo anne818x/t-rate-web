@@ -77,7 +77,7 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'MainController'
         })
         .when('/adminhome', {
-            templateUrl: 'templates/adminhome.html',
+            templateUrl: 'templates/admin/adminhome.html',
             controller: 'adminController',
             resolve: {
 
@@ -85,13 +85,13 @@ app.config(function ($routeProvider, $locationProvider) {
 
                     var auth = AuthFactory.auth();
                     console.log(auth);
-                    console.log("Here it is!" + AuthFactory.requireAuth());
+                    console.log(AuthFactory.requireAuth());
                     return AuthFactory.requireAuth();
                 }]
             }
         })
         .when('/adminreports', {
-            templateUrl: 'templates/adminreports.html',
+            templateUrl: 'templates/admin/adminreports.html',
             controller: 'adminController',
             resolve: {
 
@@ -104,7 +104,7 @@ app.config(function ($routeProvider, $locationProvider) {
             }
         })
         .when('/adminrequests', {
-            templateUrl: 'templates/adminrequests.html',
+            templateUrl: 'templates/admin/adminrequests.html',
             controller: 'adminController',
             resolve: {
 
@@ -116,6 +116,21 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
+		
+		.when('/admindelete', {
+            templateUrl: 'templates/admin/admindelete.html',
+            controller: 'adminController',
+            resolve: {
+
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
+
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
+        })
+		
         .otherwise({
             redirectTo: '/home'
         });

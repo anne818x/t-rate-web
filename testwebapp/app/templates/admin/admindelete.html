@@ -48,34 +48,37 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Admin Dashboard</h3>
+                <h3 class="panel-title">Teachers</h3>
             </div>
             <div class="panel-body">
-                <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"> Reports</h3>
+			<div class="row">
+			<div class="input-group" style="width:95%; margin: 0 auto;">
+                            <input type="text" class="form-control" placeholder="Search"  ng-model="searchTxt" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit" ng-click="search()">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <p>{{reportsmessage}}</p>
-							<a href="#adminreports">handle reports &raquo;</a>
-                        </div>
-                    </div>
-                </div>
+                
 				
-				<div class="col-lg-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"> Teachers</h3>
-                        </div>
-                        <div class="panel-body">
-                            {{requestsmessage}}
-							<a href="#adminrequests">handle requests &raquo;</a>
-                        </div>
+                        <div class="teacherCard col-lg-4 col-sm-4" ng-repeat="teacher in teach | filter:searchTxt">
+						</br>
+						<div class="well well-sm">
+                        <h4>{{teacher.teachname}}</h4>
+						<p>Course: {{teacher.coursename}}</p>
+						
+
+						<button type="submit" class="btn btn-danger" style="width:100%" ng-click="deleteTeacher(teacher.teachID)">Delete</button>
+						</div>
+              
+							
+							
+
+						</div>
                     </div>
-                </div>
-			</div>				
+				
+				
 				
             </div>
         </div>
