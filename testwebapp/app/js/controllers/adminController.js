@@ -148,6 +148,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
  Avg_Lectures: 0,
  Avg_Preparation: 0,
  Avg_Professionalism: 0,
+ Avg_Atmosphere: 0,
  Course_ID: courseID,
  TeachName: teachName,
  TeacherID: $scope.teachers.length + 1,
