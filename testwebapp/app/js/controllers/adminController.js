@@ -87,13 +87,13 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					recipient: "annemarieke.meijering@student.stenden.com",
 }; */
 	
-					console.log(reason);
-					console.log(userid);
-					var ref = firebase.database().ref('Reports');
-					ref.orderByChild("Reason").equalTo(reason).on("child_added", function(snapshot) {
-					console.log(snapshot.key);
-					ref.child(snapshot.key).update({ Status: 'True'});
+					var refrep = firebase.database().ref('Reports');
+					refrep.orderByChild("Reason").equalTo(reason).on("child_added", function(snapshot) {
+					var removeReport = refrep.child(snapshot.key);
+					SharingFactory.removeFromDb(removeReport);
+					toastr.success('Report disputed.', 'Success!');
 					});
+					
 					}
 
 
@@ -120,7 +120,23 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					var ref = firebase.database().ref('Reviews');
 					ref.orderByChild("comment").equalTo(comment).on("child_added", function(snapshot) {
 					var removeReview = ref.child(snapshot.key);
+					// reset
+					$scope.revid = [];
+					$scope.revid.push({
+						id: snapshot.child("Review_ID").val(),
+						});
 					SharingFactory.removeFromDb(removeReview);
+					
+					var voteref = firebase.database().ref('Votes');
+					for(var i = 0; i < $scope.revid.length; i++)
+					{
+					voteref.orderByChild("Review_ID").equalTo($scope.revid[i].id).on("child_added", function(snapshot) {
+						var array = [voteref.child(snapshot.key)];
+					var removeVotes = array[0];
+					SharingFactory.removeFromDb(removeVotes);
+					});
+					}
+					toastr.success('Report accepted. Review deleted.', 'Success!');
 					});
 					
 					
@@ -149,8 +165,6 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 				});
 				}
 				
-				
-				
 				$scope.disputeRequest = function (requestID) {
 					
 					if (confirm("Are you sure you want to ignore this request? It will be deleted.")) {
@@ -159,6 +173,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					ref.orderByChild("Request_ID").equalTo(requestID).on("child_added", function(snapshot) {
 					var removeRequest = ref.child(snapshot.key);
 					SharingFactory.removeFromDb(removeRequest);
+					toastr.success('Request ignored and deleted.', 'Success!');
 					});
 					}
 				}	
@@ -191,6 +206,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					refreq.orderByChild("Request_ID").equalTo(requestID).on("child_added", function(snapshot) {
 					var removeRequest = refreq.child(snapshot.key);
 					SharingFactory.removeFromDb(removeRequest);
+					toastr.success('Request accepted and teacher added.', 'Success!');
 					
 					});
 					}
@@ -240,6 +256,8 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 					reviewref.orderByChild("TeacherID").equalTo(ID).on("child_added", function(snapshot) {					
 					var array = [reviewref.child(snapshot.key)];
 
+					// reset 
+					$scope.revid = [];
 					$scope.revid.push({
 						id: snapshot.child("Review_ID").val(),
 						});
@@ -256,6 +274,8 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 						
 					var removeVotes = array[0];
 					SharingFactory.removeFromDb(removeVotes);
+					
+					toastr.success('Teacher deleted.', 'Success!');
 					});
 					}
 				
@@ -268,6 +288,8 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		// end deletion
 		
 
+		
+		// home page messages
 		
 		if($scope.reports.length > 0)
 		{
