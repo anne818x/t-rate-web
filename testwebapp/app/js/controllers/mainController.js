@@ -571,7 +571,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$scope.currentCourse = name;
 	};
 
-
 	$scope.addTeacher = function () {
 
 		if ($scope.teacher_name.length < 1) {

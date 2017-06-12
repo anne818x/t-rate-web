@@ -34,8 +34,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <!--- these dont exist yet -->
-                        <li><a href="accountsettings.html">Account settings</a></li>
-                        <li><a href="reportbugs.html">Report bugs</a></li>
+                        <li><a href="#reportbugs">Report bugs</a></li>
                         <li><a href="#profileSettings">Profile settings</a></li>
                     </ul>
                 </li>
@@ -156,7 +155,7 @@
                             <button class="btn btn-default glyphicon glyphicon-thumbs-up" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
                                 ng-click="upvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
                             <button class="btn btn-default glyphicon glyphicon-thumbs-down" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
-                                ng-click="downvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
+                                ng-click="downvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>  
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal" data-target="#reportModal" ng-controller="ReportController"
                                 ng-click="selectedReview(teacherReview.reviewID)" ng-disabled="(!IsSignedIn)"></button>
                         </div>

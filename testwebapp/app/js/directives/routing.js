@@ -46,8 +46,12 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
+        .when('/reportbugs', {
+            templateUrl: 'templates/reportbugs.html',
+            controller: 'BugReportController',
+        })
         .when('/about', {
-            templateUrl : 'templates/about.html',
+            templateUrl: 'templates/about.html',
             controller: 'AboutController',
             /*resolve: {
 
@@ -116,8 +120,8 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
-		
-		.when('/admindelete', {
+
+        .when('/admindelete', {
             templateUrl: 'templates/admin/admindelete.html',
             controller: 'adminController',
             resolve: {
@@ -130,7 +134,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
-		
+
         .otherwise({
             redirectTo: '/home'
         });

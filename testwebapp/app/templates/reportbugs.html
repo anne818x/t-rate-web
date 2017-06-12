@@ -1,0 +1,126 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+      <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+      </a>
+    </div>
+    <!-- Navigation bar content-->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#">
+            <h4>T-rate</h4>
+          </a>
+        </li>
+        <li>
+          <a href="#home">Home</a>
+        </li>
+        <li>
+          <a href="#explore">Explore</a>
+        </li>
+        <li>
+          <a href="#profile">Profile</a>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Settings
+                        <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <!--- these dont exist yet -->
+            <li><a href="#reportbugs">Report bugs</a></li>
+            <li><a href="#profileSettings">Profile settings</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#about">About</a>
+        </li>
+        <li>
+          <a href="#contact">Contact</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#profile" data-toggle="">Hello, {{userData.Name}}</a>
+        </li>
+        <li>
+          <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
+        </li>
+      </ul>
+      <!-- search bar -->
+      <form class="navbar-form navbar-right">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>
+<header class="secondheader">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="tagline text-center">{{tag}}</h3>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--Page Content-->
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h2 class="panel-title">Report a bug</h2>
+      </div>
+      <div class="panel-body">
+        Hello {{userData.Name}}, </br>
+        Here you can report any issues or bugs that you have encountered while using T-rate. If it is possible, please explain in
+        details what actions you have made in order to get certain error, bug or glitch in the application. If you also notice
+        something strange in the behaviour, you can also report it and the administrators will check it out.
+        </br>
+        </br>
+        The T-rate team appreciates your feedback. Thank you.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="container-fluid">
+      <form id="reportBug" name="reportBugForm" role="form">
+        <div class="form-group">
+          <label>On which page the issue occurs?</label>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPages" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">{{selectedPage}}<span class="caret"></span></button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownPages">
+              <li ng-repeat="page in pages" data-id="{{page}}" ng-click="selectPage(page)"><a>{{page}}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Write as much information about the issue below</label>
+          <div class="input-group" ng-class="{'has-error' : reportBugForm.reportBugReason.$invalid && reportBugForm.reportBugReason.$touched, 'has-success' : reportBugForm.reportBugReason.$valid}">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+            <textarea id="reportBugReason" class="form-control" name="reportBugReason" ng-model="reportBugReason" placeholder="What bug have you experienced? Please elaborate. (min. 100 chars)"
+              required="" minlength="100" maxlength="500" rows="5" style="resize: none"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="reportBugForm.$invalid" style="width:100%; margin-top: 1%" ng-click="sendBugReport()"
+          data-dismiss="modal">Send Bug Report</button>
+      </form>
+    </div>
+  </div>
+</div>
