@@ -81,7 +81,7 @@
     </div>
 </header>
 <!-- Page Content -->
-<div class="container">
+<div class="container" ng-controller="HallOfFameController">
     <hr>
     <div class="row">
         <h2>Rate Stenden Teachers</h2>
@@ -140,15 +140,15 @@
                     </div>
                     <div class="panel-body">
 					<img class="pull-right" src="images/badges/overall.png" style="width:60px; height:75px;">
-                        <p>The hall of fame shows the most popular teachers for the most recently finished module: (module here).</p>
+                        <p>The hall of fame shows the most popular teachers for the most recently finished module: {{shownCurrentMod}}.</p>
 						<h4>BEST TEACHER OVERALL</h4>
-						<p><b><u>(Teacher name)</u></b></p>
+						<p><b><u>{{topRatedTeach.name}}</u></b></p>
 						<div class="well well-sm" style="margin:0">
-                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/4star.png" height="15"></h6>
-                            <h6>Helpfulness <img class="pull-right" ng-src="images/stars/4star.png" height="15"></h6>
-                            <h6>Lectures <img class="pull-right" ng-src="images/stars/4star.png" height="15"></h6>
-							<h6>Preparation <img class="pull-right" ng-src="images/stars/4star.png" height="15"></h6>
-							<h6>Professionalism <img class="pull-right" ng-src="images/stars/4star.png" height="15"></h6>
+                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{topRatedTeach.atmos}}star.png" height="15"></h6>
+                            <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{topRatedTeach.help}}star.png" height="15"></h6>
+                            <h6>Lectures <img class="pull-right" ng-src="images/stars/{{topRatedTeach.lec}}star.png" height="15"></h6>
+							<h6>Preparation <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prep}}star.png" height="15"></h6>
+							<h6>Professionalism <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prof}}star.png" height="15"></h6>
 							<a class="btn btn-default btn-sm" href="review.html">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
                             </a>
