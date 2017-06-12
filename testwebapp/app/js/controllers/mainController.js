@@ -42,6 +42,12 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.teacherReviews = [];
 	$scope.topRatedCom = [];
 	$scope.topRatedTeach = [];
+	$scope.trtHalf = [];
+	$scope.atmosTrt =[];
+	$scope.helpTrt =[];
+	$scope.lecTrt =[];
+	$scope.prepTrt =[];
+	$scope.profTrt =[];
 	$scope.currentCourse = "Select course";
 	$scope.reviewVoteScore = 0;
 	$scope.selectedTeacher = {};
@@ -106,7 +112,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			}
 		}
 	}).then(function (ref) {
-		//after module is set check if its the last day of the module
+		//after module is set check if its the last day of the module or the half
+		date1 = new Date($scope.currentMod.startDate);
+		date2 = new Date($scope.currentMod.endDate);
+		var mid = new Date((date1.getTime() + date2.getTime()) / 2);
+		var midDate =  $moment(mid).format('YYYY-MM-DD');
 		if ($scope.date == $scope.currentMod.endDate) {
 			//get top rated
 			if ($scope.topRatedTeach.length == 0) {
@@ -125,6 +135,78 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					}
 				}
 			}
+
+			//get top rated for atmos
+			if ($scope.atmosTrt.length == 0) {
+				var atmosHighScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Avg_Atmosphere > atmosHighScore) {
+						var atmos = $scope.teachers[i].Avg_Atmosphere;
+						$scope.atmosTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, atmos: atmos};
+						atmosHighScore = $scope.teachers[i].Avg_Atmosphere;
+
+					}
+				}
+			}
+
+			//get top rated for help
+			if ($scope.helpTrt.length == 0) {
+				var helpHighScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Avg_Helpfulness > helpHighScore) {
+						var help = $scope.teachers[i].Avg_Helpfulness;
+						$scope.helpTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, help: help};
+						helpHighScore = $scope.teachers[i].Avg_Helpfulness;
+
+					}
+				}
+			}
+
+			//get top rated for lec
+			if ($scope.lecTrt.length == 0) {
+				var lecHighScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Avg_Lectures > lecHighScore) {
+						var lec = $scope.teachers[i].Avg_Lectures;
+						$scope.lecTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, lec: lec};
+						lecHighScore = $scope.teachers[i].Avg_Lectures;
+
+					}
+				}
+			}
+
+			//get top rated for prep
+			if ($scope.prepTrt.length == 0) {
+				var prepHighScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Avg_Preparation > prepHighScore) {
+						var prep = $scope.teachers[i].Avg_Preparation;
+						$scope.prepTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, prep: prep};
+						prepHighScore = $scope.teachers[i].Avg_Preparation;
+
+					}
+				}
+			}
+
+			//get top rated for prof
+			if ($scope.profTrt.length == 0) {
+				var profHighScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Avg_Professionalism > profHighScore) {
+						var prof = $scope.teachers[i].Avg_Professionalism;
+						$scope.profTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, prof: prof};
+						profHighScore = $scope.teachers[i].Avg_Professionalism;
+
+					}
+				}
+			}
+
+			console.log($scope.atmosTrt);
+			console.log($scope.helpTrt);
+			console.log($scope.lecTrt);
+			console.log($scope.profTrt);
+			console.log($scope.prepTrt);
+
 			var ref = firebase.database().ref('HallOfFame');
 			ref.on("child_added", function (snapshot) {
 				if (snapshot.key == $scope.currentMod.name) {
@@ -147,6 +229,30 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 			});
 		}
+		else if ($scope.date == midDate) {
+			console.log("its mid");
+			//get top rated
+			if ($scope.trtHalf.length == 0) {
+				var highScore = 0;
+				for (var i = 0; i < $scope.teachers.length; i++) {
+					if ($scope.teachers[i].Total > highScore) {
+						var atmos = $scope.teachers[i].Avg_Atmosphere;
+						var help = $scope.teachers[i].Avg_Helpfulness;
+						var lec = $scope.teachers[i].Avg_Lectures;
+						var prep = $scope.teachers[i].Avg_Preparation;
+						var prof = $scope.teachers[i].Avg_Professionalism;
+						var total = $scope.teachers[i].Total;
+						$scope.trtHalf = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
+						highScore = $scope.teachers[i].Total;
+
+					}
+				}
+
+				//send email to teachers
+				//code
+			}
+
+		}
 		else {
 			console.log("its not the end of module yet");
 		}
@@ -154,46 +260,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		toastr.error(error, "Error!");
 	});
 
-
-	// if ($scope.topRatedCom.length == 0) {
-	// 	var highScore = 0;
-	// 	for (var i = 0; i < $scope.teachers.length; i++) {
-	// 		console.log(teachers[i]);
-	// 		if ($scope.teachers[i].Total > highScore) {
-	// 			var atmos = $scope.teachers[i].AvgAtmos;
-	// 			var help = $scope.teachers[i].AvgHelp;
-	// 			var lec = $scope.teachers[i].AvgLec;
-	// 			var prep = $scope.teachers[i].AvgPrep;
-	// 			var prof = $scope.teachers[i].AvgProf;
-	// 			var total = $scope.teachers[i].Total;
-	// 			$scope.topRatedTeach = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, course: $scope.teachers[i].CourseID, atmos: atmos, help: help, prep: prep, lec: lec, prof: prof, total: total };
-	// 			highScore = $scope.teachers[i].Total;
-	// 			console.log("top rated: "+$scope.topRatedTeach);
-	// 		}
-	// 	}
-	// }
-
-	//console.log("high score is: " + highScore);
-
-	/*<<<<<<< HEAD
-		for (var i = 0; i < $scope.reviews.length; i++) {
-			if ($scope.reviews[i].TeacherID == $scope.topRatedTeach.id) {
-				$scope.topRatedCom.push({ comment: $scope.reviews[i].Comment });
-			}
-	=======*/
-	/*		$scope.scoreByWeight = 0;
-			$scope.sumOfWeight = 0;
-	
-			for (var i = 0; i < array.length; i++) {
-				$scope.scoreByWeight = $scope.scoreByWeight + (array[i].value * array[i].weight);
-				$scope.sumOfWeight = $scope.sumOfWeight + array[i].weight;
-			}
-			$scope.scoreByWeight = $scope.scoreByWeight + (weight * star);
-			$scope.sumOfWeight = $scope.sumOfWeight + weight;
-			$scope.avg = $scope.scoreByWeight / $scope.sumOfWeight;
-			return $scope.avg;*/
-
-	console.log($scope.topRatedCom);
 
 	//**************************display dynamic reviews**********************************
 	$scope.reviews.$loaded().then(function (reviews) {
@@ -388,23 +454,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 				});
 
-				//*******************************End of Test******************************
-
-
-				//enter teacher info in database
-				/*var ref = firebase.database().ref().child('Teachers/Teacher_' + $scope.selectedTeacher.id);
-				ref.update({
-					Avg_Atmosphere: $scope.atmosAvg,
-					Avg_Helpfulness: $scope.helpAvg,
-					Avg_Lectures: $scope.lecAvg,
-					Avg_Preparation: $scope.prepAvg,
-					Avg_Professionalism: $scope.profAvg,
-					Total: $scope.total
-				}).then(function (ref) {
-				}, function (error) {
-					toastr.error(error, "Error!");
-				});
-*/
 				toastr.success(AlertFactory.getNRS, "Success!");
 				$("#reviewModal .close").click();
 
