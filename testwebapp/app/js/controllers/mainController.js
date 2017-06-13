@@ -393,6 +393,41 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					$scope.isProf = true;
 				}
 			}
+			else if (snapshot.key == $scope.currentMod.name && snapshot.child("TopRated").child("TeacherID").val() == 0) {
+				var ref = firebase.database().ref('HallOfFame');
+				ref.on("child_added", function (snapshot) {
+					var lastChar = snapshot.key[snapshot.key.length - 1];
+					var prevPeriod = "Period_" + lastChar;
+					console.log(prevPeriod, 'text');
+					if (snapshot.key == prevPeriod) {
+						if (sessionStorage.selectedTeacher == snapshot.child("TopRated").child("TeacherID").val()) {
+							$scope.isTopR = true;
+						}
+
+						if (sessionStorage.selectedTeacher == snapshot.child("Helpfulness").child("TeacherID").val()) {
+							$scope.isHelp = true;
+						}
+
+						if (sessionStorage.selectedTeacher == snapshot.child("Atmosphere").child("TeacherID").val()) {
+							$scope.isAtmos = true;
+						}
+
+						if (sessionStorage.selectedTeacher == snapshot.child("Lectures").child("TeacherID").val()) {
+							$scope.isLec = true;
+						}
+
+						if (sessionStorage.selectedTeacher == snapshot.child("Preparation").child("TeacherID").val()) {
+
+							$scope.isPrep = true;
+						}
+
+						if (sessionStorage.selectedTeacher == snapshot.child("Professionalism").child("TeacherID").val()) {
+
+							$scope.isProf = true;
+						}
+					}
+				});
+			}
 		});
 	});
 	console.log($scope.isTopR);
