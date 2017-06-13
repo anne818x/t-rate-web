@@ -201,18 +201,13 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				}
 			}
 
-			console.log($scope.atmosTrt);
-			console.log($scope.helpTrt);
-			console.log($scope.lecTrt);
-			console.log($scope.profTrt);
-			console.log($scope.prepTrt);
-
 			var ref = firebase.database().ref('HallOfFame');
 			ref.on("child_added", function (snapshot) {
 				if (snapshot.key == $scope.currentMod.name) {
+
+					//insert top rated
 					console.log("inserting");
-					var childToUpDate = ref.child(snapshot.key);
-					console.log($scope.topRatedTeach.atmos);
+					var childToUpDate = ref.child(snapshot.key).child("TopRated");
 					childToUpDate.update({
 						Avg_Atmosphere: $scope.topRatedTeach.atmos,
 						Avg_Helpfulness: $scope.topRatedTeach.help,
@@ -221,6 +216,56 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 						Avg_Professionalism: $scope.topRatedTeach.prof,
 						TeacherID: $scope.topRatedTeach.id,
 						Total: $scope.topRatedTeach.total
+					}).then(function (ref) {
+					}, function (error) {
+						toastr.error(error, "Error!");
+					});
+
+					//insert atmosphere
+					var childToUpDate2 = ref.child(snapshot.key).child("Atmosphere");
+					childToUpDate2.update({
+						Avg_Atmosphere: $scope.atmosTrt.atmos,
+						TeacherID: $scope.atmosTrt.id
+					}).then(function (ref) {
+					}, function (error) {
+						toastr.error(error, "Error!");
+					});
+
+					//insert helpfulness
+					var childToUpDate3 = ref.child(snapshot.key).child("Helpfulness");
+					childToUpDate3.update({
+						Avg_Helpfulness: $scope.helpTrt.help,
+						TeacherID: $scope.helpTrt.id
+					}).then(function (ref) {
+					}, function (error) {
+						toastr.error(error, "Error!");
+					});
+
+					//insert lectures
+					var childToUpDate4 = ref.child(snapshot.key).child("Lectures");
+					childToUpDate4.update({
+						Avg_Lectures: $scope.lecTrt.lec,
+						TeacherID: $scope.lecTrt.id
+					}).then(function (ref) {
+					}, function (error) {
+						toastr.error(error, "Error!");
+					});
+
+					//insert preparation
+					var childToUpDate5 = ref.child(snapshot.key).child("Preparation");
+					childToUpDate5.update({
+						Avg_Preparation: $scope.prepTrt.prep,
+						TeacherID: $scope.prepTrt.id
+					}).then(function (ref) {
+					}, function (error) {
+						toastr.error(error, "Error!");
+					});
+
+					//insert professionalism
+					var childToUpDate6 = ref.child(snapshot.key).child("Professionalism");
+					childToUpDate6.update({
+						Avg_Professionalism: $scope.profTrt.prof,
+						TeacherID: $scope.profTrt.id
 					}).then(function (ref) {
 					}, function (error) {
 						toastr.error(error, "Error!");
