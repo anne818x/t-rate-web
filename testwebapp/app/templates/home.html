@@ -103,31 +103,25 @@
                     <h3 class="panel-title">Top rated teacher</h3>
                 </div>
                 <div class="panel-body">
-                    <p>Teacher: {{topRatedTeach.name}}</p>
-                    <p>Course: {{topRatedTeach.course}}</p>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{topRatedTeach.atmos}}star.png" height="15"></h6>
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Helpfulness  <img class="pull-right" ng-src="images/stars/{{topRatedTeach.help}}star.png" height="15"></h6> 
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Lectures <img class="pull-right" ng-src="images/stars/{{topRatedTeach.lec}}star.png" height="15"></h6>  
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Preparation <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prep}}star.png" height="15"></h6>     
-                        </div>
-                        <div class="well well-sm" style="margin:0">
-                            <h6>Professionalism <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prof}}star.png" height="15"></h6>
-                            
-                        </div>
+				<img class="pull-right" src="images/badges/overall.png" style="width:60px; height:75px;">
+					</br>
+					</br>
+					<h4>BEST TEACHER OVERALL</h4>
+					<p><b><u>{{topRatedTeach.name}}</u></b></p>
+					<div class="well well-sm" style="margin:0">
+						<h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{topRatedTeach.atmos}}star.png" height="15"></h6>
+						<h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{topRatedTeach.help}}star.png" height="15"></h6>
+						<h6>Lectures <img class="pull-right" ng-src="images/stars/{{topRatedTeach.lec}}star.png" height="15"></h6>
+						<h6>Preparation <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prep}}star.png" height="15"></h6>
+						<h6>Professionalism <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prof}}star.png" height="15"></h6>
+						<a class="btn btn-default btn-sm" href="review.html">
+							<span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
+						</a>
+					</div>
                     <p> Comments: </p>
                     <p class="emptyborder" ng-repeat="comment in topRatedCom"><i>
                         <small>{{comment.comment}}</small>
                     </i></p>
-                    <a class="btn btn-default btn-sm" href="#">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Rate &raquo;
-                    </a>
                 </div>
             </div>
         </div>
@@ -138,22 +132,7 @@
                         <h3 class="panel-title">Hall of fame</h3>
                     </div>
                     <div class="panel-body">
-					<img class="pull-right" src="images/badges/overall.png" style="width:60px; height:75px;">
-                        <p>The hall of fame shows the most popular teachers for the most recently finished module: {{shownCurrentMod}}.</p>
-						<h4>BEST TEACHER OVERALL</h4>
-						<p><b><u>{{topRatedTeach.name}}</u></b></p>
-						<div class="well well-sm" style="margin:0">
-                            <h6>Atmosphere <img class="pull-right" ng-src="images/stars/{{topRatedTeach.atmos}}star.png" height="15"></h6>
-                            <h6>Helpfulness <img class="pull-right" ng-src="images/stars/{{topRatedTeach.help}}star.png" height="15"></h6>
-                            <h6>Lectures <img class="pull-right" ng-src="images/stars/{{topRatedTeach.lec}}star.png" height="15"></h6>
-							<h6>Preparation <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prep}}star.png" height="15"></h6>
-							<h6>Professionalism <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prof}}star.png" height="15"></h6>
-							<a class="btn btn-default btn-sm" href="review.html">
-                                <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
-                            </a>
-						
-						</div>
-						
+						<p>The hall of fame shows the most popular teachers for the most recently finished module: {{shownCurrentMod}}.</p>
 						<hr>
 						<div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Best atmosphere</h4>
