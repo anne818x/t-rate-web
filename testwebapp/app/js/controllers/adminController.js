@@ -1,4 +1,4 @@
-app.controller('adminController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', function ($scope, $location, $window, SharingFactory, AuthFactory) {
+app.controller('adminController', ['$scope', '$location', '$window', 'SharingFactory', 'AuthFactory', '$firebaseArray', function ($scope, $location, $window, SharingFactory, AuthFactory, $firebaseArray) {
 	
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	//reports
@@ -7,7 +7,13 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 	$scope.req = [];
 	//teachers
 	$scope.teach = [];
+	//modules
+	$scope.mod = [];
 	$scope.selectedReview = "";
+	
+	$scope.currentperiod = "";
+	$scope.currentstartdate = "";
+	$scope.currentenddate = "";
 	
 	$scope.reportsmessage = "";
 	$scope.requestsmessage = "";
@@ -16,6 +22,9 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 	$scope.revid = [];
 	$scope.removedReviews = [];
 	$scope.removedVotes = [];
+	
+	var modulesRef = firebase.database().ref("Modules");
+	$scope.modules = $firebaseArray(modulesRef);
 	
 /* 	var teachersRef = firebase.database().ref("Teachers");
 	var reportsRef = firebase.database().ref("Reports");
@@ -287,7 +296,80 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		
 		// end deletion
 		
+		// modules
+		$scope.modules.$loaded().then(function (modules) {
+			var modulesLength = modules.length;
+			console.log(modules.length);
+			console.log($scope.modules.length);
+			console.log(modulesLength);
+			for (var i = 0; i < modulesLength; i++) {
+				console.log("this happens");
+				console.log(modules[i].$id);
+				$scope.mod.push({
+					startdate: modules[i].startDate,
+					enddate: modules[i].endDate,
+					period: modules[i].$id
+				});
+			} 
+		});
+		
+		
+		$scope.editModule = function (period, startdate, enddate) {
+			$scope.currentperiod = period;
+			$scope.currentstartdate = startdate;
+			$scope.currentenddate = enddate;
+			$('#editModules').modal('show');
+			
+			function isValidDate(dateString)
+{
+    // First check for the pattern
+    if(!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(dateString)){
+			return false;
+		}
+        
+    // Parse the date parts to integers
+    var parts = dateString.split("-");
+    var day = parseInt(parts[2], 10);
+    var month = parseInt(parts[1], 10);
+    var year = parseInt(parts[0], 10);
 
+    // Check the ranges of month and year
+    if(year < 1000 || year > 3000 || month == 0 || month > 12){
+		return false;
+	}
+        
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    // Adjust for leap years
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)){
+		monthLength[1] = 29;
+	}
+
+    // Check the range of the day
+    return day > 0 && day <= monthLength[month - 1];
+};
+			
+			
+			$scope.sendModules = function () {
+				if(isValidDate($scope.start) == true && isValidDate($scope.end))
+				{
+					modulesRef.orderByChild("startDate").equalTo(startdate).on("child_added", function(snapshot) {
+				var child = modulesRef.child(snapshot.key);
+				child.update({
+							startDate: $scope.start,
+							endDate: $scope.end
+						})
+		});	
+				}
+				else{
+					toastr.error("WRONG! The date format needs to be YYYY-mm-dd.");
+				}
+						
+		
+		}
+		}
+		
+		// end modules
 		
 		// home page messages
 		
@@ -306,6 +388,14 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 		}
 		
 		$scope.deletemessage = "There are " + $scope.teachers.length + " teachers in the system";
+		$scope.modulesmessage = "Edit modules";
+		
+		
+		
+		
+		
+		
+		
 		
 
 		

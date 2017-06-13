@@ -134,6 +134,20 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
+		
+		.when('/adminmodules', {
+            templateUrl: 'templates/admin/adminmodules.html',
+            controller: 'adminController',
+            resolve: {
+
+                "currentAuth": ["AuthFactory", function (AuthFactory) {
+
+                    var auth = AuthFactory.auth();
+                    console.log(auth);
+                    return AuthFactory.requireAuth();
+                }]
+            }
+        })
 
         .otherwise({
             redirectTo: '/home'

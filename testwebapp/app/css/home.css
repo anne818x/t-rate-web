@@ -38,3 +38,20 @@ footer
 .tooltip{
     min-width: 200px;
 }
+
+.btn-custom {
+  background-color: hsl(360, 100%, 0%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0a0a", endColorstr="#000000");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ff0a0a), to(#000000));
+  background-image: -moz-linear-gradient(top, #ff0a0a, #000000);
+  background-image: -ms-linear-gradient(top, #ff0a0a, #000000);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff0a0a), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(top, #ff0a0a, #000000);
+  background-image: -o-linear-gradient(top, #ff0a0a, #000000);
+  background-image: linear-gradient(#ff0a0a, #000000);
+  border-color: #000000 #000000 hsl(360, 100%, -13%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.85);
+  -webkit-font-smoothing: antialiased;
+}
