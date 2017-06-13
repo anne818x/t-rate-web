@@ -84,7 +84,7 @@ if ($scope.topRatedTeach.length == undefined) {
 						}
 					});
 				} 
-				else if(snapshot.key == $scope.currentMod.name && snapshot.child("TeacherID").val() == 0){
+				else if(snapshot.key == $scope.currentMod.name && snapshot.child("TopRated").child("TeacherID").val() == 0){
 					var ref = firebase.database().ref('HallOfFame');
 					ref.on("child_added", function (snapshot) {
 						var lastChar = snapshot.key[snapshot.key.length -1];
@@ -92,8 +92,9 @@ if ($scope.topRatedTeach.length == undefined) {
 						if (snapshot.key == prevPeriod) {
 							$scope.teachers.$loaded().then(function (teachers) {
 								for (var i = 0; i < teachers.length; i++) {
-									if (teachers[i].TeacherID == snapshot.child("TeacherID").val()) {
-									 	sessionStorage.trtName = teachers[i].TeachName;
+									 
+									if (teachers[i].TeacherID == snapshot.child("TopRated").child("TeacherID").val()) {
+										sessionStorage.trtName = teachers[i].TeachName;
 										sessionStorage.trtId = snapshot.child("TopRated").child("TeacherID").val();
 										sessionStorage.trtTotal = snapshot.child("TopRated").child("Total").val();
 										sessionStorage.trtAtmos = snapshot.child("TopRated").child("Avg_Atmosphere").val();
@@ -101,18 +102,42 @@ if ($scope.topRatedTeach.length == undefined) {
 										sessionStorage.trtLec = snapshot.child("TopRated").child("Avg_Lectures").val();
 										sessionStorage.trtProf = snapshot.child("TopRated").child("Avg_Professionalism").val();
 										sessionStorage.trtPrep = snapshot.child("TopRated").child("Avg_Preparation").val();
-										sessionStorage.helpId = snapshot.child("Helpfulness").child("TeacherID").val();
-										sessionStorage.helpValue = snapshot.child("Helpfulness").child("Avg_Helpfulness").val();
-										sessionStorage.atmosId = snapshot.child("Atmosphere").child("TeacherID").val();
-										sessionStorage.atmosValue = snapshot.child("Atmosphere").child("Avg_Atmosphere").val();
-										sessionStorage.lecId = snapshot.child("Lectures").child("TeacherID").val();
-										sessionStorage.lecValue = snapshot.child("Lectures").child("Avg_Lectures").val();
-										sessionStorage.prepId = snapshot.child("Preparation").child("TeacherID").val();
-										sessionStorage.prepValue = snapshot.child("Preparation").child("Avg_Preparation").val();
-										sessionStorage.profId = snapshot.child("Professionalism").child("TeacherID").val();
-										sessionStorage.profValue = snapshot.child("Professionalism").child("Avg_Professionalism").val();
 										sessionStorage.shownCurrentMod = prevPeriod;
 									}
+
+									if (teachers[i].TeacherID == snapshot.child("Helpfulness").child("TeacherID").val()) {
+										sessionStorage.helpId = snapshot.child("Helpfulness").child("TeacherID").val();
+										sessionStorage.helpValue = snapshot.child("Helpfulness").child("Avg_Helpfulness").val();
+										sessionStorage.helpName = teachers[i].TeachName;
+									}
+
+									if (teachers[i].TeacherID == snapshot.child("Atmosphere").child("TeacherID").val()) {
+										sessionStorage.atmosId = snapshot.child("Atmosphere").child("TeacherID").val();
+										sessionStorage.atmosValue = snapshot.child("Atmosphere").child("Avg_Atmosphere").val();
+										sessionStorage.atmosName = teachers[i].TeachName;
+										
+									}
+
+									if (teachers[i].TeacherID == snapshot.child("Lectures").child("TeacherID").val()) {
+										sessionStorage.lecId = snapshot.child("Lectures").child("TeacherID").val();
+										sessionStorage.lecValue = snapshot.child("Lectures").child("Avg_Lectures").val();
+										sessionStorage.lecName = teachers[i].TeachName;
+									}
+
+									if (teachers[i].TeacherID == snapshot.child("Preparation").child("TeacherID").val()) {
+										sessionStorage.prepId = snapshot.child("Preparation").child("TeacherID").val();
+										sessionStorage.prepValue = snapshot.child("Preparation").child("Avg_Preparation").val();
+										sessionStorage.prepName = teachers[i].TeachName;
+										
+									}
+
+									if (teachers[i].TeacherID == snapshot.child("Professionalism").child("TeacherID").val()) {
+										sessionStorage.profId = snapshot.child("Professionalism").child("TeacherID").val();
+										sessionStorage.profValue = snapshot.child("Professionalism").child("Avg_Professionalism").val();
+										sessionStorage.profName = teachers[i].TeachName;
+									
+									}
+
 								}
 							});
 						}
