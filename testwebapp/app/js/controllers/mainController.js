@@ -11,12 +11,14 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	var coursesRef = firebase.database().ref("Courses");
 	var locationsRef = firebase.database().ref("Locations");
 	var modulesRef = firebase.database().ref("Modules");
+	var hallOfFameRef = firebase.database().ref("HallOfFame");
 
 	$scope.teachers = $firebaseArray(teacherRef);
-	$scope.reviews = $firebaseArray(reviewsRef)
+	$scope.reviews = $firebaseArray(reviewsRef);
 	$scope.courses = $firebaseArray(coursesRef);
 	$scope.locations = $firebaseArray(locationsRef);
 	$scope.modules = $firebaseArray(modulesRef);
+	$scope.hallOfFame = $firebaseArray(hallOfFameRef);
 	var userVotes = [];
 
 	/*********************************Get user votes****************************************/
@@ -43,11 +45,11 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.topRatedCom = [];
 	$scope.topRatedTeach = [];
 	$scope.trtHalf = [];
-	$scope.atmosTrt =[];
-	$scope.helpTrt =[];
-	$scope.lecTrt =[];
-	$scope.prepTrt =[];
-	$scope.profTrt =[];
+	$scope.atmosTrt = [];
+	$scope.helpTrt = [];
+	$scope.lecTrt = [];
+	$scope.prepTrt = [];
+	$scope.profTrt = [];
 	$scope.currentCourse = "Select course";
 	$scope.reviewVoteScore = 0;
 	$scope.selectedTeacher = {};
@@ -66,6 +68,15 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.profArray = [];
 
 	$scope.limit = 2;
+
+
+	$scope.isAtmos = false;
+	$scope.isHelp = false;
+	$scope.isPrep = false;
+	$scope.isProf = false;
+	$scope.isLec = false;
+	$scope.isTopR = false;
+
 
 	//*****************set selected teacher from Explore***********************
 	$scope.selectedTeacher = { name: sessionStorage.selectedTeachName, course: sessionStorage.selectedTeachCourseName, atmos: sessionStorage.selectedTeachAvgAtmos, help: sessionStorage.selectedTeachAvgHelp, lec: sessionStorage.selectedTeachAvgLec, prep: sessionStorage.selectedTeachAvgPrep, prof: sessionStorage.selectedTeachAvgProf, total: sessionStorage.selectedTeachTotal };
@@ -116,7 +127,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		date1 = new Date($scope.currentMod.startDate);
 		date2 = new Date($scope.currentMod.endDate);
 		var mid = new Date((date1.getTime() + date2.getTime()) / 2);
-		var midDate =  $moment(mid).format('YYYY-MM-DD');
+		var midDate = $moment(mid).format('YYYY-MM-DD');
 		if ($scope.date == $scope.currentMod.endDate) {
 			//get top rated
 			if ($scope.topRatedTeach.length == 0) {
@@ -142,7 +153,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				for (var i = 0; i < $scope.teachers.length; i++) {
 					if ($scope.teachers[i].Avg_Atmosphere > atmosHighScore) {
 						var atmos = $scope.teachers[i].Avg_Atmosphere;
-						$scope.atmosTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, atmos: atmos};
+						$scope.atmosTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, atmos: atmos };
 						atmosHighScore = $scope.teachers[i].Avg_Atmosphere;
 
 					}
@@ -155,7 +166,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				for (var i = 0; i < $scope.teachers.length; i++) {
 					if ($scope.teachers[i].Avg_Helpfulness > helpHighScore) {
 						var help = $scope.teachers[i].Avg_Helpfulness;
-						$scope.helpTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, help: help};
+						$scope.helpTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, help: help };
 						helpHighScore = $scope.teachers[i].Avg_Helpfulness;
 
 					}
@@ -168,7 +179,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				for (var i = 0; i < $scope.teachers.length; i++) {
 					if ($scope.teachers[i].Avg_Lectures > lecHighScore) {
 						var lec = $scope.teachers[i].Avg_Lectures;
-						$scope.lecTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, lec: lec};
+						$scope.lecTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, lec: lec };
 						lecHighScore = $scope.teachers[i].Avg_Lectures;
 
 					}
@@ -181,7 +192,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				for (var i = 0; i < $scope.teachers.length; i++) {
 					if ($scope.teachers[i].Avg_Preparation > prepHighScore) {
 						var prep = $scope.teachers[i].Avg_Preparation;
-						$scope.prepTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, prep: prep};
+						$scope.prepTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, prep: prep };
 						prepHighScore = $scope.teachers[i].Avg_Preparation;
 
 					}
@@ -194,7 +205,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				for (var i = 0; i < $scope.teachers.length; i++) {
 					if ($scope.teachers[i].Avg_Professionalism > profHighScore) {
 						var prof = $scope.teachers[i].Avg_Professionalism;
-						$scope.profTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, prof: prof};
+						$scope.profTrt = { name: $scope.teachers[i].TeachName, id: $scope.teachers[i].TeacherID, prof: prof };
 						profHighScore = $scope.teachers[i].Avg_Professionalism;
 
 					}
@@ -328,41 +339,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					}
 					//	console.log("after for: " + reviewScore);
 				});
-				//	console.log("after votes loaded: " + reviewScore);
-				//	console.log("scope review\score: " + reviewScore);
 
-				//get current user's vote for this review
-				/*if (SharingFactory.getUserData().UserID) {
-					$scope.userVotes.forEach(function (element) {
-						console.log(element);
-						$scope.currentVote = "";
-						if (element.Review_ID == reviews[i].Review_ID) {
-							$scope.currentVote = element.Vote;
-							console.log("Review: " + reviews[i].Review_ID + " :" + element.Vote)
-						}
-<<<<<<< HEAD
-=======
-						console.log("after for: " + reviewScore);
-					});
-					console.log("after votes loaded: " + reviewScore);
-					console.log("scope review\score: " + $scope.reviewVoteScore);
-				}).then(function () {
-					$scope.teacherReviews.push({
-						reviewID: reviews[i].Review_ID,
-						//teachId: $scope.reviews[i].TeacherID,
-						com: reviews[i].comment,
-						//date: $scope.reviews[i].Date,
-						//userId: $scope.reviews[i].userID,
-						atmos: reviews[i].Atmosphere,
-						help: reviews[i].Helpfulness,
-						lec: reviews[i].Lectures,
-						prep: reviews[i].Preparation,
-						prof: reviews[i].Professionalism,
-						currentVote: $scope.currentVote,
-						voteScore: $scope.reviewScore
->>>>>>> 9ae2c7c3b9bcf7990467e40ad3b151ad60b605ae
-					});
-				}*/
 
 				$scope.teacherReviews.push({
 					reviewID: reviews[i].Review_ID,
@@ -382,6 +359,43 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			}
 		}
 	});
+
+
+	//********************** Badges******************************************* */
+	$scope.hallOfFame.$loaded().then(function (badge) {
+		var ref = firebase.database().ref('HallOfFame');
+		ref.on("child_added", function (snapshot) {
+			if (snapshot.key == $scope.currentMod.name && snapshot.child("TopRated").child("TeacherID").val() != 0) {
+				console.log(snapshot.key);
+				if (sessionStorage.selectedTeacher == snapshot.child("TopRated").child("TeacherID").val()) {
+					$scope.isTopR = true;
+				}
+
+				if (sessionStorage.selectedTeacher == snapshot.child("Helpfulness").child("TeacherID").val()) {
+					$scope.isHelp = true;
+				}
+
+				if (sessionStorage.selectedTeacher == snapshot.child("Atmosphere").child("TeacherID").val()) {
+					$scope.isAtmos = true;
+				}
+
+				if (sessionStorage.selectedTeacher == snapshot.child("Lectures").child("TeacherID").val()) {
+					$scope.isLec = true;
+				}
+
+				if (sessionStorage.selectedTeacher == snapshot.child("Preparation").child("TeacherID").val()) {
+
+					$scope.isPrep = true;
+				}
+
+				if (sessionStorage.selectedTeacher == snapshot.child("Professionalism").child("TeacherID").val()) {
+
+					$scope.isProf = true;
+				}
+			}
+		});
+	});
+	console.log($scope.isTopR);
 
 	//*********************************Adding Review Area****************************************
 
@@ -536,20 +550,20 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		var voteUpdate = false;
 		var vote = "";
 
-			console.log("when");
-				var userVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
-				$scope.userVotes = $firebaseArray(userVotesRef);
-				$scope.userVotes.$loaded().then(function (votes) {
-					for (var i = 0; i < votes.length; i++) {
-						var key = votes[i].$id;
-						userVotes.push({ Key: key, Review_ID: votes[i].Review_ID, Vote: votes[i].Vote, UserID: votes[i].UserID });
-					}
-				}).then(function () {
-				console.log("Then");
-					userVotes.forEach(function (element) {
+		console.log("when");
+		var userVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
+		$scope.userVotes = $firebaseArray(userVotesRef);
+		$scope.userVotes.$loaded().then(function (votes) {
+			for (var i = 0; i < votes.length; i++) {
+				var key = votes[i].$id;
+				userVotes.push({ Key: key, Review_ID: votes[i].Review_ID, Vote: votes[i].Vote, UserID: votes[i].UserID });
+			}
+		}).then(function () {
+			console.log("Then");
+			userVotes.forEach(function (element) {
 				console.log(element); //TODO Insane quantity of calls?!?!?
 				if (element.Review_ID == reviewID) {
-					if (element.Vote == "False" ) {
+					if (element.Vote == "False") {
 						vote = "True";
 						$scope.currentVote = 'True';
 						voteUpdate = true;
@@ -596,7 +610,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				$('#up' + reviewID).removeClass('btn-success');
 				$('#down' + reviewID).removeClass('btn-danger');
 			}
-			})
+		})
 	}
 
 
@@ -682,4 +696,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			SharingFactory.pushToDb(data, ref);
 		}
 	}
+
+
+
+
 }]);

@@ -76,6 +76,7 @@
 <div class="container">
     <!-- row -->
     <div class="row">
+        <br>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">{{selectedTeacher.name}}</h3>
@@ -113,6 +114,74 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Top Rated</th>
+                            <th style="text-align:center">Atmosphere</th>
+                            <th style="text-align:center">Helpfulness</th>
+                            <th style="text-align:center">Preparation</th>
+                            <th style="text-align:center">Professionalism</th>
+                            <th style="text-align:center">Lectures</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div ng-if="isTopR">
+                                    <img class="center-block" ng-src="images/badges/overall.png" style="width:50px; height:75px; ">
+                                </div>
+                                <div ng-if="!isTopR">
+                                    <img class="center-block" ng-src="images/badges/overalllock.png" style="width:50px; height:75px; ">
+                                </div>
+                            </td>
+                            <td>
+                                <div ng-if="isAtmos">
+                                    <img class="center-block" ng-src="images/badges/atmosphere.png" style="width:50px; height:75px;">
+                                </div>
+                                 <div ng-if="!isAtmos">
+                                    <img class="center-block" ng-src="images/badges/atmospherelock.png" style="width:50px; height:75px;">
+                                </div>
+                            </td>
+                            <td>
+                                <div ng-if="isHelp">
+                                    <img class="center-block" ng-src="images/badges/helpfulness.png" style="width:60px; height:75px;">
+                                </div>
+                                <div ng-if="!isHelp">
+                                    <img class="center-block" ng-src="images/badges/helpfulnesslock.png" style="width:60px; height:75px;">
+                                </div>
+                            </td>
+                            <td>
+                                <div ng-if="isPrep">
+                                    <img class="center-block" ng-src="images/badges/preparation.png" style="width:50px; height:75px;">
+                                </div>
+                                <div ng-if="!isPrep">
+                                    <img class="center-block" ng-src="images/badges/preparationlock.png" style="width:50px; height:75px;">
+                                </div>
+                            </td>
+                            <td>
+                                <div ng-if="isProf">
+                                    <img class="center-block" ng-src="images/badges/professionalism.png" style="width:50px; height:75px;">
+                                </div>
+                              <div ng-if="!isProf">
+                                    <img class="center-block" ng-src="images/badges/professionalismlock.png" style="width:50px; height:75px;">
+                                </div>
+                            </td>
+                            <td>
+                                <div ng-if="isLec">
+                                    <img class="center-block" ng-src="images/badges/lectures.png" style="width:50px; height:75px;">
+                                </div>
+                                <div ng-if="!isLec">
+                                    <img class="center-block" ng-src="images/badges/lectureslock.png" style="width:50px; height:75px;">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="panel panel-default">
@@ -155,7 +224,7 @@
                             <button class="btn btn-default glyphicon glyphicon-thumbs-up" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
                                 ng-click="upvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
                             <button class="btn btn-default glyphicon glyphicon-thumbs-down" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
-                                ng-click="downvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>  
+                                ng-click="downvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal" data-target="#reportModal" ng-controller="ReportController"
                                 ng-click="selectedReview(teacherReview.reviewID)" ng-disabled="(!IsSignedIn)"></button>
                         </div>
