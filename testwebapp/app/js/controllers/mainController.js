@@ -103,6 +103,26 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$location.path('/review');
 	}
 
+	$scope.findTeacher = function(id){
+		var ref = firebase.database().ref('Teachers');
+			ref.on("child_added", function (snapshot) {
+				if (id == snapshot.child("TeacherID")) {
+					TeacherID = snapshot.child("TeacherID");
+					TeachName = snapshot.child("TeachName");
+					Course_ID = snapshot.child("Course_ID");
+					atmos = snapshot.child("Avg_Atmosphere");
+					help = snapshot.child("Avg_Helpfulness");
+					lec = snapshot.child("Avg_Lectures");
+					prep = snapshot.child("Avg_Preparation");
+					prof = snapshot.child("Avg_Professionalism");
+					total = snapshot.child("Total");
+
+					$scope.setTeacherPage(TeacherID, TeachName, Course_ID, atmos, help, lec, prep, prof, total);
+				}
+			});
+
+	}
+
 	// /*********************************Find selected teacher name****************************************/
 	// $scope.selectedTeacherName = "";
 	// $scope.teachers.$loaded().then(function (teachers) {
@@ -281,6 +301,9 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					}, function (error) {
 						toastr.error(error, "Error!");
 					});
+
+					//send email
+				
 				}
 
 			});
@@ -315,6 +338,40 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	}, function (error) {
 		toastr.error(error, "Error!");
 	});
+
+
+//**************************************Send Email Function********************************
+
+// $scope.senderName = "T-Rate Application";
+// $scope.senderEmail = "noreply@t-rate.firebaseapp.com";
+// $scope.senderMsg = "hello there";
+
+// $http({
+//     url: "http://localhost:8000/PHPMailer/email.php", 
+//     method: "POST",
+//     data: { name: $scope.senderName, email: $scope.senderEmail, message:$scope.senderMsg }
+
+//     }).success(function(data, status, headers, config) {
+//    // this callback will be called asynchronously
+//    // when the response is available
+
+//     if(status == 200) {
+
+//       var return_data = data;
+
+//         if(return_data != 0){
+
+
+//           $scope.hide();
+//           //$scope.closeFeedback();
+//         }
+//       }
+//     }).
+//   error(function(data, status, headers, config) {
+//    // called asynchronously if an error occurs
+//    // or server returns response with an error status.
+//    console.log(status);
+// });
 
 
 	//**************************display dynamic reviews**********************************
@@ -365,7 +422,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.hallOfFame.$loaded().then(function (badge) {
 		var ref = firebase.database().ref('HallOfFame');
 		ref.on("child_added", function (snapshot) {
-			if (snapshot.key == $scope.currentMod.name && snapshot.child("TopRated").child("TeacherID").val() != 0) {
+			if (snapshot.key == sessionStorage.shownCurrentMod && snapshot.child("TopRated").child("TeacherID").val() != 0) {
 				console.log(snapshot.key);
 				if (sessionStorage.selectedTeacher == snapshot.child("TopRated").child("TeacherID").val()) {
 					$scope.isTopR = true;

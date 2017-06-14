@@ -20,6 +20,13 @@ $scope.date =  $moment().format('YYYY-MM-DD');
 $scope.currentMod = {};
 $scope.shownCurrentMod = sessionStorage.shownCurrentMod;
 
+console.log($scope.topRatedAtmos.id);
+console.log($scope.topRatedLec.id);
+console.log($scope.topRatedPrep.id);
+console.log($scope.topRatedProf.id);
+console.log($scope.topRatedHelp.id);
+console.log($scope.topRatedTeach.id);
+
 if ($scope.topRatedTeach.length == undefined) {
 	$scope.modules.$loaded().then(function (modules) {
 

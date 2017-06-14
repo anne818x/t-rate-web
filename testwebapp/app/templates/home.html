@@ -114,7 +114,7 @@
 						<h6>Lectures <img class="pull-right" ng-src="images/stars/{{topRatedTeach.lec}}star.png" height="15"></h6>
 						<h6>Preparation <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prep}}star.png" height="15"></h6>
 						<h6>Professionalism <img class="pull-right" ng-src="images/stars/{{topRatedTeach.prof}}star.png" height="15"></h6>
-						<a class="btn btn-default btn-sm" href="review.html">
+						<a class="btn btn-default btn-sm" ng-click="findTeacher(topRatedTeach.id)" href="#review">
 							<span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
 						</a>
 					</div>
@@ -142,7 +142,7 @@
                             <img ng-src="images/stars/{{topRatedAtmos.atmos}}star.png" height="15">
 							<img class="pull-right" src="images/badges/atmosphere.png" style="width:50px; height:75px;">
                             </table>
-                            <a class="btn btn-default btn-sm" href="review.html">
+                            <a class="btn btn-default btn-sm" ng-click="findTeacher(topRatedAtmos.id)" href="#review">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
                             </a>
 							<hr>
@@ -156,7 +156,7 @@
                             <img ng-src="images/stars/{{topRatedHelp.help}}star.png" height="15">
 							<img class="pull-right" src="images/badges/helpfulness.png" style="width:60px; height:75px;">
                             </table>
-                            <a class="btn btn-default btn-sm" href="review.html">
+                            <a class="btn btn-default btn-sm" ng-click="findTeacher(topRatedHelp.id)" href="#review">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
                             </a>
 							<hr>
@@ -169,7 +169,7 @@
                             <img ng-src="images/stars/{{topRatedLec.lec}}star.png" height="15">
 							<img class="pull-right" src="images/badges/lectures.png" style="width:50px; height:75px;">
                             </table>
-                            <a class="btn btn-default btn-sm" href="review.html">
+                            <a class="btn btn-default btn-sm" ng-click="findTeacher(topRatedLec.id)" href="#review">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
                             </a>
 							<hr>
@@ -182,7 +182,7 @@
                             <img ng-src="images/stars/{{topRatedPrep.prep}}star.png" height="15">
 							<img class="pull-right" src="images/badges/preparation.png" style="width:50px; height:75px;">
                             </table>
-                            <a class="btn btn-default btn-sm" href="review.html">
+                            <a class="btn btn-default btn-sm" ng-click="findTeacher(topRatedPrep.id)" href="#review">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
                             </a>
 							<hr>
@@ -195,7 +195,7 @@
                             <img ng-src="images/stars/{{topRatedProf.prof}}star.png" height="15">
 							<img class="pull-right" src="images/badges/professionalism.png" style="width:50px; height:75px;">
                             </table>
-                            <a class="btn btn-default btn-sm" href="review.html">
+                            <a class="btn btn-default btn-sm" ng-click="findTeacher(topRatedProf.id)" href="#review">
                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span> See teacher page &raquo;
                             </a>
 							<hr>
