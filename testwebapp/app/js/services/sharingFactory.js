@@ -63,10 +63,10 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.setSignedIn = function () {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                sessionStorage.signedIn = true;
+                signedIn = true;
             }
             else if (!user) {
-                sessionStorage.signedIn = false;
+                signedIn = false;
             }
         });
     };
