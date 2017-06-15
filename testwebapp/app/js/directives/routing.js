@@ -26,8 +26,6 @@ app.config(function ($routeProvider, $locationProvider) {
                 "currentAuth": ["AuthFactory", function (AuthFactory) {
 
                     var auth = AuthFactory.auth();
-                    console.log(auth);
-                    console.log("Here it is!" + AuthFactory.requireAuth());
                     return AuthFactory.requireAuth();
                 }]
             }
@@ -41,7 +39,6 @@ app.config(function ($routeProvider, $locationProvider) {
                 "currentAuth": ["AuthFactory", function (AuthFactory) {
 
                     var auth = AuthFactory.auth();
-                    console.log(auth);
                     return AuthFactory.requireAuth();
                 }]
             }
@@ -52,16 +49,7 @@ app.config(function ($routeProvider, $locationProvider) {
         })
         .when('/about', {
             templateUrl: 'templates/about.html',
-            controller: 'AboutController',
-            /*resolve: {
-
-            "currentAuth": ["AuthFactory", function(AuthFactory) {
-
-                var auth = AuthFactory.auth();
-                console.log(auth);
-                return AuthFactory.requireAuth();
-            }]
-        }*/
+            controller: 'AboutController'
         })
         .when('/contact', {
             templateUrl: 'templates/contact.html',
@@ -83,73 +71,42 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/adminhome', {
             templateUrl: 'templates/admin/adminhome.html',
             controller: 'adminController',
-            resolve: {
-
-                "currentAuth": ["AuthFactory", function (AuthFactory) {
-
-                    var auth = AuthFactory.auth();
-                    console.log(auth);
-                    console.log(AuthFactory.requireAuth());
-                    return AuthFactory.requireAuth();
-                }]
-            }
+           requireAdmin: true
         })
         .when('/adminreports', {
             templateUrl: 'templates/admin/adminreports.html',
             controller: 'adminController',
-            resolve: {
-
-                "currentAuth": ["AuthFactory", function (AuthFactory) {
-
-                    var auth = AuthFactory.auth();
-                    console.log(auth);
-                    return AuthFactory.requireAuth();
-                }]
-            }
+            requireAdmin: true
         })
         .when('/adminrequests', {
             templateUrl: 'templates/admin/adminrequests.html',
             controller: 'adminController',
-            resolve: {
-
-                "currentAuth": ["AuthFactory", function (AuthFactory) {
-
-                    var auth = AuthFactory.auth();
-                    console.log(auth);
-                    return AuthFactory.requireAuth();
-                }]
-            }
+           requireAdmin: true
         })
 
         .when('/admindelete', {
             templateUrl: 'templates/admin/admindelete.html',
             controller: 'adminController',
-            resolve: {
-
-                "currentAuth": ["AuthFactory", function (AuthFactory) {
-
-                    var auth = AuthFactory.auth();
-                    console.log(auth);
-                    return AuthFactory.requireAuth();
-                }]
-            }
+            requireAdmin: true
         })
 		
 		.when('/adminmodules', {
             templateUrl: 'templates/admin/adminmodules.html',
             controller: 'adminController',
-            resolve: {
-
-                "currentAuth": ["AuthFactory", function (AuthFactory) {
-
-                    var auth = AuthFactory.auth();
-                    console.log(auth);
-                    return AuthFactory.requireAuth();
-                }]
-            }
+            requireAdmin: true
         })
 
         .otherwise({
             redirectTo: '/home'
         });
-});
+}).run(['$rootScope', function($rootScope, $location) {
+        $rootScope.$on('$routeChangeStart', function(event, current) {
+            if (!sessionStorage.isAdmin && current.$$route.requireAdmin) {
+                event.preventDefault();
+                //$location.path('/');
+            }
+            else{
+                console.log("you are not autharized");
+            }
+        });
+    }]);

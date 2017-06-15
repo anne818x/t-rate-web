@@ -9,6 +9,7 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     var reports = {};
     var requests = {};
     var signedIn = false;
+    var isAdmin = sessionStorage.isAdmin;
     var selectedTeacher = {};
     var currentUser = {};
     var teacherUrl = "https://us-central1-t-rate.cloudfunctions.net/retrieveTeachers";
@@ -62,12 +63,20 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
     sharingFactory.setSignedIn = function () {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                signedIn = true;
+                sessionStorage.signedIn = true;
             }
             else if (!user) {
-                signedIn = false;
+                sessionStorage.signedIn = false;
             }
         });
+    };
+
+    sharingFactory.setIsAdmin = function (value) {
+        sessionStorage.isAdmin = value;
+    };
+
+    sharingFactory.getIsAdmin = function () {
+        return isAdmin;
     };
 
     sharingFactory.getTeachers = function () {

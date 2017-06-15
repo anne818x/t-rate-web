@@ -1,4 +1,4 @@
-angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', function($firebaseAuth) {
+angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', 'SharingFactory', '$window', function($firebaseAuth, SharingFactory, $window) {
     var authFactory = {};
     // Initialize FirebaseAuth
     var auth = $firebaseAuth();
@@ -9,6 +9,7 @@ angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', function($fireb
      }
 
      authFactory.logout = function() {
+        sessionStorage.clear();
         auth.$signOut();
      }
 
@@ -19,5 +20,6 @@ angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', function($fireb
      authFactory.requireAuth = function(){
         return auth.$requireSignIn();
      }
+
     return authFactory;
 }])
