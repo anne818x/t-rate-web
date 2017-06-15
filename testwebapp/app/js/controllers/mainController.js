@@ -788,7 +788,17 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			SharingFactory.pushToDb(data, ref);
 		}
 	}
-
+	
+	$scope.contactSend = function () {
+		firebase.database().ref('Contact/').push({
+			Name: $scope.contactname,
+			Email: $scope.contactemail,
+			Location: $scope.contactlocation,
+			Message: $scope.contactmessage,
+			});
+			$location.path('/home');
+			toastr.success("You successfully submitted the contact form. Thank you", "Success!");
+	}
 
 
 
