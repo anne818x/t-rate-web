@@ -106,7 +106,6 @@ app.config(function ($routeProvider, $locationProvider) {
                 //$location.path('/');
             }
             else{
-                console.log("you are not autharized");
             }
         });
     }]);

@@ -11,7 +11,6 @@ angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', 'SharingFactory
     authFactory.logout = function () {
         sessionStorage.clear();
         auth.$signOut();
-        $window.sessionStorage.clear();
     }
 
     authFactory.auth = function () {

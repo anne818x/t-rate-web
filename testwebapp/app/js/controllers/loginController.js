@@ -19,9 +19,9 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 			console.log("User Successfully logged in with uid: ", authData.uid);
 			if (firebase.auth().currentUser.emailVerified) {
 				SharingFactory.setUser(authData.uid);
-				toastr.success("Welcome, You are now logged in", "Success!");
 				$("loginModal .close").click();
-
+				toastr.success("Welcome, You are now logged in", "Success!");
+				
 				var ref = firebase.database().ref('UserProfile');
 
 				for (var i = 0; i < $scope.users.length; i++) {
