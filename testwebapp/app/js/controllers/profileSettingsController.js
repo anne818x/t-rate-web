@@ -1,50 +1,65 @@
-app.controller('ProfileSettingsController', ['$scope', '$location', '$window', 'SharingFactory', function ($scope, $location, $window, SharingFactory) {
+app.controller('ProfileSettingsController', ['$scope', '$location', '$window', 'SharingFactory', '$firebaseArray', function ($scope, $location, $window, SharingFactory, $firebaseArray) {
 
-    $scope.currentLocation = "Select Location";
+    $scope.currentLocation = "";
     $scope.currentLocationID = "";
-    $scope.currentCourse = "Select Course";
+    $scope.currentCourse = "";
     $scope.currentCourseID = "";
-	$scope.tag = SharingFactory.getTagline();
-
-    var fbUser = firebase.auth().currentUser;
-
-    $scope.loadResources = function () {
-        SharingFactory.setLocations();
-        $scope.locations = SharingFactory.getLocations();
-
-        SharingFactory.setCourses();
-        $scope.courses = SharingFactory.getCourses();
-    };
+    $scope.tag = SharingFactory.getTagline();
 
     //retrieve user data from Firebase auth
+    var fbUser = firebase.auth().currentUser;
+
     SharingFactory.setUserData();
     $scope.userData = SharingFactory.getUserData();
 
-    //retrieve location and course ID from UserProfile table
-    var firebaseRef = firebase.database().ref('UserProfile/' + $scope.userData.UserID);
-    firebaseRef.on('value', getData, errorData);
+    //retrive courses and locations
+    var coursesRef = firebase.database().ref().child("Courses");
+    $scope.courses = $firebaseArray(coursesRef);
 
-    /*TODO Add function to show the current location and course of student based on IDs from its profile*/
-    function getData(data) {
-        var databaseRecord = data.val();
-        var locationId = databaseRecord.Place_ID;
-        var courseId = databaseRecord.CourseID;
-    }
+    var locationsRef = firebase.database().ref().child("Locations");
+    $scope.locations = $firebaseArray(locationsRef);
 
-    function errorData(data) {
-        alert(data.val())
-    };
+    firebase.database().ref('UserProfile/' + fbUser.uid).once('value').then(function (snapshot) {
+
+        $scope.courses.$loaded().then(function (courses) {
+            for (var i = 0; i < courses.length; i++) {
+                if (snapshot.val() == null) {
+                    $scope.currentCourse = "Select Course";
+                }
+                else {
+                    if (courses[i].Course_ID == snapshot.val().CourseID) {
+                        $scope.currentCourse = courses[i].Course_Name;
+                        $scope.currentCourseID = courses[i].Course_ID;
+                    }
+                }
+            }
+        });
+
+        $scope.locations.$loaded().then(function (locations) {
+            for (var i = 0; i < locations.length; i++) {
+                if (snapshot.val() == null) {
+                    $scope.currentLocation = "Select Location";
+                }
+                else {
+                    if (locations[i].Place_ID == snapshot.val().Place_ID) {
+                        $scope.currentLocation = locations[i].Place;
+                        $scope.currentLocationID = locations[i].Place_ID;
+                    }
+                }
+            }
+        });
+    });
 
     $scope.changeDisplayName = function (name) {
         $scope.userData.Name = name;
     };
 
-    $scope.selectedLocation = function (id, name) {
+    $scope.selectLocation = function (id, name) {
         $scope.currentLocationID = id;
         $scope.currentLocation = name;
     };
 
-    $scope.selectedCourse = function (id, name) {
+    $scope.selectCourse = function (id, name) {
         $scope.currentCourseID = id;
         $scope.currentCourse = name;
     };
@@ -52,7 +67,7 @@ app.controller('ProfileSettingsController', ['$scope', '$location', '$window', '
     /*Update user information in UserProfile table*/
     $scope.update = function () {
         if ($scope.currentCourse == "Select Course" || $scope.currentLocation == "Select Location") {
-            alert("Please select course and location");
+            toastr.warning('Please select both, course and location!');
         }
         else {
             firebase.database().ref('UserProfile/' + $scope.userData.UserID).set({
@@ -61,14 +76,12 @@ app.controller('ProfileSettingsController', ['$scope', '$location', '$window', '
                 Name: $scope.userData.Name
             });
 
-            console.log("Course: " + $scope.currentCourseID + " Location: " + $scope.currentLocationID);
             fbUser.updateProfile({
                 displayName: $scope.userData.Name
             }).then(function () {
-                alert("Successfully changed your profile");
-                $window.location.reload();
+                toastr.success("You updated your profile.", "Success!");
             }, function (error) {
-                alert("An error occurred " + error);
+                toastr.error("An error occured: " + error, 'Error!');
             });
         }
     }

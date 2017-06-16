@@ -3,26 +3,27 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
-			</a>
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            </a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
                 </li>
-				<li>
+                <li>
                     <a href="#explore">Explore</a>
                 </li>
                 <li>
@@ -85,9 +86,8 @@
                 <h2 class="panel-title">User Profile Settings</h2>
             </div>
             <div class="panel-body">
-                In this section you can change your profile settings. Here you could add at which Stenden location you
-                are taking your studies and which course you are following.
-                It is also possible to change your account password from here.
+                In this section you can change your profile settings. Here you could add at which Stenden location you are taking your studies
+                and which course you are following. It is also possible to change your account password from here.
             </div>
         </div>
     </div>
@@ -100,8 +100,8 @@
                     <label>Display Name</label><br>
                     <div>
                         <label for="displayName"></label>
-                        <input id="displayName" class="form-control" style="width: 50%" ng-model="userData.Name"
-                               ng-submit="changeDisplayName(name)" ng-value="">
+                        <input id="displayName" class="form-control" style="width: 50%" ng-model="userData.Name" ng-submit="changeDisplayName(name)"
+                            ng-value="">
                     </div>
                 </div>
                 <!--User Location-->
@@ -109,13 +109,11 @@
                     <label>Select Location</label><br>
                     <div>
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                                    ng-click="loadResources()">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true">
                                 {{currentLocation}}<span class="caret"></span></button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
-                                <li ng-repeat="item in locations" data-id="{{item.ID}}"
-                                    ng-click="selectedLocation(item.ID,item.Place)"><a>{{item.Place}}</a></li>
+                                <li ng-repeat="item in locations" data-id="{{item.Place_ID}}" ng-click="selectLocation(item.Place_ID,item.Place)"><a>{{item.Place}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -124,19 +122,17 @@
                         <label>Select Course</label><br>
                         <div>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                                        ng-click="loadResources()">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">
                                     {{currentCourse}}<span class="caret"></span></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
-                                    <li ng-repeat="item in courses" data-id="{{item.ID}}"
-                                        ng-click="selectedCourse(item.ID, item.Course)"><a>{{item.Course}}</a></li>
+                                    <li ng-repeat="item in courses" data-id="{{item.Course_ID}}" ng-click="selectCourse(item.Course_ID, item.Course_Name)"><a>{{item.Course_Name}}</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information"/>
+                <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information" />
             </form>
         </div>
     </div>

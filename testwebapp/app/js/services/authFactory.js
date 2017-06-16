@@ -1,23 +1,24 @@
-angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', function($firebaseAuth) {
+angular.module('myApp').factory('AuthFactory', ['$firebaseAuth', '$window', function ($firebaseAuth, $window) {
     var authFactory = {};
     // Initialize FirebaseAuth
     var auth = $firebaseAuth();
     //console.log(auth);
-     // Authentication 
-     authFactory.authUser = function(email, password) {
+    // Authentication 
+    authFactory.authUser = function (email, password) {
         return auth.$signInWithEmailAndPassword(email, password);
-     }
+    }
 
-     authFactory.logout = function() {
+    authFactory.logout = function () {
         auth.$signOut();
-     }
+        $window.sessionStorage.clear();
+    }
 
-     authFactory.auth = function() {
+    authFactory.auth = function () {
         return auth;
-     }
+    }
 
-     authFactory.requireAuth = function(){
+    authFactory.requireAuth = function () {
         return auth.$requireSignIn();
-     }
+    }
     return authFactory;
 }])

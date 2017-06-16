@@ -134,8 +134,8 @@ app.config(function ($routeProvider, $locationProvider) {
                 }]
             }
         })
-		
-		.when('/adminmodules', {
+
+        .when('/adminmodules', {
             templateUrl: 'templates/admin/adminmodules.html',
             controller: 'adminController',
             resolve: {

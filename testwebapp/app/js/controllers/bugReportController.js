@@ -15,7 +15,7 @@ app.controller('BugReportController', ['$scope', '$location', '$window', 'Sharin
 
   $scope.sendBugReport = function () {
     if ($scope.selectedPage == "Select page") {
-      toastr.error('Please select a page!');
+      toastr.error('Please select a page!', "Error!");
     }
     else {
       firebase.database().ref('Bugs/').push({

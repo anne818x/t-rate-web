@@ -29,20 +29,16 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 						console.log("Name: " + $scope.users[i].Name);
 						console.log("Name from fauth: " + $scope.currentUser);
 						console.log($scope.users[i].Role);
-						
+
 						if ($scope.users[i].Role == "Admin") {
 							console.log("yes!!" + $scope.users[i].Role);
 							$location.path('/adminhome');
 						}
-					
-
 						else {
 							$location.path('/profile');
 						}
 					}
-
 				}
-
 				$('.modal-backdrop').remove();
 			}
 			else {

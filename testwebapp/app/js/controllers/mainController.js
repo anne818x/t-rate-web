@@ -103,23 +103,23 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		$location.path('/review');
 	}
 
-	$scope.findTeacher = function(id){
+	$scope.findTeacher = function (id) {
 		var ref = firebase.database().ref('Teachers');
-			ref.on("child_added", function (snapshot) {
-				if (id == snapshot.child("TeacherID")) {
-					TeacherID = snapshot.child("TeacherID");
-					TeachName = snapshot.child("TeachName");
-					Course_ID = snapshot.child("Course_ID");
-					atmos = snapshot.child("Avg_Atmosphere");
-					help = snapshot.child("Avg_Helpfulness");
-					lec = snapshot.child("Avg_Lectures");
-					prep = snapshot.child("Avg_Preparation");
-					prof = snapshot.child("Avg_Professionalism");
-					total = snapshot.child("Total");
+		ref.on("child_added", function (snapshot) {
+			if (id == snapshot.child("TeacherID")) {
+				TeacherID = snapshot.child("TeacherID");
+				TeachName = snapshot.child("TeachName");
+				Course_ID = snapshot.child("Course_ID");
+				atmos = snapshot.child("Avg_Atmosphere");
+				help = snapshot.child("Avg_Helpfulness");
+				lec = snapshot.child("Avg_Lectures");
+				prep = snapshot.child("Avg_Preparation");
+				prof = snapshot.child("Avg_Professionalism");
+				total = snapshot.child("Total");
 
-					$scope.setTeacherPage(TeacherID, TeachName, Course_ID, atmos, help, lec, prep, prof, total);
-				}
-			});
+				$scope.setTeacherPage(TeacherID, TeachName, Course_ID, atmos, help, lec, prep, prof, total);
+			}
+		});
 
 	}
 
@@ -303,7 +303,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 					});
 
 					//send email
-				
+
 				}
 
 			});
@@ -340,38 +340,38 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	});
 
 
-//**************************************Send Email Function********************************
+	//**************************************Send Email Function********************************
 
-// $scope.senderName = "T-Rate Application";
-// $scope.senderEmail = "noreply@t-rate.firebaseapp.com";
-// $scope.senderMsg = "hello there";
+	// $scope.senderName = "T-Rate Application";
+	// $scope.senderEmail = "noreply@t-rate.firebaseapp.com";
+	// $scope.senderMsg = "hello there";
 
-// $http({
-//     url: "http://localhost:8000/PHPMailer/email.php", 
-//     method: "POST",
-//     data: { name: $scope.senderName, email: $scope.senderEmail, message:$scope.senderMsg }
+	// $http({
+	//     url: "http://localhost:8000/PHPMailer/email.php", 
+	//     method: "POST",
+	//     data: { name: $scope.senderName, email: $scope.senderEmail, message:$scope.senderMsg }
 
-//     }).success(function(data, status, headers, config) {
-//    // this callback will be called asynchronously
-//    // when the response is available
+	//     }).success(function(data, status, headers, config) {
+	//    // this callback will be called asynchronously
+	//    // when the response is available
 
-//     if(status == 200) {
+	//     if(status == 200) {
 
-//       var return_data = data;
+	//       var return_data = data;
 
-//         if(return_data != 0){
+	//         if(return_data != 0){
 
 
-//           $scope.hide();
-//           //$scope.closeFeedback();
-//         }
-//       }
-//     }).
-//   error(function(data, status, headers, config) {
-//    // called asynchronously if an error occurs
-//    // or server returns response with an error status.
-//    console.log(status);
-// });
+	//           $scope.hide();
+	//           //$scope.closeFeedback();
+	//         }
+	//       }
+	//     }).
+	//   error(function(data, status, headers, config) {
+	//    // called asynchronously if an error occurs
+	//    // or server returns response with an error status.
+	//    console.log(status);
+	// });
 
 
 	//**************************display dynamic reviews**********************************
@@ -788,8 +788,4 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 			SharingFactory.pushToDb(data, ref);
 		}
 	}
-
-
-
-
 }]);

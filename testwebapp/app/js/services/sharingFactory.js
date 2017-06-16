@@ -30,7 +30,6 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
                 EmailVerified: fbUser.emailVerified, UserID: fbUser.uid
             };
         }
-
     };
 
     sharingFactory.getUserData = function () {
