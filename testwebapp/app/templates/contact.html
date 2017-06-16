@@ -86,11 +86,9 @@
             </div>
             <div class="panel-body">
 			<img class="pull-right" src="images/logo.png" style="height: 150px;">
-                <p>Duis fermentum ornare viverra. Pellentesque mattis, nibh ac blandit bibendum, libero magna gravida
-                    lacus, eget luctus nulla justo et lacus. Duis luctus volutpat laoreet. Ut posuere suscipit nisl.
-                    Cras tincidunt elit a lacus posuere consectetur. Orci varius natoque penatibus et magnis dis
-                    parturient montes, nascetur ridiculus mus.</p>
-                <br>
+                <p>Thank you for visiting our website. If you have any suggestions or would like to partner with us we would be happy to assist you. For questions about our service please check our about page first. Please fill out the form below.
+				</br> If you wish to report any bugs or strange encounters with our website please go to <a href="#reportbugs">report bugs</a>.</p>
+				</br>
                 <form class=" form-horizontal" action=" " method="post" id="contact_form">
                     <fieldset>
                         <!-- google map-->
@@ -105,8 +103,8 @@
                                 <div class="col-md-6 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input name="first_name" placeholder="First Name" class="form-control"
-                                               type="text">
+                                        <input name="first_name" placeholder="Name" class="form-control"
+                                               type="text" ng-model="contactname">
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +115,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i
                                                 class="glyphicon glyphicon-envelope"></i></span>
-                                        <input name="email" placeholder="E-Mail Address" class="form-control"
+                                        <input name="email" placeholder="E-Mail Address" class="form-control" ng-model="contactemail"
                                                type="text">
                                     </div>
                                 </div>
@@ -128,7 +126,7 @@
                                 <div class="col-md-6 selectContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                        <select name="state" class="form-control selectpicker">
+                                        <select name="state" class="form-control selectpicker" ng-model="contactlocation">
                                             <option value=" ">Please select your location</option>
                                             <option>Emmen</option>
                                             <option>Leeuwarden</option>
@@ -144,7 +142,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i
                                                 class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" name="comment" placeholder="Message"></textarea>
+                                        <textarea ng-model="contactmessage" class="form-control" name="comment" placeholder="Message"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +150,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-success">Send</button>
+                                    <button type="submit" class="btn btn-success" ng-click="contactSend()">Send</button>
                                 </div>
                             </div>
                         </div>

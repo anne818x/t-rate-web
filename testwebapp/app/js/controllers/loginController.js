@@ -25,6 +25,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 				var ref = firebase.database().ref('UserProfile');
 
 				for (var i = 0; i < $scope.users.length; i++) {
+					var isAdmin = false;
 					if ($scope.users[i].Name == $scope.currentUser) {
 						console.log("Name: " + $scope.users[i].Name);
 						console.log("Name from fauth: " + $scope.currentUser);
@@ -32,9 +33,13 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 
 						if ($scope.users[i].Role == "Admin") {
 							console.log("yes!!" + $scope.users[i].Role);
+							isAdmin = true;
+							SharingFactory.setSignedIn(isAdmin);
 							$location.path('/adminhome');
 						}
 						else {
+							isAdmin = false;
+							SharingFactory.setSignedIn(isAdmin);
 							$location.path('/profile');
 						}
 					}

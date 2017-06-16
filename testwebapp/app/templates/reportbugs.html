@@ -88,7 +88,7 @@
       <div class="panel-body">
         Hello {{userData.Name}}, </br>
         Here you can report any issues or bugs that you have encountered while using T-rate. If it is possible, please explain in
-        details what actions you have made in order to get certain error, bug or glitch in the application. If you also notice
+        details what actions you have made in order to get the certain error, bug or glitch in the application. Additonally, if you notice
         something strange in the behaviour, you can also report it and the administrators will check it out.
         </br>
         </br>
@@ -101,7 +101,7 @@
     <div class="container-fluid">
       <form id="reportBug" name="reportBugForm" role="form">
         <div class="form-group">
-          <label>On which page the issue occurs?</label>
+          <label>On which page does the issue occur?</label>
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPages" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="true">{{selectedPage}}<span class="caret"></span></button>
@@ -114,8 +114,8 @@
           <label>Write as much information about the issue below</label>
           <div class="input-group" ng-class="{'has-error' : reportBugForm.reportBugReason.$invalid && reportBugForm.reportBugReason.$touched, 'has-success' : reportBugForm.reportBugReason.$valid}">
             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-            <textarea id="reportBugReason" class="form-control" name="reportBugReason" ng-model="reportBugReason" placeholder="What bug have you experienced? Please elaborate. (min. 100 chars)"
-              required="" minlength="100" maxlength="500" rows="5" style="resize: none"></textarea>
+            <textarea id="reportBugReason" class="form-control" name="reportBugReason" ng-model="reportBugReason" placeholder="What bug have you experienced? Please elaborate. (min. 50 chars)"
+              required="" minlength="50" maxlength="500" rows="5" style="resize: none"></textarea>
           </div>
         </div>
         <button type="submit" class="btn btn-primary" ng-disabled="reportBugForm.$invalid" style="width:100%; margin-top: 1%" ng-click="sendBugReport()"
