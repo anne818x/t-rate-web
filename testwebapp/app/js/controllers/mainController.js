@@ -1,6 +1,5 @@
 angular.module('myApp').controller('MainController', ['$scope', '$http', '$moment', '$location', 'SharingFactory', 'scanner', '$firebaseArray', 'AlertFactory', '$q', function ($scope, $http, $moment, $location, SharingFactory, scanner, $firebaseArray, AlertFactory, $q) {
 
-	//TODO Top Rated teacher, calculating of averages for teachers, voting of reviews
 	SharingFactory.setSignedIn();
 	SharingFactory.setUserData();
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
@@ -634,15 +633,12 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 
 	/*********************************Voting of reviews****************************************/
-	// TODO Refactor into one method maybe?
-	//Removed promis, used then(function(){}) instead
 	$scope.upvote = function (reviewID) {
 		var userID = SharingFactory.getUserData().UserID;
 		var updateKey = "";
 		var voteUpdate = false;
 		var vote = "";
 
-		console.log("when");
 		var userVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
 		$scope.userVotes = $firebaseArray(userVotesRef);
 		$scope.userVotes.$loaded().then(function (votes) {
@@ -651,7 +647,6 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				userVotes.push({ Key: key, Review_ID: votes[i].Review_ID, Vote: votes[i].Vote, UserID: votes[i].UserID });
 			}
 		}).then(function () {
-			console.log("Then");
 			userVotes.forEach(function (element) {
 				console.log(element); //TODO Insane quantity of calls?!?!?
 				if (element.Review_ID == reviewID) {

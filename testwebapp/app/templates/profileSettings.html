@@ -87,53 +87,53 @@
             </div>
             <div class="panel-body">
                 In this section you can change your profile settings. Here you could add at which Stenden location you are taking your studies
-                and which course you are following. It is also possible to change your account password from here.
+                and which course you are following.
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <form>
-                <!--Display Name-->
-                <div class="form-group" ng-init="loadResources()">
-                    <label>Display Name</label><br>
-                    <div>
-                        <label for="displayName"></label>
-                        <input id="displayName" class="form-control" style="width: 50%" ng-model="userData.Name" ng-submit="changeDisplayName(name)"
-                            ng-value="">
-                    </div>
-                </div>
-                <!--User Location-->
-                <div class="form-group">
-                    <label>Select Location</label><br>
-                    <div>
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="true">
-                                {{currentLocation}}<span class="caret"></span></button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
-                                <li ng-repeat="item in locations" data-id="{{item.Place_ID}}" ng-click="selectLocation(item.Place_ID,item.Place)"><a>{{item.Place}}</a></li>
-                            </ul>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <form>
+                    <!--Display Name-->
+                    <div class="form-group" ng-init="loadResources()">
+                        <label>Display Name</label><br>
+                        <div>
+                            <label for="displayName"></label>
+                            <input id="displayName" class="form-control" style="width: 50%" ng-model="userData.Name" ng-submit="changeDisplayName(name)"
+                                ng-value="">
                         </div>
                     </div>
-                    <!--User Course-->
+                    <!--User Location-->
                     <div class="form-group">
-                        <label>Select Course</label><br>
+                        <label>Select Location</label><br>
                         <div>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses" data-toggle="dropdown" aria-haspopup="true"
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLocations" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="true">
-                                    {{currentCourse}}<span class="caret"></span></button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
-                                    <li ng-repeat="item in courses" data-id="{{item.Course_ID}}" ng-click="selectCourse(item.Course_ID, item.Course_Name)"><a>{{item.Course_Name}}</a></li>
+                                {{currentLocation}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownLocations">
+                                    <li ng-repeat="item in locations" data-id="{{item.Place_ID}}" ng-click="selectLocation(item.Place_ID,item.Place)"><a>{{item.Place}}</a></li>
                                 </ul>
                             </div>
                         </div>
+                        <!--User Course-->
+                        <div class="form-group">
+                            <label>Select Course</label><br>
+                            <div>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCourses" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true">
+                                    {{currentCourse}}<span class="caret"></span></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownCourses">
+                                        <li ng-repeat="item in courses" data-id="{{item.Course_ID}}" ng-click="selectCourse(item.Course_ID, item.Course_Name)"><a>{{item.Course_Name}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information" />
-            </form>
+                    <input class="btn btn-primary" type="submit" ng-click="update()" value="Update User Information" />
+                </form>
+            </div>
         </div>
     </div>
 </div>

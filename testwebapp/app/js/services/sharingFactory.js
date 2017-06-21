@@ -163,7 +163,6 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
 
     sharingFactory.getTagline = function () {
         sharingFactory.setTagline();
-        console.log(tag);
         return tag;
     }
 
@@ -193,7 +192,6 @@ angular.module('myApp').factory('SharingFactory', ['$location', '$http', functio
             requests = data.data;
         });
     };
-
 
     return sharingFactory;
 }]);

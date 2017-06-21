@@ -3,6 +3,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.tag = SharingFactory.getTagline();
 	$scope.currentUser = SharingFactory.getUserData().Name;
+
 	SharingFactory.setSignedIn();
 	if (SharingFactory.getUsers().length == undefined) {
 		SharingFactory.setUsers();
@@ -21,7 +22,7 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 				SharingFactory.setUser(authData.uid);
 				$("loginModal .close").click();
 				toastr.success("Welcome, You are now logged in", "Success!");
-				
+
 				var ref = firebase.database().ref('UserProfile');
 
 				for (var i = 0; i < $scope.users.length; i++) {
@@ -53,6 +54,16 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 		}, function (error) {
 			toastr.error("The password is invalid or the user does not have a password.", 'Authentication Error!');
 		})
+	}
+
+	$scope.resetPassword = function () {
+		var resetEmail = $scope.user.resetEmail;
+		var auth = firebase.auth();
+		auth.sendPasswordResetEmail(resetEmail).then(function () {
+			toastr.success("You will receive a reset password email soon!", "Success!");
+		}, function (error) {
+			toastr.error(" " + error, 'Authentication Error!');
+		});
 	}
 
 }]);

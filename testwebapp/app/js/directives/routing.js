@@ -71,7 +71,7 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/adminhome', {
             templateUrl: 'templates/admin/adminhome.html',
             controller: 'adminController',
-           requireAdmin: true
+            requireAdmin: true
         })
         .when('/adminreports', {
             templateUrl: 'templates/admin/adminreports.html',
@@ -81,7 +81,7 @@ app.config(function ($routeProvider, $locationProvider) {
         .when('/adminrequests', {
             templateUrl: 'templates/admin/adminrequests.html',
             controller: 'adminController',
-           requireAdmin: true
+            requireAdmin: true
         })
 
         .when('/admindelete', {
@@ -99,13 +99,13 @@ app.config(function ($routeProvider, $locationProvider) {
         .otherwise({
             redirectTo: '/home'
         });
-}).run(['$rootScope', function($rootScope, $location) {
-        $rootScope.$on('$routeChangeStart', function(event, current) {
-            if (!sessionStorage.isAdmin && current.$$route.requireAdmin) {
-                event.preventDefault();
-                //$location.path('/');
-            }
-            else{
-            }
-        });
-    }]);
+}).run(['$rootScope', function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeStart', function (event, current) {
+        if (!sessionStorage.isAdmin && current.$$route.requireAdmin) {
+            event.preventDefault();
+            //$location.path('/');
+        }
+        else {
+        }
+    });
+}]);
