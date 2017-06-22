@@ -1,23 +1,24 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-         <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
 			</a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
@@ -46,7 +47,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#profile" data-toggle="">Hello, {{userData.name}}</a>
+                    <a href="#profile" data-toggle="">Hello, {{userData.Name}}</a>
                 </li>
                 <li>
                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
@@ -85,16 +86,18 @@
                 <h3 class="panel-title">Contact Form</h3>
             </div>
             <div class="panel-body">
-			<img class="pull-right" src="images/logo.png" style="height: 150px;">
-                <p>Thank you for visiting our website. If you have any suggestions or would like to partner with us we would be happy to assist you. For questions about our service please check our about page first. Please fill out the form below.
-				</br> If you wish to report any bugs or strange encounters with our website please go to <a href="#reportbugs">report bugs</a>.</p>
-				</br>
+                <img class="pull-right" src="images/logo.png" style="height: 150px;">
+                <p>Thank you for visiting our website. If you have any suggestions or would like to partner with us we would
+                    be happy to assist you. For questions about our service please check our about page first. Please fill
+                    out the form below.
+                    </br> If you wish to report any bugs or strange encounters with our website please go to <a href="#reportbugs">report bugs</a>.</p>
+                </br>
                 <form class=" form-horizontal" action=" " method="post" id="contact_form">
                     <fieldset>
                         <!-- google map-->
                         <div class=" col-md-4">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.4485892568914!2d6.909939415463356!3d52.77821867986387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b7e61f3ec72443%3A0xbe9d297b3e4fbcc7!2sStenden+hogeschool+Emmen!5e0!3m2!1sen!2snl!4v1494173278983"
-                                    width="300" height="225" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                width="300" height="225" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                         <div class="col-md-8">
                             <!-- Name-->
@@ -103,8 +106,7 @@
                                 <div class="col-md-6 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                        <input name="first_name" placeholder="Name" class="form-control"
-                                               type="text" ng-model="contactname">
+                                        <input name="first_name" placeholder="Name" class="form-control" type="text" ng-model="contactname">
                                     </div>
                                 </div>
                             </div>
@@ -115,8 +117,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i
                                                 class="glyphicon glyphicon-envelope"></i></span>
-                                        <input name="email" placeholder="E-Mail Address" class="form-control" ng-model="contactemail"
-                                               type="text">
+                                        <input name="email" placeholder="E-Mail Address" class="form-control" ng-model="contactemail" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +128,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                                         <select name="state" class="form-control selectpicker" ng-model="contactlocation">
-                                            <option value=" ">Please select your location</option>
+                                            <option value="" selected >Please select your location</option>
                                             <option>Emmen</option>
                                             <option>Leeuwarden</option>
                                             <option>Meppel</option>

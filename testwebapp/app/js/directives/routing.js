@@ -59,7 +59,6 @@ app.config(function ($routeProvider, $locationProvider) {
                 "currentAuth": ["AuthFactory", function (AuthFactory) {
 
                     var auth = AuthFactory.auth();
-                    console.log(auth);
                     return AuthFactory.requireAuth();
                 }]
             }

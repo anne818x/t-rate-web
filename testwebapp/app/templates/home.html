@@ -45,6 +45,9 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="!IsSignedIn">
+                    <a href="#profile" data-toggle="">Hello, {{userData.Name}}</a>
+                </li>
                 <li ng-hide="IsSignedIn">
                     <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
                 </li>

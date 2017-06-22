@@ -221,6 +221,7 @@
                         </br>
 
                         <div class="btn-group" style="width:100%">
+                            Vote: {{teacherReview.currentVote}}
                             <button id="up{{teacherReview.reviewID}}" class="btn btn-default glyphicon glyphicon-thumbs-up" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
                                 ng-click="upvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
                             <button id="down{{teacherReview.reviewID}}" class="btn btn-default glyphicon glyphicon-thumbs-down" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"

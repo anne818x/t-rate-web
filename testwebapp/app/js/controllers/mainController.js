@@ -3,6 +3,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	SharingFactory.setSignedIn();
 	SharingFactory.setUserData();
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
+	$scope.userData = SharingFactory.getUserData();
 	$scope.currentMod = {};
 
 	var teacherRef = firebase.database().ref("Teachers");
@@ -32,7 +33,8 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.prepTrt = [];
 	$scope.profTrt = [];
 	$scope.currentCourse = "Select course";
-	$scope.reviewVoteScore = 0;
+	$scope.reviewVoteScore = 0; //TODO FIX!!
+	$scope.currentVote = "Null";
 	$scope.selectedTeacher = {};
 
 	SharingFactory.setRequests();
@@ -53,6 +55,19 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.isProf = false;
 	$scope.isLec = false;
 	$scope.isTopR = false;
+
+	/*Get all user votes*/
+	if ($scope.IsSignedIn) {
+		var ref = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
+		ref.on('value', function (snapshot) {
+			snapshot.forEach(function (child) {
+				var item = child.val();
+				var key = child.getKey();
+				userVotes.push({ Key: key, Review_ID: item.Review_ID, Vote: item.Vote });
+			});
+		});
+	}
+
 
 	//*****************set selected teacher from Explore***********************
 	$scope.selectedTeacher = { name: sessionStorage.selectedTeachName, course: sessionStorage.selectedTeachCourseName, atmos: sessionStorage.selectedTeachAvgAtmos, help: sessionStorage.selectedTeachAvgHelp, lec: sessionStorage.selectedTeachAvgLec, prep: sessionStorage.selectedTeachAvgPrep, prof: sessionStorage.selectedTeachAvgProf, total: sessionStorage.selectedTeachTotal };
@@ -344,7 +359,17 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		for (var i = 0; i < reviews.length; i++) {
 
 			if (reviews[i].TeacherID == sessionStorage.selectedTeacher) {
-				$scope.reviewVoteScore = 0;
+
+				var personalVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
+				$scope.personalVotes = $firebaseArray(personalVotesRef);
+
+				userVotes.forEach(function (element) {
+					if (element.Review_ID == reviews[i].Review_ID) {
+						$scope.currentVote = element.Vote;
+					}
+				});
+
+				/*$scope.reviewVoteScore = 0;
 				var usersVotesRef = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo(reviews[i].Review_ID);
 				$scope.usersVotes = $firebaseArray(usersVotesRef);
 				$scope.usersVotes.$loaded().then(function (votes) {
@@ -359,7 +384,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 						}
 					}
 					console.log("after for: " + $scope.reviewVoteScore);
-				});
+				});*/
 
 				$scope.teacherReviews.push({
 					reviewID: reviews[i].Review_ID,
