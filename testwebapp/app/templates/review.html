@@ -143,7 +143,7 @@
                                 <div ng-if="isAtmos">
                                     <img class="center-block" ng-src="images/badges/atmosphere.png" style="width:50px; height:75px;">
                                 </div>
-                                 <div ng-if="!isAtmos">
+                                <div ng-if="!isAtmos">
                                     <img class="center-block" ng-src="images/badges/atmospherelock.png" style="width:50px; height:75px;">
                                 </div>
                             </td>
@@ -167,7 +167,7 @@
                                 <div ng-if="isProf">
                                     <img class="center-block" ng-src="images/badges/professionalism.png" style="width:50px; height:75px;">
                                 </div>
-                              <div ng-if="!isProf">
+                                <div ng-if="!isProf">
                                     <img class="center-block" ng-src="images/badges/professionalismlock.png" style="width:50px; height:75px;">
                                 </div>
                             </td>
@@ -221,9 +221,9 @@
                         </br>
 
                         <div class="btn-group" style="width:100%">
-                            <button class="btn btn-default glyphicon glyphicon-thumbs-up" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
+                            <button id="up{{teacherReview.reviewID}}" class="btn btn-default glyphicon glyphicon-thumbs-up" ng-class="{'btn-success': teacherReview.currentVote == 'True', 'btn-default': teacherReview.currentVote == 'False'}"
                                 ng-click="upvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
-                            <button class="btn btn-default glyphicon glyphicon-thumbs-down" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
+                            <button id="down{{teacherReview.reviewID}}" class="btn btn-default glyphicon glyphicon-thumbs-down" ng-class="{'btn-default': teacherReview.currentVote == 'True', 'btn-danger': teacherReview.currentVote == 'False'}"
                                 ng-click="downvote(teacherReview.reviewID);" ng-disabled="(!IsSignedIn)"></button>
                             <button class="btn btn-danger glyphicon glyphicon-flag pull-right" data-toggle="modal" data-target="#reportModal" ng-controller="ReportController"
                                 ng-click="selectedReview(teacherReview.reviewID)" ng-disabled="(!IsSignedIn)"></button>
