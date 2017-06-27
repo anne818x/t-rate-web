@@ -101,6 +101,8 @@ app.config(function ($routeProvider, $locationProvider) {
 }).run(['$rootScope', function ($rootScope, $location) {
     $rootScope.$on('$routeChangeStart', function (event, current) {
         if (!sessionStorage.isAdmin && current.$$route.requireAdmin) {
+            console.log(current.$$route.requireAdmin);
+            console.log(sessionStorage.isAdmin);
             event.preventDefault();
             //$location.path('/');
         }

@@ -35,12 +35,12 @@ angular.module('myApp').controller('LoginController', ['$scope', '$location', '$
 						if ($scope.users[i].Role == "Admin") {
 							console.log("yes!!" + $scope.users[i].Role);
 							isAdmin = true;
-							SharingFactory.setSignedIn(isAdmin);
+							sessionStorage.isAdmin = isAdmin;
 							$location.path('/adminhome');
 						}
 						else {
 							isAdmin = false;
-							SharingFactory.setSignedIn(isAdmin);
+							sessionStorage.isAdmin = isAdmin;
 							$location.path('/profile');
 						}
 					}

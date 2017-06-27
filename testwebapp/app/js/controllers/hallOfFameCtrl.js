@@ -20,12 +20,134 @@ $scope.date =  $moment().format('YYYY-MM-DD');
 $scope.currentMod = {};
 $scope.shownCurrentMod = sessionStorage.shownCurrentMod;
 
-console.log($scope.topRatedAtmos.id);
-console.log($scope.topRatedLec.id);
-console.log($scope.topRatedPrep.id);
-console.log($scope.topRatedProf.id);
-console.log($scope.topRatedHelp.id);
-console.log($scope.topRatedTeach.id);
+$scope.topRatedTeach1 =[];
+$scope.atmosTrt1 = [];
+$scope.helpTrt1 = [];
+$scope.lecTrt1 = [];
+$scope.prepTrt1 = [];
+$scope.profTrt1 = [];
+
+if ($scope.topRatedTeach1.length == 0) {
+	//get top rated
+			var array1 = [];
+			var array2 = [];
+			var array3 = [];
+			var array4 = [];
+			var array5 = [];
+			var array6 = [];
+
+			$scope.teachers.$loaded().then(function (teachers) {
+	
+				for (var i = 0; i < teachers.length; i++) {
+						array1.push({name: teachers[i].TeachName, total: Math.round(teachers[i].Total * 2) / 2});
+						array2.push({name: teachers[i].TeachName, total: Math.round(teachers[i].Avg_Atmosphere * 2) / 2});
+						array3.push({name: teachers[i].TeachName, total: Math.round(teachers[i].Avg_Helpfulness* 2) / 2});
+						array4.push({name: teachers[i].TeachName, total: Math.round(teachers[i].Avg_Lectures* 2) / 2});
+						array5.push({name: teachers[i].TeachName, total: Math.round(teachers[i].Avg_Preparation* 2) / 2});
+						array6.push({name: teachers[i].TeachName, total: Math.round(teachers[i].Avg_Professionalism* 2) / 2});
+				}
+			}).then(function (ref) {
+				array1.sort(compareSecondColumn);
+				array2.sort(compareSecondColumn1);
+				array3.sort(compareSecondColumn2);
+				array4.sort(compareSecondColumn3);
+				array5.sort(compareSecondColumn4);
+				array6.sort(compareSecondColumn5);
+
+				function compareSecondColumn(a, b) {
+						    if (a.total === b.total) {
+						        return 0;
+						    }
+						    else {
+						        return (a.total < b.total) ? -1 : 1;
+						    }
+				}
+
+				function compareSecondColumn1(a, b) {
+						    if (a.total === b.total) {
+						        return 0;
+						    }
+						    else {
+						        return (a.total < b.total) ? -1 : 1;
+						    }
+				}
+
+				function compareSecondColumn2(a, b) {
+						    if (a.total === b.total) {
+						        return 0;
+						    }
+						    else {
+						        return (a.total < b.total) ? -1 : 1;
+						    }
+				}
+
+				function compareSecondColumn3(a, b) {
+						    if (a.total === b.total) {
+						        return 0;
+						    }
+						    else {
+						        return (a.total < b.total) ? -1 : 1;
+						    }
+				}
+
+				function compareSecondColumn4(a, b) {
+						    if (a.total === b.total) {
+						        return 0;
+						    }
+						    else {
+						        return (a.total < b.total) ? -1 : 1;
+						    }
+				}
+
+				function compareSecondColumn5(a, b) {
+						    if (a.total === b.total) {
+						        return 0;
+						    }
+						    else {
+						        return (a.total < b.total) ? -1 : 1;
+						    }
+				}
+
+				$scope.topRatedTeach1.push({name: array1[0].name, total: array1[0].total});
+				$scope.topRatedTeach1.push({name: array1[1].name, total: array1[1].total});
+				$scope.topRatedTeach1.push({name: array1[2].name, total: array1[2].total});
+
+				$scope.atmosTrt1.push({name: array2[0].name, total: array2[0].total});
+				$scope.atmosTrt1.push({name: array2[1].name, total: array2[1].total});
+				$scope.atmosTrt1.push({name: array2[2].name, total: array2[2].total});
+
+				$scope.helpTrt1.push({name: array3[0].name, total: array3[0].total});
+				$scope.helpTrt1.push({name: array3[1].name, total: array3[1].total});
+				$scope.helpTrt1.push({name: array3[2].name, total: array3[2].total});
+
+				$scope.lecTrt1.push({name: array4[0].name, total: array4[0].total});
+				$scope.lecTrt1.push({name: array4[1].name, total: array4[1].total});
+				$scope.lecTrt1.push({name: array4[2].name, total: array4[2].total});
+
+				$scope.prepTrt1.push({name: array5[0].name, total: array5[0].total});
+				$scope.prepTrt1.push({name: array5[1].name, total: array5[1].total});
+				$scope.prepTrt1.push({name: array5[2].name, total: array5[2].total});
+
+				$scope.profTrt1.push({name: array6[0].name, total: array6[0].total});
+				$scope.profTrt1.push({name: array6[1].name, total: array6[1].total});
+				$scope.profTrt1.push({name: array6[2].name, total: array6[2].total});
+
+				// sessionStorage.temptop1Name = array1[0].name;
+				// sessionStorage.temptop1Total = array1[0].total;
+
+				// sessionStorage.temptop2Name = array1[1].name;
+				// sessionStorage.temptop2Total = array1[1].total;
+
+				// sessionStorage.temptop3Name = array1[2].name;
+				// sessionStorage.temptop3Total = array1[2].total;
+
+				// $scope.topRatedTeach1.push({name: sessionStorage.temptop1Name, total: sessionStorage.temptop1Total});
+				// $scope.topRatedTeach1.push({name: sessionStorage.temptop2Name, total: sessionStorage.temptop2Total});
+				// $scope.topRatedTeach1.push({name: sessionStorage.temptop3Name, total: sessionStorage.temptop3Total});
+
+				
+			})
+}
 
 if ($scope.topRatedTeach.length == undefined) {
 	$scope.modules.$loaded().then(function (modules) {
