@@ -316,6 +316,7 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 						endDate: $scope.end
 					})
 				});
+				toastr.success("Module changed.");
 			}
 			else {
 				toastr.error("WRONG! The date format needs to be YYYY-mm-dd.");
