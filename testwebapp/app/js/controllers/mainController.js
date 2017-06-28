@@ -5,6 +5,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.IsSignedIn = SharingFactory.getSignedIn();
 	$scope.userData = SharingFactory.getUserData();
 	$scope.currentMod = {};
+	$scope.currentCourseID = 0;
 
 	var teacherRef = firebase.database().ref("Teachers");
 	var reviewsRef = firebase.database().ref("Reviews");
@@ -83,13 +84,18 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 		sessionStorage.selectedTeachTotal = Math.round(total * 2) / 2;
 
 		$scope.courses.$loaded().then(function (courses) {
-			for (var i = 0; i < courses.length; i++) {
-				//$('img').attr('src', 'images/'+ $scope.reviews[i].Atmos +'star.png');
-				if (courses[i].Course_ID == sessionStorage.selectedTeachCourseID) {
-					sessionStorage.selectedTeachCourseName = courses[i].Course_Name;
-				}
-			}
-		});
+            for (var i = 0; i < courses.length; i++) {
+                if (snapshot.val() == null) {
+                    $scope.currentCourse = "Select Course";
+                }
+                else {
+                    if (courses[i].Course_ID == snapshot.val().CourseID) {
+                        $scope.currentCourse = courses[i].Course_Name;
+                        $scope.currentCourseID = courses[i].Course_ID;
+                    }
+                }
+            }
+        });
 		$location.path('/review');
 	}
 
@@ -708,9 +714,10 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 				Status: "false",
 				Request_ID: $scope.requests.length + 1,
 			};
-
+			console.log($scope.currentCourseID);
 			var ref = firebase.database().ref('Requests');
 			SharingFactory.pushToDb(data, ref);
+			toastr.success("The teacher has been submitted", 'Success!');
 		}
 	}
 	/* Send information from contact form to database */
