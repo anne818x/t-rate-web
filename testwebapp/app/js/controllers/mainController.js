@@ -297,14 +297,16 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 
 			if (reviews[i].TeacherID == sessionStorage.selectedTeacher) {
 
-				var personalVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
-				$scope.personalVotes = $firebaseArray(personalVotesRef);
+				if ($scope.IsSignedIn) {
+					var personalVotesRef = firebase.database().ref().child("Votes").orderByChild("UserID").equalTo(SharingFactory.getUserData().UserID);
+					$scope.personalVotes = $firebaseArray(personalVotesRef);
 
-				userVotes.forEach(function (element) {
-					if (element.Review_ID == reviews[i].Review_ID) {
-						$scope.currentVote = element.Vote;
-					}
-				});
+					userVotes.forEach(function (element) {
+						if (element.Review_ID == reviews[i].Review_ID) {
+							$scope.currentVote = element.Vote;
+						}
+					});
+				}
 
 				/*$scope.reviewVoteScore = 0;
 				var usersVotesRef = firebase.database().ref().child("Votes").orderByChild("Review_ID").equalTo(reviews[i].Review_ID);
