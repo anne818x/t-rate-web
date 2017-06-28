@@ -245,10 +245,10 @@ app.controller('adminController', ['$scope', '$location', '$window', 'SharingFac
 
 						var removeVotes = array[0];
 						SharingFactory.removeFromDb(removeVotes);
-
-						toastr.success('Teacher deleted.', 'Success!');
 					});
 				}
+				
+				toastr.success('Teacher deleted.', 'Success!');
 			}
 		}
 	}
