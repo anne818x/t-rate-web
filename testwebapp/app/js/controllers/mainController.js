@@ -33,7 +33,7 @@ angular.module('myApp').controller('MainController', ['$scope', '$http', '$momen
 	$scope.prepTrt = [];
 	$scope.profTrt = [];
 	$scope.currentCourse = "Select course";
-	$scope.reviewVoteScore = 0; //TODO FIX!!
+	$scope.reviewVoteScore = 0;
 	$scope.currentVote = "Null";
 	$scope.selectedTeacher = {};
 

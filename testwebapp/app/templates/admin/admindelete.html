@@ -1,23 +1,24 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-         <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
 			</a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
@@ -48,41 +49,33 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-			<a href="#adminhome"><button type="button" class="btn btn-custom pull-right">&larr; Back</button></a>
+                <a href="#adminhome"><button type="button" class="btn btn-custom pull-right">&larr; Back</button></a>
                 <h3 class="panel-title">Teachers</h3>
-				<br>
-				
+                <br>
+
             </div>
             <div class="panel-body">
-			<div class="row">
-			<div class="input-group" style="width:95%; margin: 0 auto;">
-                            <input type="text" class="form-control" placeholder="Search"  ng-model="searchTxt" />
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit" ng-click="search()">
+                <div class="row">
+                    <div class="input-group" style="width:95%; margin: 0 auto;">
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchTxt" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit" ng-click="search()">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
-                            </div>
                         </div>
-                
-				
-                        <div class="teacherCard col-lg-4 col-sm-4" ng-repeat="teacher in teach | filter:searchTxt">
-						</br>
-						<div class="well well-sm">
-                        <h4>{{teacher.teachname}}</h4>
-						<p>Course: {{teacher.coursename}}</p>
-						
-
-						<button type="submit" class="btn btn-danger" style="width:100%" ng-click="deleteTeacher(teacher.teachID)">Delete</button>
-						</div>
-              
-							
-							
-
-						</div>
                     </div>
-				
-				
-				
+
+
+                    <div class="teacherCard col-lg-4 col-sm-4" ng-repeat="teacher in teach | filter:searchTxt">
+                        </br>
+                        <div class="well well-sm">
+                            <h4>{{teacher.teachname}}</h4>
+                            <p>Course: {{teacher.coursename}}</p>
+
+                            <button type="submit" class="btn btn-danger" style="width:100%" ng-click="deleteTeacher(teacher.teachID)">Delete</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

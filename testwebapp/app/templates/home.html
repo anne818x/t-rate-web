@@ -3,8 +3,7 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -17,7 +16,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#"><h4>T-rate</h4></a>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
@@ -32,7 +33,6 @@
                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <!--- these dont exist yet -->
                         <li><a href="#reportbugs">Report Bugs</a></li>
                         <li><a href="#profileSettings">Profile Settings</a></li>
                     </ul>
@@ -49,24 +49,13 @@
                     <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
                 </li>
                 <li ng-hide="!IsSignedIn">
-                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
+                    <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
                 </li>
                 <li ng-hide="IsSignedIn">
                     <!--- no sign up modal yet-->
                     <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
                 </li>
             </ul>
-            <!-- search bar -->
-            <form class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </nav>
@@ -85,7 +74,8 @@
     <div class="row">
         <h2>Rate Stenden Teachers</h2>
         <p>
-            T-rate lets you anonymously rate Stenden teachers. You can also post comments to go along with your review, and see the public comments posted by others.
+            T-rate lets you anonymously rate Stenden teachers. You can also post comments to go along with your review, and see the public
+            comments posted by others.
         </p>
         <p>
             <a class="btn btn-success btn-lg" href="#explore">Rate your teachers &raquo;</a>
@@ -100,7 +90,7 @@
                     <h3 class="panel-title">Top rated teacher</h3>
                 </div>
                 <div class="panel-body">
-                <img class="pull-right" src="images/badges/overall.png" style="width:60px; height:75px;">
+                    <img class="pull-right" src="images/badges/overall.png" style="width:60px; height:75px;">
                     </br>
                     </br>
                     <h4>BEST TEACHER OVERALL</h4>
@@ -131,62 +121,62 @@
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Best atmosphere</h4>
                             <p>{{topRatedAtmos.name}}</p>
-                            
+
                             <table class="table table-condensed">
-                            <img ng-src="images/stars/{{topRatedAtmos.atmos}}star.png" height="15">
-                            <img class="pull-right" src="images/badges/atmosphere.png" style="width:50px; height:75px;">
+                                <img ng-src="images/stars/{{topRatedAtmos.atmos}}star.png" height="15">
+                                <img class="pull-right" src="images/badges/atmosphere.png" style="width:50px; height:75px;">
                             </table>
                             <hr>
-                            
+
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Most helpful teacher</h4>
                             <p>{{topRatedHelp.name}}</p>
-                            
+
                             <table class="table table-condensed">
-                            <img ng-src="images/stars/{{topRatedHelp.help}}star.png" height="15">
-                            <img class="pull-right" src="images/badges/helpfulness.png" style="width:60px; height:75px;">
+                                <img ng-src="images/stars/{{topRatedHelp.help}}star.png" height="15">
+                                <img class="pull-right" src="images/badges/helpfulness.png" style="width:60px; height:75px;">
                             </table>
-                            
+
                             <hr>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Best lectures</h4>
                             <p>{{topRatedLec.name}}</p>
-                            
+
                             <table class="table table-condensed">
-                            <img ng-src="images/stars/{{topRatedLec.lec}}star.png" height="15">
-                            <img class="pull-right" src="images/badges/lectures.png" style="width:50px; height:75px;">
+                                <img ng-src="images/stars/{{topRatedLec.lec}}star.png" height="15">
+                                <img class="pull-right" src="images/badges/lectures.png" style="width:50px; height:75px;">
                             </table>
-                            
+
                             <hr>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Best preparation</h4>
                             <p>{{topRatedPrep.name}}</p>
-                            
+
                             <table class="table table-condensed">
-                            <img ng-src="images/stars/{{topRatedPrep.prep}}star.png" height="15">
-                            <img class="pull-right" src="images/badges/preparation.png" style="width:50px; height:75px;">
+                                <img ng-src="images/stars/{{topRatedPrep.prep}}star.png" height="15">
+                                <img class="pull-right" src="images/badges/preparation.png" style="width:50px; height:75px;">
                             </table>
-                            
+
                             <hr>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Most professional teacher</h4>
                             <p>{{topRatedProf.name}}</p>
-                            
+
                             <table class="table table-condensed">
-                            <img ng-src="images/stars/{{topRatedProf.prof}}star.png" height="15">
-                            <img class="pull-right" src="images/badges/professionalism.png" style="width:50px; height:75px;">
+                                <img ng-src="images/stars/{{topRatedProf.prof}}star.png" height="15">
+                                <img class="pull-right" src="images/badges/professionalism.png" style="width:50px; height:75px;">
                             </table>
-                            
+
                             <hr>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-sm-6 ">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -198,57 +188,75 @@
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Best Overall</h4>
                             <div class="well well-sm" style="margin:0">
-                                <h6><b><u>{{topRatedTeach1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{topRatedTeach1[0].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{topRatedTeach1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{topRatedTeach1[0].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{topRatedTeach1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{topRatedTeach1[0].total}}star.png" height="15"></h6>
+                                <h6><b><u>{{topRatedTeach1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{topRatedTeach1[0].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{topRatedTeach1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{topRatedTeach1[0].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{topRatedTeach1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{topRatedTeach1[0].total}}star.png"
+                                        height="15"></h6>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <h4>Best Atmosphere</h4>
                             <div class="well well-sm" style="margin:0">
-                                <h6><b><u>{{atmosTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{atmosTrt1[2].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{atmosTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{atmosTrt1[1].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{atmosTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{atmosTrt1[0].total}}star.png" height="15"></h6>
+                                <h6><b><u>{{atmosTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{atmosTrt1[2].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{atmosTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{atmosTrt1[1].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{atmosTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{atmosTrt1[0].total}}star.png"
+                                        height="15"></h6>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                        <br>
-                        <br>
+                            <br>
+                            <br>
                             <h4>Most Helpfull</h4>
-                           <div class="well well-sm" style="margin:0">
-                                <h6><b><u>{{helpTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{helpTrt1[2].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{atmosTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{helpTrt1[1].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{helpTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{helpTrt1[0].total}}star.png" height="15"></h6>
+                            <div class="well well-sm" style="margin:0">
+                                <h6><b><u>{{helpTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{helpTrt1[2].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{atmosTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{helpTrt1[1].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{helpTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{helpTrt1[0].total}}star.png"
+                                        height="15"></h6>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                        <br>
-                        <br>
+                            <br>
+                            <br>
                             <h4>Best Lectures</h4>
                             <div class="well well-sm" style="margin:0">
-                                <h6><b><u>{{lecTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{lecTrt1[2].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{lecTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{lecTrt1[1].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{lecTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{lecTrt1[0].total}}star.png" height="15"></h6>
+                                <h6><b><u>{{lecTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{lecTrt1[2].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{lecTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{lecTrt1[1].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{lecTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{lecTrt1[0].total}}star.png"
+                                        height="15"></h6>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                        <br>
-                        <br>
+                            <br>
+                            <br>
                             <h4>Most Prepared</h4>
                             <div class="well well-sm" style="margin:0">
-                               <h6><b><u>{{prepTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{prepTrt1[2].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{prepTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{prepTrt1[1].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{prepTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{prepTrt1[0].total}}star.png" height="15"></h6>
+                                <h6><b><u>{{prepTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{prepTrt1[2].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{prepTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{prepTrt1[1].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{prepTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{prepTrt1[0].total}}star.png"
+                                        height="15"></h6>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                        <br>
-                        <br>
+                            <br>
+                            <br>
                             <h4>Most Proffessional</h4>
                             <div class="well well-sm" style="margin:0">
-                                 <h6><b><u>{{profTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{profTrt1[2].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{profTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{profTrt1[1].total}}star.png" height="15"></h6>
-                                <h6><b><u>{{profTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{profTrt1[0].total}}star.png" height="15"></h6>
+                                <h6><b><u>{{profTrt1[2].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{profTrt1[2].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{profTrt1[1].name}}</u></b><img class="pull-right" ng-src="images/stars/{{profTrt1[1].total}}star.png"
+                                        height="15"></h6>
+                                <h6><b><u>{{profTrt1[0].name}}</u></b> <img class="pull-right" ng-src="images/stars/{{profTrt1[0].total}}star.png"
+                                        height="15"></h6>
                             </div>
                         </div>
                     </div>
@@ -280,23 +288,18 @@
             <div class="modal-body">
                 <div class="panel-body">
                     <form id="signin" role="form" name="loginForm">
-                        <div class="input-group" style="padding:1%"  ng-class="{'has-error' : loginForm.email.$invalid && loginForm.email.$touched, 'has-success' : loginForm.email.$valid}">
+                        <div class="input-group" style="padding:1%" ng-class="{'has-error' : loginForm.email.$invalid && loginForm.email.$touched, 'has-success' : loginForm.email.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="email" type="email" name="email" ng-model="user.email" class="form-control"
-                                   placeholder="Email Address" required="">
+                            <input id="email" type="email" name="email" ng-model="user.email" class="form-control" placeholder="Email Address" required="">
                         </div>
-                        <p class="help-block"
-                           ng-show="loginForm.email.$invalid && loginForm.email.$touched">Please enter an
-                            email with @student.stenden.com</p>
+                        <p class="help-block" ng-show="loginForm.email.$invalid && loginForm.email.$touched">Please enter an email with @student.stenden.com</p>
 
-                        <div class="input-group" style="padding:1%"  ng-class="{'has-error' : loginForm.password.$invalid && loginForm.password.$touched, 'has-success' : loginForm.password.$valid}">
+                        <div class="input-group" style="padding:1%" ng-class="{'has-error' : loginForm.password.$invalid && loginForm.password.$touched, 'has-success' : loginForm.password.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="password" type="password" name="password" ng-model="user.password"
-                                   class="form-control" placeholder="Password" required="" minlength="8" maxlength="20">
+                            <input id="password" type="password" name="password" ng-model="user.password" class="form-control" placeholder="Password"
+                                required="" minlength="8" maxlength="20">
                         </div>
-                        <p class="help-block"
-                           ng-show="loginForm.password.$invalid && loginForm.password.$touched">Please
-                            enter a password between 8 and 20 characters</p>
+                        <p class="help-block" ng-show="loginForm.password.$invalid && loginForm.password.$touched">Please enter a password between 8 and 20 characters</p>
 
                         <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" style="width:100%" ng-click="signIn()">Login
                         </button>
@@ -321,46 +324,35 @@
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="signUp" role="form" name="registrationForm"
-                          ng-submit="submitForm(registrationForm.$valid)" novalidate>
+                    <form id="signUp" role="form" name="registrationForm" ng-submit="submitForm(registrationForm.$valid)" novalidate>
 
-                        <div class="input-group" style="padding: 1%"
-                             ng-class="{'has-error' : registrationForm.email.$invalid && registrationForm.email.$touched, 'has-success' : registrationForm.email.$valid}">
+                        <div class="input-group" style="padding: 1%" ng-class="{'has-error' : registrationForm.email.$invalid && registrationForm.email.$touched, 'has-success' : registrationForm.email.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="signUpEmail" type="email" ng-model="user.email" class="form-control" name="email"
-                                   value="" placeholder="Email Address"
-                                   pattern="^[A-Za-z0-9._%+-]+@student\.stenden\.com$" required>
+                            <input id="signUpEmail" type="email" ng-model="user.email" class="form-control" name="email" value="" placeholder="Email Address"
+                                pattern="^[A-Za-z0-9._%+-]+@student\.stenden\.com$" required>
                         </div>
-                        <p class="help-block"
-                           ng-show="registrationForm.email.$invalid && registrationForm.email.$touched">Please enter an
-                            email with @student.stenden.com</p>
+                        <p class="help-block" ng-show="registrationForm.email.$invalid && registrationForm.email.$touched">Please enter an email with @student.stenden.com</p>
 
-                        <div class="input-group" style="padding: 1%"
-                             ng-class="{'has-error' : registrationForm.password.$invalid && registrationForm.password.$touched, 'has-success' : registrationForm.password.$valid}">
+                        <div class="input-group" style="padding: 1%" ng-class="{'has-error' : registrationForm.password.$invalid && registrationForm.password.$touched, 'has-success' : registrationForm.password.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input type="password" data-ng-model="user.password" class="form-control" name="password"
-                                   value="" placeholder="Password" ng-maxlength="20"
-                                   pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
+                            <input type="password" data-ng-model="user.password" class="form-control" name="password" value="" placeholder="Password"
+                                ng-maxlength="20" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                required>
                         </div>
-                        <p class="help-block"
-                           ng-show="registrationForm.password.$invalid && registrationForm.password.$touched">Please
-                            enter a password with at least one uppercase letter, lowercase letter and number.
-                            Must be between 8 and 20 characters</p>
+                        <p class="help-block" ng-show="registrationForm.password.$invalid && registrationForm.password.$touched">Please enter a password with at least one uppercase letter, lowercase letter and number. Must be
+                            between 8 and 20 characters</p>
 
-                        <div class="input-group" style="padding: 1%"
-                             ng-class="{'has-error' : registrationForm.confirm_password.$invalid && registrationForm.confirm_password.$touched, 'has-success' : registrationForm.confirm_password.$valid}">
+                        <div class="input-group" style="padding: 1%" ng-class="{'has-error' : registrationForm.confirm_password.$invalid && registrationForm.confirm_password.$touched, 'has-success' : registrationForm.confirm_password.$valid}">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input type="password" ng-model="user.password_verify" class="form-control"
-                                   name="confirm_password" value="" placeholder="Confirm Password" ng-maxlength="20"
-                                   required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                                   data-password-verify="user.password">
+                            <input type="password" ng-model="user.password_verify" class="form-control" name="confirm_password" value="" placeholder="Confirm Password"
+                                ng-maxlength="20" required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                data-password-verify="user.password">
                         </div>
-                        <div class="help-block" ng-show="registrationForm.confirm_password.$error.passwordVerify">Both
-                            passwords must match.
+                        <div class="help-block" ng-show="registrationForm.confirm_password.$error.passwordVerify">Both passwords must match.
                         </div>
 
-                        <button id="submitUser" type="submit" class="btn btn-primary"
-                                ng-disabled="registrationForm.$invalid" data-dismiss="modal" ng-click="signUp()" style="width:100%">Sign Up
+                        <button id="submitUser" type="submit" class="btn btn-primary" ng-disabled="registrationForm.$invalid" data-dismiss="modal"
+                            ng-click="signUp()" style="width:100%">Sign Up
                         </button>
                     </form>
                 </div>

@@ -3,26 +3,27 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
 			</a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
                 </li>
-				<li>
+                <li>
                     <a href="#explore">Explore</a>
                 </li>
                 <li ng-hide="!IsSignedIn">
@@ -32,7 +33,6 @@
                     <a class="dropdown-toggle" data-toggle="dropdown">Settings
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <!--- these dont exist yet -->
                         <li><a href="#reportbugs">Report bugs</a></li>
                         <li><a href="#profileSettings">Profile settings</a></li>
                     </ul>
@@ -55,21 +55,9 @@
                     <a href="#logout" data-toggle="" data-target="#loginModal">Log out</a>
                 </li>
                 <li ng-hide="IsSignedIn">
-                    <!--- no sign up modal yet-->
                     <a href="#" data-toggle="modal" data-target="#signUpModal">Sign up</a>
                 </li>
             </ul>
-            <!-- search bar -->
-            <form class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </nav>
@@ -88,120 +76,103 @@
     <!-- row -->
     <div class="row">
         <div class="col-sm-6 ">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">About T-rate</h3>
-            </div>
-            <div class="panel-body">
-                <img src="images/logo.png" style="display: center;  padding-left:35%">
-		                  
-                          <p>
-                             
-                    Welcome to T-rate, here at T-rate we want you to give your honest opinions about Stenden Universities' 
-                    teachers. 
-                    <br>
-                    <br>
-                    T-rate lets you anonymously rate Stenden teachers. You can also post comments to go along with your review, 
-                    and see the public comments posted by others. This site is also a useful scorecard, to find out what 
-                    students are really thinking!
-                    <br> 
-                    
-                    This site is also helpful for the teachers too, they may not be able to login but they can read the reviews
-                    to learn what they need to improve upon or find out in what areas they're doing well. 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">About T-rate</h3>
+                </div>
+                <div class="panel-body">
+                    <img src="images/logo.png" style="display: center;  padding-left:35%">
 
-                    <br>
-                    <br>
-                    Login/sign-up, find your teacher(s) and write a review, giving your opinion about them.
-                </p>
-                    
+                    <p>
 
+                        Welcome to T-rate, here at T-rate we want you to give your honest opinions about Stenden Universities' teachers.
+                        <br>
+                        <br> T-rate lets you anonymously rate Stenden teachers. You can also post comments to go along with
+                        your review, and see the public comments posted by others. This site is also a useful scorecard,
+                        to find out what students are really thinking!
+                        <br> This site is also helpful for the teachers too, they may not be able to login but they can read
+                        the reviews to learn what they need to improve upon or find out in what areas they're doing well.
+
+                        <br>
+                        <br> Login/sign-up, find your teacher(s) and write a review, giving your opinion about them.
+                    </p>
+
+
+                </div>
             </div>
         </div>
-    </div>
-      <div class="row">
-        <div class="col-sm-6 ">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">How T-rate works</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    <b>Leaving a review</b>
-                    <br>
-                    When creating a review for a teacher, you will rate the teacher in five categories. Each category 
-                    is rated out of five stars. When you have rated the teacher in each category, you then leave a comment
-                    about the teacher. This is where you will write your own opinion of this teacher. 
-                    <br>
-                    T-rate doesn't tolerate profanity, please refain from using it. There is a check in place if you do use
-                    any profanity words. 
-                    <br>
-                    You may only leave a review once per module, this restricts the user from spamming and making a genuine 
-                    review.
-                    <br>
-                    <br>
-                    <b>Reporting/ Deleting</b>
-                    <br>
-                    If you see a review that you believe is not fair, improper comment or spamming, it is possible to report
-                    that review. Once the review has been reported, an admin will look at this and decide whether it should
-                    be removed or not. <br>
-                    When you log in you will get automatically directed to the user profile page. Once on there you will see all
-                    your reviews that you have left. On this page you are allowed to delete your own review, as an option.
-                    <br>
-                    <br>
-                    <b>Teacher not listed?</b>
-                    <br>
-                    If your teacher is not yet listed, you can add a new teacher and a request shall be sent.
-                    <br>
-                </p>
-            </div>
-        </div>
-    </div>
-    </div>
-          <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">How to help your favourite teacher</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                   <h3> Do you want to get your favourite teacher on the Hall of Fame? </h3>
-                   The Hall of Fame is what all Stenden teachers are aiming for. They want to show that they're the best 
-                   at Stenden University. To do that they need you to review them, on T-rate. Each new review will count 
-                   towards the overall score of each teacher <b>BUT</b> you may only leave one review per module. 
-                   There are six categories in which Stenden teachers could win an award, they are:
-                <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Atmosphere,
-                <br>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Professional, 
-                 <br> 
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Most Helpfulness, 
-                 <br>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Lectures, 
-                 <br>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Preparation 
-                 <br>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• and the one all of the teachers want: the Top-rated teacher. 
-                 <br> 
-                 <br>
-                 At the end of each module the best teacher out of each catergory will be calculated and displayed on the home page. Each
-                 teacher will get a badge shown on their page. Another thing that the teacher will recieve is a 
-                 coupon to get a free cookie. 
-                 <br>
-                <br>
-                 Make sure that you review your favourite teacher to get them one step closer to that cookie. 
-                </p>
-            </div>
-        </div>
-    </div>
-    </div>
-    <hr>
-    <!-- Footer -->
-    <footer>
         <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; T-rate 2017</p>
+            <div class="col-sm-6 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">How T-rate works</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <b>Leaving a review</b>
+                            <br> When creating a review for a teacher, you will rate the teacher in five categories. Each
+                            category is rated out of five stars. When you have rated the teacher in each category, you then
+                            leave a comment about the teacher. This is where you will write your own opinion of this teacher.
+                            <br> T-rate doesn't tolerate profanity, please refain from using it. There is a check in place
+                            if you do use any profanity words.
+                            <br> You may only leave a review once per module, this restricts the user from spamming and making
+                            a genuine review.
+                            <br>
+                            <br>
+                            <b>Reporting/ Deleting</b>
+                            <br> If you see a review that you believe is not fair, improper comment or spamming, it is possible
+                            to report that review. Once the review has been reported, an admin will look at this and decide
+                            whether it should be removed or not. <br> When you log in you will get automatically directed
+                            to the user profile page. Once on there you will see all your reviews that you have left. On
+                            this page you are allowed to delete your own review, as an option.
+                            <br>
+                            <br>
+                            <b>Teacher not listed?</b>
+                            <br> If your teacher is not yet listed, you can add a new teacher and a request shall be sent.
+                            <br>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
-</div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">How to help your favourite teacher</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <h3> Do you want to get your favourite teacher on the Hall of Fame? </h3>
+                            The Hall of Fame is what all Stenden teachers are aiming for. They want to show that they're the best at Stenden University.
+                            To do that they need you to review them, on T-rate. Each new review will count towards the overall
+                            score of each teacher <b>BUT</b> you may only leave one review per
+                            module. There are six categories in which Stenden teachers could win an award, they are:
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Atmosphere,
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Professional,
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Most Helpfulness,
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Lectures,
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• Best Preparation
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;• and the one all of the teachers want: the Top-rated
+                            teacher.
+                            <br>
+                            <br> At the end of each module the best teacher out of each catergory will be calculated and
+                            displayed on the home page. Each teacher will get a badge shown on their page. Another thing
+                            that the teacher will recieve is a coupon to get a free cookie.
+                            <br>
+                            <br> Make sure that you review your favourite teacher to get them one step closer to that cookie.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; T-rate 2017</p>
+                </div>
+            </div>
+        </footer>
+    </div>

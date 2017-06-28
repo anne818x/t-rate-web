@@ -1,23 +1,24 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-         <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-			<a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
+            <a href="#"><img src="images/logoinvert.png" style="display: inline-block; height: 50px; padding:5px">
 			</a>
         </div>
         <!-- Navigation bar content-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-				<li>
-                    <a href="#"><h4>T-rate</h4></a>
+                <li>
+                    <a href="#">
+                        <h4>T-rate</h4>
+                    </a>
                 </li>
                 <li>
                     <a href="#home">Home</a>
@@ -48,33 +49,26 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-			<a href="#adminhome"><button type="button" class="btn btn-custom pull-right">&larr; Back</button></a>
+                <a href="#adminhome"><button type="button" class="btn btn-custom pull-right">&larr; Back</button></a>
                 <h3 class="panel-title">Modules</h3>
-				<br>
-				
+                <br>
+
             </div>
             <div class="panel-body">
-			<div class="row">
-				
-                        <div class="col-lg-4 col-sm-4" ng-repeat="module in mod">
-						</br>
-						<div class="well well-sm">
-						<h4>Period: {{module.period}}</h4>
-                        <p>Start date: {{module.startdate}}</p>
-						<p>End date: {{module.enddate}}</p>
-						
+                <div class="row">
 
-						<button type="submit" class="btn btn-danger" style="width:100%" ng-click="editModule(module.period, module.startdate, module.enddate)">Edit</button>
-						</div>
-              
-							
-							
+                    <div class="col-lg-4 col-sm-4" ng-repeat="module in mod">
+                        </br>
+                        <div class="well well-sm">
+                            <h4>Period: {{module.period}}</h4>
+                            <p>Start date: {{module.startdate}}</p>
+                            <p>End date: {{module.enddate}}</p>
 
-						</div>
+
+                            <button type="submit" class="btn btn-danger" style="width:100%" ng-click="editModule(module.period, module.startdate, module.enddate)">Edit</button>
+                        </div>
                     </div>
-				
-				
-				
+                </div>
             </div>
         </div>
     </div>
@@ -89,57 +83,53 @@
     </footer>
 </div>
 
-
-
-
 <!-- Report Modal -->
-        <div id="editModules" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" ng-disabled="(!IsSignedIn)">Edit module</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="panel-body">
-						<h4>Edit {{currentperiod}}</h4>
-						<br>
-                            <form id="modules" name="modulesForm" role="form">
-							
-							<div class="form-group col-sm-6 col-md-6">
-                                <label class="col-md-4 control-label">Start date</label>
-                                <div class="col-md-6 inputGroupContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i
-                                                class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" ng-model="start" placeholder="{{currentstartdate}}" rows="1" style="resize: none;"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-							
-							<div class="form-group col-sm-6 col-md-6">
-                                <label class="col-md-4 control-label">End date</label>
-                                <div class="col-md-6 inputGroupContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i
-                                                class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" ng-model="end" placeholder="{{currentenddate}}" rows="1" style="resize: none;"></textarea>
-                                    </div>
-                                </div>
-                            </div>
+<div id="editModules" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" ng-disabled="(!IsSignedIn)">Edit module</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body">
+                    <h4>Edit {{currentperiod}}</h4>
+                    <br>
+                    <form id="modules" name="modulesForm" role="form">
 
-                                <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 1%" ng-click="sendModules()"
-                                    data-dismiss="modal">Save
-                                </button>
-                            </form>
+                        <div class="form-group col-sm-6 col-md-6">
+                            <label class="col-md-4 control-label">Start date</label>
+                            <div class="col-md-6 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-pencil"></i></span>
+                                    <textarea class="form-control" ng-model="start" placeholder="{{currentstartdate}}" rows="1" style="resize: none;"></textarea>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:100%">
-                            Close
-                        </button>
-                    </div>
+
+                        <div class="form-group col-sm-6 col-md-6">
+                            <label class="col-md-4 control-label">End date</label>
+                            <div class="col-md-6 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i
+                                                class="glyphicon glyphicon-pencil"></i></span>
+                                    <textarea class="form-control" ng-model="end" placeholder="{{currentenddate}}" rows="1" style="resize: none;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 1%" ng-click="sendModules()" data-dismiss="modal">Save
+                                </button>
+                    </form>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:100%">
+                            Close
+                        </button>
+            </div>
         </div>
+    </div>
+</div>
